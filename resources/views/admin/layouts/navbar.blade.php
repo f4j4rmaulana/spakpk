@@ -220,9 +220,14 @@
             ></i>
             Help Center</a
         >
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Log out</a>
+            <div class="dropdown-divider"></div>
+             <!-- Authentication -->
+            <form method="POST" action="{{ auth()->guard('admin')->check() ? route('admin.logout') : route('logout') }}">
+            @csrf
+                <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">Log out</a>
+            </form>
         </div>
+
     </li>
     </ul>
 </div>

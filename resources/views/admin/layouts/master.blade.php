@@ -38,7 +38,7 @@
     <div class="wrapper">
 
       <nav id="sidebar" class="sidebar js-sidebar">
-        @include('backend.layouts.sidebar')
+        @include('admin.layouts.sidebar')
       </nav>
 
         <div class="main">
@@ -48,7 +48,7 @@
                     <i class="hamburger align-self-center"></i>
                 </a>
 
-                @include('backend.layouts.navbar')
+                @include('admin.layouts.navbar')
             </nav>
 
             <main class="content">
@@ -56,7 +56,7 @@
             </main>
 
             <footer class="footer">
-            @include('backend.layouts.footer')
+            @include('admin.layouts.footer')
             </footer>
 
         </div>
