@@ -193,11 +193,11 @@
         data-bs-toggle="dropdown"
         >
         <img
-            src="img/avatars/avatar.jpg"
+            src="{{ asset(auth()->guard('admin')->user()->image) }}"
             class="avatar img-fluid rounded me-1"
-            alt="Charles Hall"
+            alt="{{ auth()->guard('admin')->user()->name }}"
         />
-        <span class="text-dark">Charles Hall</span>
+        <span class="text-dark">{{ auth()->guard('admin')->user()->name }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
         <a class="dropdown-item" href="pages-profile.html"

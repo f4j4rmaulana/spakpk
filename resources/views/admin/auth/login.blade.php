@@ -28,7 +28,7 @@
                   <div class="mb-3">
                     <label class="form-label">Email</label>
                     <input
-                      class="form-control form-control-lg {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                      class="form-control form-control-lg {{ hasError($errors, 'email') }}"
                       type="email"
                       name="email"
                       placeholder="Enter your email"
@@ -43,16 +43,14 @@
                   <div class="mb-3">
                     <label class="form-label">Password</label>
                     <input
-                      class="form-control form-control-lg {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                      class="form-control form-control-lg {{ hasError($errors, 'password') }}"
                       type="password"
                       name="password"
                       placeholder="Enter your password"
                       id="password"
                       required
                       <x-input-error :messages="$errors->get('password')" class="mt-1" />
-                    />
-
-
+                    </div>
 
                     <small>
                       <a href="{{ route('admin.password.request') }}">Forgot password?</a>

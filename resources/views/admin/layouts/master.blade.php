@@ -25,7 +25,7 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+    <title>SPAKPK</title>
 
     <link href="{{asset('backend/assets/css/app.css')}}" rel="stylesheet" />
     <link
@@ -52,6 +52,7 @@
             </nav>
 
             <main class="content">
+            @include('sweetalert::alert')
             @yield('contents')
             </main>
 
@@ -322,5 +323,6 @@
         });
       });
     </script>
+
   </body>
 </html>

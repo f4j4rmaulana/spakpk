@@ -30,6 +30,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        toast("Anda berhasil login",'success');
+
         return redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
     }
 
@@ -44,6 +46,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        toast('Anda berhasil logout','success');
+
         return redirect('/admin/login');
+
+
     }
 }

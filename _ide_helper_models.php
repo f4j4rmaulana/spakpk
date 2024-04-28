@@ -49,6 +49,33 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $nama
+ * @property string|null $deskripsi
+ * @property string|null $slug
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereDeskripsi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereNama($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ */
+	class JenisPelatihan extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at

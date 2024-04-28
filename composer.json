@@ -6,10 +6,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "cviebrock/eloquent-sluggable": "10.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "mckenziearts/laravel-notify": "^2.4",
+        "realrashid/sweet-alert": "^7.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
@@ -27,7 +30,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": ["app\\Helpers\\GlobalHelper.php"]
     },
     "autoload-dev": {
         "psr-4": {
