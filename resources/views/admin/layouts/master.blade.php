@@ -63,7 +63,6 @@
     </div>
 
     <script src="{{asset('backend/assets/js/app.js')}}"></script>
-
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         var ctx = document
