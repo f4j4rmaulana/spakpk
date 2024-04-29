@@ -19,7 +19,11 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request): View
     {
-        return view('admin.auth.reset-password', ['request' => $request]);
+        $title = 'Admin Reset Password';
+        return view('admin.auth.reset-password', [
+            'request' => $request,
+            'title' => $title
+        ]);
     }
 
     /**

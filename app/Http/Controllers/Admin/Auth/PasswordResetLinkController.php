@@ -16,7 +16,8 @@ class PasswordResetLinkController extends Controller
      */
     public function create(): View
     {
-        return view('admin.auth.forgot-password');
+        $title = 'Admin Lupa Password';
+        return view('admin.auth.forgot-password', compact('title'));
     }
 
     /**

@@ -14,11 +14,13 @@
                         @csrf
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Jenis Pelatihan</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required autofocus>
+                            <input type="text" class="form-control form-control-lg {{ hasError($errors, 'nama') }}" id="nama" name="nama" value="{{old('nama')}}" required autofocus>
+                            <x-input-error :messages="$errors->get('nama')" class="mt-1" />
                         </div>
                         <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="2" required autofocus></textarea>
+                            <textarea class="form-control form-control-lg {{ hasError($errors, 'deskripsi') }}" id="deskripsi" name="deskripsi" rows="2" required autofocus>{{old('deskripsi')}}</textarea>
+                            <x-input-error :messages="$errors->get('deskripsi')" class="mt-1" />
                         </div>
                         <div class="mb-3 d-flex justify-content-end gap-1">
                             <a href="{{ route('admin.jenis-pelatihan.index') }}" class="btn btn-link shadow-none" role="button">Batal</a>

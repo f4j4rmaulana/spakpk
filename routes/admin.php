@@ -40,6 +40,10 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     /** Jenis Pelatihan Route */
+    // ajax harus ditempatkan diatas resource agar terbaca
+    Route::get('/jenis-pelatihan/ajax', [JenisPelatihanController::class, 'ajax'])->name('jenis-pelatihan.ajax');
+    Route::get('/jenis-pelatihan/active/{id}', [JenisPelatihanController::class, 'active'])->name('jenis-pelatihan.active');
+    Route::get('/jenis-pelatihan/nonactive/{id}', [JenisPelatihanController::class, 'nonactive'])->name('jenis-pelatihan.nonactive');
     Route::resource('jenis-pelatihan', JenisPelatihanController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])

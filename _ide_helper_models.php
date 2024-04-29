@@ -51,6 +51,7 @@ namespace App\Models{
  * @property int $id
  * @property string $nama
  * @property string|null $deskripsi
+ * @property string $status
  * @property string|null $slug
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -65,6 +66,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereNama($value)
  * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|JenisPelatihan withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  */

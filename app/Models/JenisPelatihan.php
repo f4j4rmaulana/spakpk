@@ -17,8 +17,9 @@ class JenisPelatihan extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'deskripsi',
+        'status',
         'slug',
     ];
 
@@ -31,7 +32,7 @@ class JenisPelatihan extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'nama'
             ]
         ];
     }
