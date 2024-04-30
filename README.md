@@ -13,7 +13,7 @@ Follow these instructions to set up and run the project locally on your machine.
 1. Clone the repository:
 
 ```bash
-   git clone https://github.com/tauseedzaman/hospitalMS.git](https://github.com/f4j4rmaulana/spakpk.git
+   git clone https://github.com/f4j4rmaulana/spakpk.git
 ```
  ```bash
    cd spakpk
