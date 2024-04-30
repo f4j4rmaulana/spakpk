@@ -36,6 +36,37 @@
         </a>
       </li>
 
+      <li class="sidebar-header">Usulan</li>
+
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="index.html">
+          <i class="align-middle" data-feather="sliders"></i>
+          <span class="align-middle">Usulan Bangkom</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="pages-profile.html">
+          <i class="align-middle" data-feather="user"></i>
+          <span class="align-middle">Usulan Ujikom</span>
+        </a>
+      </li>
+
+      <li class="sidebar-header">Rencana</li>
+
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="index.html">
+          <i class="align-middle" data-feather="sliders"></i>
+          <span class="align-middle">Rencana Bangkom</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="pages-profile.html">
+          <i class="align-middle" data-feather="user"></i>
+          <span class="align-middle">Rencana Ujikom</span>
+        </a>
+      </li>
 
         <li class="sidebar-header">Pengaturan</li>
 

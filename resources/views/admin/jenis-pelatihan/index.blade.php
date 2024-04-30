@@ -70,6 +70,16 @@
                                     <td class="d-none d-md-table-cell">Vanessa Tucker</td>
                                 </tr>
                             </tbody> --}}
+                            <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th><input id="column1_search" type="text" placeholder="Tampilkan Nama"></th>
+                                    <th><input id="column2_search" type="text" placeholder="Tampilkan Deskripsi"></th>
+                                    <th>Status</th>
+                                    <th>Tanggal Update</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     {{-- End Table --}}
@@ -86,13 +96,14 @@
         $(function () {
             var table = $('#tbl_jenis_pelatihan').DataTable({
                 language: {
+                    search: 'Cari:',
                     info: 'Halaman _PAGE_ dari _PAGES_',
                     infoEmpty: 'Data tidak tersedia',
                     infoFiltered: '(filter dari _MAX_ total data)',
                     lengthMenu: 'Tampilkan _MENU_ baris per halaman',
                     zeroRecords: 'Data tidak ditemukan',
                 },
-                "lengthMenu": [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
+                lengthMenu: [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
                 processing: false,
                 serverSide: true,
                 ajax: "{{ route('admin.jenis-pelatihan.ajax') }}",
@@ -105,7 +116,16 @@
                     {data: 'action', name: 'action', orderable:false, searchable:false},
                 ]
             });
+
+            // Membuat individual search untuk kolom 'nama' dan 'deskripsi'
+            $('#column1_search, #column2_search').on('keyup', function () {
+                table
+                    .columns([1, 2]) // Indeks kolom 'nama' dan 'deskripsi'
+                    .search(this.value)
+                    .draw();
+            });
         });
     </script>
+
 
 @endpush
