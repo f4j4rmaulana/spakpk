@@ -11,8 +11,7 @@ class Users extends Authenticatable
 
     public static $objectClasses = [
         'top',
-        'person',
-        'organizationalperson',
+        'posixAccount',
         'inetOrgPerson',
     ];
 

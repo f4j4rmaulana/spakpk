@@ -8,61 +8,31 @@
 @section('contents')
 <div class="container-fluid p-0">
 
-    <h1 class="h3 mb-3">Master Jenis Pelatihan</h1>
+    <h1 class="h3 mb-3">Master Jenis Uji Kompetensi</h1>
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Semua Jenis Pelatihan</h5>
+                    <h5 class="card-title mb-0">Semua Jenis Uji Kompetensi</h5>
                     <div class="btn-group mb-3" role="group" aria-label="Default button group">
-                        <a href="{{ route('admin.jenis-pelatihan.create') }}" class="btn btn-primary">Tambah Data</a>
+                        <a href="{{ route('admin.jenis-ujikom.create') }}" class="btn btn-primary">Tambah Data</a>
                     </div>
                 </div>
                 <div class="card-body">
                     {{-- Start Table --}}
                     <div class="table-responsive">
-                        <table class="table table-hover my-0" id="tbl_jenis_pelatihan">
+                        <table class="table table-hover my-0" id="tbl_jenis_ujikom">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th class="d-none d-xl-table-cell">Jenis Pelatihan</th>
+                                    <th class="d-none d-xl-table-cell">Jenis Ujikom</th>
                                     <th class="d-none d-xl-table-cell">Deskripsi</th>
                                     <th class="d-none d-md-table-cell">Status</th>
                                     <th>Tanggal Update</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody>
-                                <tr>
-                                    <td>Project Apollo</td>
-                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                    <td><span class="badge bg-success">Done</span></td>
-                                    <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                                </tr>
-                                <tr>
-                                    <td>Project Fireball</td>
-                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                    <td><span class="badge bg-danger">Cancelled</span></td>
-                                    <td class="d-none d-md-table-cell">William Harris</td>
-                                </tr>
-                                <tr>
-                                    <td>Project Hades</td>
-                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                    <td><span class="badge bg-success">Done</span></td>
-                                    <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                                </tr>
-                                <tr>
-                                    <td>Project Nitro</td>
-                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                    <td><span class="badge bg-warning">In progress</span></td>
-                                    <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                                </tr>
-                            </tbody> --}}
                             <tfoot>
                                 <tr>
                                     <th>#</th>
@@ -87,7 +57,7 @@
 @push('custom-script')
     <script type="text/javascript">
         $(function () {
-            var table = $('#tbl_jenis_pelatihan').DataTable({
+            var table = $('#tbl_jenis_ujikom').DataTable({
                 language: {
                     search: 'Cari:',
                     info: 'Halaman _PAGE_ dari _PAGES_',
@@ -99,7 +69,7 @@
                 lengthMenu: [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
                 processing: false,
                 serverSide: true,
-                ajax: "{{ route('admin.jenis-pelatihan.ajax') }}",
+                ajax: "{{ route('admin.jenis-ujikom.ajax') }}",
                 columns: [
                     {data: 'DT_RowIndex', name:'DT_RowIndex'},
                     {data: 'nama', name: 'nama'},

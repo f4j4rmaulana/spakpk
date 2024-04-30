@@ -26,10 +26,18 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'username' => ['required', 'string'],
-            'password' => ['required', 'string'],
-        ];
+        /** Check akses jika user mengakses dari halaman admin maka input username pasti kosong dan menjadikan email yang divalidasi dan sebaliknya */
+        if($this->username === null) {
+            return [
+                'email' => ['required', 'string'],
+                'password' => ['required', 'string'],
+            ];
+        }else{
+            return [
+                'username' => ['required', 'string'],
+                'password' => ['required', 'string'],
+            ];
+        }
     }
 
     /**
@@ -41,10 +49,22 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $credentials = [
-            'uid' => $this->username,
-            'password' => $this->password,
-        ];
+        /** Jika sudah sampai sini maka bisa menggunakan validasi guard = admin, sehingga credential menggunakan email */
+        if ($guard == 'admin') {
+            $credentials = [
+                'email' => $this->email,
+                'password' => $this->password,
+            ];
+        }else{
+            $credentials = [
+                'uid' => $this->username,
+                'password' => $this->password,
+                'fallback' => [
+                    'username' => $this->username,
+                    'password' => $this->password,
+                ],
+            ];
+        }
 
         if (! Auth::guard($guard)->attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());

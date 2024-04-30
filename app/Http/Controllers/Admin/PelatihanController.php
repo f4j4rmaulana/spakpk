@@ -2,43 +2,43 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Pelatihan;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use App\Models\JenisPelatihan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
-class JenisPelatihanController extends Controller
+class PelatihanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index():View
     {
-        $titles = 'Jenis Pelatihan';
-        return view('admin.jenis-pelatihan.index', compact('titles'));
+        $titles = 'Pelatihan';
+        return view('admin.pelatihan.index',compact('titles'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create()
     {
-        $titles = 'Tambah Jenis Pelatihan';
-        return view('admin.jenis-pelatihan.create', compact('titles'));
+        $titles = 'Tambah Pelatihan';
+        return view('admin.pelatihan.create', compact('titles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate(
             [
-                'nama' => ['required', 'min:5', 'unique:jenis_pelatihans,nama'],
+                'nama' => ['required', 'min:5', 'unique:pelatihans,nama'],
                 'deskripsi' => ['required']
         ]);
 
@@ -46,19 +46,19 @@ class JenisPelatihanController extends Controller
 
         try {
 
-            $jenisPelatihan = new JenisPelatihan();
-            $jenisPelatihan->nama = ucwords(strtolower(strip_tags($request->nama)));
-            $jenisPelatihan->deskripsi = strip_tags($request->deskripsi);
-            $jenisPelatihan->save();
+            $pelatihan = new Pelatihan();
+            $pelatihan->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $pelatihan->deskripsi = strip_tags($request->deskripsi);
+            $pelatihan->save();
             DB::commit();
             toast('Data berhasil tersimpan!','success');
-            return to_route('admin.jenis-pelatihan.index');
+            return to_route('admin.pelatihan.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error simpan data!','error');
-            return redirect()->route('admin.jenis-pelatihan.index');
+            return redirect()->route('admin.pelatihan.index');
 
         }
     }
@@ -68,18 +68,18 @@ class JenisPelatihanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return abort('404');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
+    public function edit(string $id)
     {
         $decrypted = Crypt::decryptString($id);
-        $jenisPelatihan = JenisPelatihan::findOrFail($decrypted);
-        $titles = 'Edit Jenis Pelatihan';
-        return view('admin.jenis-pelatihan.edit', compact('titles', 'jenisPelatihan'));
+        $pelatihan = Pelatihan::findOrFail($decrypted);
+        $titles = 'Edit Pelatihan';
+        return view('admin.pelatihan.edit', compact('titles', 'pelatihan'));
     }
 
     /**
@@ -98,20 +98,20 @@ class JenisPelatihanController extends Controller
 
         try {
 
-            $jenisPelatihan = JenisPelatihan::findOrFail($id);
-            $jenisPelatihan->nama = ucwords(strtolower(strip_tags($request->nama)));
-            $jenisPelatihan->deskripsi = strip_tags($request->deskripsi);
-            $jenisPelatihan->save();
+            $pelatihan = Pelatihan::findOrFail($id);
+            $pelatihan->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $pelatihan->deskripsi = strip_tags($request->deskripsi);
+            $pelatihan->save();
             DB::commit();
             toast('Data berhasil tersimpan!','success');
-            return to_route('admin.jenis-pelatihan.index');
+            return to_route('admin.pelatihan.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             logger($e);
             toast('Error simpan data!','error');
-            return redirect()->route('admin.jenis-pelatihan.index');
+            return redirect()->route('admin.pelatihan.index');
 
         }
     }
@@ -125,62 +125,59 @@ class JenisPelatihanController extends Controller
 
         try {
             $decrypted = Crypt::decryptString($id);
-            $jenisPelatihan = JenisPelatihan::findOrFail($decrypted);
-            $namaPelatihan = $jenisPelatihan->nama;
-            $jenisPelatihan->delete();
+            $pelatihan = Pelatihan::findOrFail($decrypted);
+            $namaPelatihan = $pelatihan->nama;
+            $pelatihan->delete();
             DB::commit();
-            toast('Jenis pelatihan "'.$namaPelatihan.'" berhasil dihapus!','success');
-            return redirect()->route('admin.jenis-pelatihan.index');
+            toast('Pelatihan "'.$namaPelatihan.'" berhasil dihapus!','success');
+            return redirect()->route('admin.pelatihan.index');
         }catch(\Exception $e) {
             DB::rollback();
             logger($e);
             toast('Error simpan data!','error');
-            return redirect()->route('admin.jenis-pelatihan.index');
+            return redirect()->route('admin.pelatihan.index');
         }
-
     }
 
-    // dari route melempar id dengan nama variable bisa bebas
     public function active($data): RedirectResponse {
         $decrypted = Crypt::decryptString($data);
-        $jenisPelatihan = JenisPelatihan::findOrFail($decrypted);
+        $pelatihan = Pelatihan::findOrFail($decrypted);
 
         // Simpan nama jenis pelatihan sebelum diubah
-        $namaPelatihan = $jenisPelatihan->nama;
+        $namaPelatihan = $pelatihan->nama;
 
         // Ubah status menjadi "Tidak Aktif"
-        $jenisPelatihan->update([
+        $pelatihan->update([
             'status' => 'Aktif'
         ]);
 
         // Tampilkan pesan toast dengan nama jenis pelatihan
-        toast('Jenis pelatihan "'.$namaPelatihan.'" telah diaktifkan!', 'success');
+        toast('Pelatihan "'.$namaPelatihan.'" telah diaktifkan!', 'success');
 
         return back();
     }
 
-    // dari route melempar id dengan nama variable bisa bebas
     public function nonactive($data): RedirectResponse {
         $decrypted = Crypt::decryptString($data);
-        $jenisPelatihan = JenisPelatihan::findOrFail($decrypted);
+        $pelatihan = Pelatihan::findOrFail($decrypted);
 
         // Simpan nama jenis pelatihan sebelum diubah
-        $namaPelatihan = $jenisPelatihan->nama;
+        $namaPelatihan = $pelatihan->nama;
 
         // Ubah status menjadi "Tidak Aktif"
-        $jenisPelatihan->update([
+        $pelatihan->update([
             'status' => 'Tidak Aktif'
         ]);
 
         // Tampilkan pesan toast dengan nama jenis pelatihan
-        toast('Jenis pelatihan "'.$namaPelatihan.'" telah dinonaktifkan!', 'success');
+        toast('Pelatihan "'.$namaPelatihan.'" telah dinonaktifkan!', 'success');
 
         return back();
     }
 
     // Ajax Datatable
     public function ajax() {
-        $data = JenisPelatihan::latest()->get();
+        $data = Pelatihan::latest()->get();
         return DataTables::of($data)
             ->editColumn('updated_at', function ($updated) {
                 return \Carbon\Carbon::parse($updated->updated_at)->isoFormat('dddd, DD MMMM Y HH:mm ' . strtoupper('A'));
@@ -194,14 +191,14 @@ class JenisPelatihanController extends Controller
                 return $info;
             })
             ->addColumn('action', function ($action) {
-                $url_edit = route('admin.jenis-pelatihan.edit', Crypt::encryptString($action->id));
-                $url_aktif = route('admin.jenis-pelatihan.active', Crypt::encryptString($action->id));
-                $url_nonaktif = route('admin.jenis-pelatihan.nonactive', Crypt::encryptString($action->id));
-                $url_delete = route('admin.jenis-pelatihan.destroy', Crypt::encryptString($action->id));
+                $url_edit = route('admin.pelatihan.edit', Crypt::encryptString($action->id));
+                $url_aktif = route('admin.pelatihan.active', Crypt::encryptString($action->id));
+                $url_nonaktif = route('admin.pelatihan.nonactive', Crypt::encryptString($action->id));
+                $url_delete = route('admin.pelatihan.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Aktif') {
                     $btn = '
                     <div class="d-flex flex-row gap-2">
-                        <a href="' . $url_edit . '" title="Edit Jenis Pelatihan">
+                        <a href="' . $url_edit . '" title="Edit Pelatihan">
                         <span class="material-symbols-outlined btn btn-primary btn-sm">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'
@@ -209,14 +206,14 @@ class JenisPelatihanController extends Controller
                         <a href="#" onclick="event.preventDefault(); if(confirm(\'Are You Sure Want to Delete?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
                         </a>
                         </form>
-                        <a href="' . $url_aktif . '" id="btn-aktif" title="Aktifkan Jenis Pelatihan">
+                        <a href="' . $url_aktif . '" id="btn-aktif" title="Aktifkan Pelatihan">
                         <span class="material-symbols-outlined btn btn-success btn-sm">visibility</span></a>
                     </div>
                     ';
                 } else {
                     $btn = '
                     <div class="d-flex flex-row gap-2">
-                        <a href="' . $url_edit . '" class="mr-1" title="Edit Jenis Pelatihan">
+                        <a href="' . $url_edit . '" class="mr-1" title="Edit Pelatihan">
                         <span class="material-symbols-outlined btn btn-primary btn-sm font-20">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'
@@ -224,7 +221,7 @@ class JenisPelatihanController extends Controller
                         <a href="#" onclick="event.preventDefault(); if(confirm(\'Are You Sure Want to Delete?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
                         </a>
                         </form>
-                        <a href="' . $url_nonaktif . '" class="mr-1" id="btn-nonaktif" title="Nonaktifkan Jenis Pelatihan">
+                        <a href="' . $url_nonaktif . '" class="mr-1" id="btn-nonaktif" title="Nonaktifkan Pelatihan">
                         <span class="material-symbols-outlined btn btn-danger btn-sm font-12">visibility_off</span></a>
                     </div>
                     ';

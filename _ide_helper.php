@@ -1823,7 +1823,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get the currently authenticated user.
          *
-         * @return \LdapRecord\Models\ActiveDirectory\User|null 
+         * @return \LdapRecord\Models\OpenLDAP\User|null 
          * @static 
          */        public static function user()
         {
@@ -1855,7 +1855,7 @@ namespace Illuminate\Support\Facades {
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \LdapRecord\Models\ActiveDirectory\User|false 
+         * @return \LdapRecord\Models\OpenLDAP\User|false 
          * @static 
          */        public static function onceUsingId($id)
         {
@@ -1929,7 +1929,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \LdapRecord\Models\ActiveDirectory\User|false 
+         * @return \LdapRecord\Models\OpenLDAP\User|false 
          * @static 
          */        public static function loginUsingId($id, $remember = false)
         {
@@ -1977,7 +1977,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $password
          * @param string $attribute
-         * @return \LdapRecord\Models\ActiveDirectory\User|null 
+         * @return \LdapRecord\Models\OpenLDAP\User|null 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */        public static function logoutOtherDevices($password, $attribute = 'password')
@@ -1999,7 +1999,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \LdapRecord\Models\ActiveDirectory\User 
+         * @return \LdapRecord\Models\OpenLDAP\User 
          * @static 
          */        public static function getLastAttempted()
         {
@@ -2103,7 +2103,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Return the currently cached user.
          *
-         * @return \LdapRecord\Models\ActiveDirectory\User|null 
+         * @return \LdapRecord\Models\OpenLDAP\User|null 
          * @static 
          */        public static function getUser()
         {
@@ -2155,7 +2155,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Determine if the current user is authenticated. If not, throw an exception.
          *
-         * @return \LdapRecord\Models\ActiveDirectory\User 
+         * @return \LdapRecord\Models\OpenLDAP\User 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */        public static function authenticate()
