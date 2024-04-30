@@ -6,7 +6,7 @@ Follow these instructions to set up and run the project locally on your machine.
 
 - [Git](https://git-scm.com/)
 - [Composer](https://getcomposer.org/)
-- [PHP](https://www.php.net/)
+- [PHP 8.2]([https://www.php.net/](https://www.php.net/releases/8.2/en.php))
 
 ### Installation
 
