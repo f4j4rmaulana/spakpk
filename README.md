@@ -37,7 +37,7 @@ php artisan key:generate
 
 ## Admin Credentials
 localhost/admin/login
-Admin: 
+Email: 
 ```bash 
 admin@admin.com
 ```
@@ -48,7 +48,7 @@ admin@admin.com
 
 ## User Credentials
 localhost/login
-Admin: 
+Username: 
 ```bash 
 ldap username
 ```
