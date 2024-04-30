@@ -13,10 +13,10 @@ Follow these instructions to set up and run the project locally on your machine.
 1. Clone the repository:
 
 ```bash
-   git clone https://github.com/tauseedzaman/hospitalMS.git
+   git clone https://github.com/tauseedzaman/hospitalMS.git](https://github.com/f4j4rmaulana/spakpk.git
 ```
  ```bash
-   cd hospitalMS
+   cd spakpk
 ```
 
  ```bash
@@ -28,9 +28,6 @@ cp .env.example .env
 ```bash
 php artisan key:generate
  ```
-```bash
-php artisan storage:link
-```
  ```bash
  php artisan migrate:fresh --seed
 ```
@@ -39,14 +36,25 @@ php artisan storage:link
 ```
 
 ## Admin Credentials
+localhost/admin/login
 Admin: 
 ```bash 
-tauseed@test.com
+admin@admin.com
 ```
 Password: 
 ```bash
-tauseed
+admin@admin.com
 ```
 
-## If you like our project please leave a star ❤
+## User Credentials
+localhost/login
+Admin: 
+```bash 
+ldap username
+```
+Password: 
+```bash
+ldap password
+```
 
+## Created by Fajar Maulana
