@@ -46,7 +46,7 @@ class UjikomController extends Controller
         try {
 
             $ujikom = new Ujikom();
-            $ujikom->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $ujikom->nama = strip_tags($request->nama);
             $ujikom->deskripsi = strip_tags($request->deskripsi);
             $ujikom->save();
             DB::commit();
@@ -98,7 +98,7 @@ class UjikomController extends Controller
         try {
 
             $ujikom = Ujikom::findOrFail($id);
-            $ujikom->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $ujikom->nama = strip_tags($request->nama);
             $ujikom->deskripsi = strip_tags($request->deskripsi);
             $ujikom->save();
             DB::commit();

@@ -8,29 +8,29 @@
 @section('contents')
 <div class="container-fluid p-0">
 
-    <h1 class="h3 mb-3">Data Usulan Pelatihan</h1>
+    <h1 class="h3 mb-3">Data Usulan Uji Kompetensi</h1>
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Semua Usulan Pelatihan</h5>
+                    <h5 class="card-title mb-0">Semua Usulan Uji Kompetensi</h5>
                     <div class="btn-group mb-3" role="group" aria-label="Default button group">
-                        <a href="{{ route('admin.usulan-pelatihan.create') }}" class="btn btn-primary">Tambah Data</a>
+                        <a href="{{ route('admin.usulan-ujikom.create') }}" class="btn btn-primary">Tambah Data</a>
                     </div>
                 </div>
                 <div class="card-body">
                     {{-- Start Table --}}
                     <div class="table-responsive">
-                        <table class="table table-hover my-0" id="tbl_usulan_pelatihan">
+                        <table class="table table-hover my-0" id="tbl_usulan_ujikom">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Pengusul</th>
                                     <th>Instansi</th>
                                     <th>Unit Kerja</th>
-                                    <th>Jenis Pelatihan</th>
-                                    <th>Usulan Pelatihan</th>
+                                    <th>Jenis Ujikom</th>
+                                    <th>Usulan Ujikom</th>
                                     <th>Usulan Lainnya</th>
                                     <th>Status</th>
                                     <th>Tanggal Usul</th>
@@ -44,8 +44,8 @@
                                     <th class="th">Pengusul</th>
                                     <th class="th">Instansi</th>
                                     <th class="th">Unit Kerja</th>
-                                    <th class="th">Jenis Pelatihan</th>
-                                    <th class="th">Usulan Pelatihan</th>
+                                    <th class="th">Jenis Ujikom</th>
+                                    <th class="th">Usulan Ujikom</th>
                                     <th class="th">Usulan Lainnya</th>
                                     <th class="th">Status</th>
                                     <th class="th">Tanggal Usul</th>
@@ -59,14 +59,13 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection
 
 @push('custom-script')
     <script type="text/javascript">
         $(function () {
-            var table = $('#tbl_usulan_pelatihan').DataTable({
+            var table = $('#tbl_usulan_ujikom').DataTable({
                 language: {
                     search: 'Cari:',
                     info: 'Halaman _PAGE_ dari _PAGES_',
@@ -80,14 +79,14 @@
                 processing: false,
                 serverSide: true,
                 paging: true,
-                ajax: "{{ route('admin.usulan-pelatihan.ajax') }}",
+                ajax: "{{ route('admin.usulan-ujikom.ajax') }}",
                 columns: [
                     {data: 'DT_RowIndex', name:'DT_RowIndex'},
                     {data: 'usulan_user.name', name: 'usulan_user.name'},
                     {data: 'usulan_user.instansi', name: 'usulan_user.instansi'},
                     {data: 'usulan_user.unit_kerja', name: 'usulan_user.unit_kerja'},
-                    {data: 'usulan_jenis_pelatihan.nama', name: 'usulan_jenis_pelatihan.nama'},
-                    {data: 'usulan_pelatihan.nama', name: 'usulan_pelatihan.nama'},
+                    {data: 'usulan_jenis_ujikom.nama', name: 'usulan_jenis_ujikom.nama'},
+                    {data: 'usulan_ujikom.nama', name: 'usulan_ujikom.nama'},
                     {data: 'usulan_lainnya', name: 'usulan_lainnya'},
                     {data: 'status', name: 'status'},
                     {data: 'created_at', name: 'created_at'},
@@ -107,7 +106,7 @@
                 }
             });
 
-            $('#tbl_usulan_pelatihan tfoot .th').each(function() {
+            $('#tbl_usulan_ujikom tfoot .th').each(function() {
                 var title = $(this).text();
                 $(this).html('<input type="text" class="form-control shadow" placeholder="cari" />');
             });
@@ -127,9 +126,9 @@
                 },
                 success: function (response) {
                     // Menampilkan pesan sukses dengan nama pengusul
-                    alert('Usulan pelatihan berhasil divalidasi!');
+                    alert('Usulan ujikom berhasil divalidasi!');
                     // Refresh data tabel jika diperlukan
-                    $('#tbl_usulan_pelatihan').DataTable().ajax.reload();
+                    $('#tbl_usulan_ujikom').DataTable().ajax.reload();
                 },
                 error: function (xhr) {
                     // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
@@ -152,9 +151,9 @@
                 },
                 success: function (response) {
                     // Menampilkan pesan sukses dengan nama pengusul
-                    alert('Validasi usulan pelatihan berhasil dibatalkan!');
+                    alert('Validasi usulan ujikom berhasil dibatalkan!');
                     // Refresh data tabel jika diperlukan
-                    $('#tbl_usulan_pelatihan').DataTable().ajax.reload();
+                    $('#tbl_usulan_ujikom').DataTable().ajax.reload();
                 },
                 error: function (xhr) {
                     // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
@@ -164,8 +163,3 @@
         });
     </script>
 @endpush
-
-
-
-
-

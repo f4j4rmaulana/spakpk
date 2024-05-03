@@ -95,6 +95,7 @@
                     infoFiltered: '(filter dari _MAX_ total data)',
                     lengthMenu: 'Tampilkan _MENU_ baris per halaman',
                     zeroRecords: 'Data tidak ditemukan',
+                    emptyTable: "Tidak ada data yang tersedia dalam tabel",
                 },
                 lengthMenu: [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
                 processing: false,

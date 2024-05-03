@@ -60,7 +60,7 @@
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:'/admin/usulan-pelatihan/ajax-get-users',
+                url:route('admin.usulan-pelatihan.ajaxGetUsers'),
                 dataType:'json',
                 data: (params) => {
                     let query = {
@@ -89,6 +89,9 @@
                 },
                 noResults: function () {
                     return "Data tidak ditemukan";
+                },
+                errorLoading: function() {
+                return "Hasil data tidak dapat ditampilkan";
                 }
             },
             templateResult: formatUser, // Menentukan bagaimana setiap opsi ditampilkan
@@ -122,7 +125,7 @@
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:'/admin/usulan-pelatihan/ajax-get-jenis-pelatihan',
+                url:route('admin.usulan-pelatihan.ajaxGetJenisPelatihan'),
                 dataType:'json',
                 processResults:data=>{
                     return {
@@ -141,6 +144,9 @@
                 },
                 noResults: function () {
                     return "Data tidak ditemukan";
+                },
+                errorLoading: function() {
+                return "Hasil data tidak dapat ditampilkan";
                 }
             },
             templateResult: formatJenisPelatihan, // Menentukan bagaimana setiap opsi ditampilkan
@@ -174,7 +180,7 @@
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:'/admin/usulan-pelatihan/ajax-get-pelatihan',
+                url:route('admin.usulan-pelatihan.ajaxGetPelatihan'),
                 dataType:'json',
                 processResults:data=>{
                     return {
@@ -193,6 +199,9 @@
                 },
                 noResults: function () {
                     return "Data tidak ditemukan";
+                },
+                errorLoading: function() {
+                return "Hasil data tidak dapat ditampilkan";
                 }
             },
             templateResult: formatPelatihan, // Menentukan bagaimana setiap opsi ditampilkan

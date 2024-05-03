@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UjikomController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PelatihanController;
 use App\Http\Controllers\Admin\JenisUjikomController;
+use App\Http\Controllers\Admin\UsulanUjikomController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\JenisPelatihanController;
 use App\Http\Controllers\Admin\UsulanPelatihanController;
@@ -77,6 +78,15 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('/usulan-pelatihan/ajax/validasi/{id}', [UsulanPelatihanController::class, 'ajaxValidasi'])->name('usulan-pelatihan.ajaxValidasi');
     Route::get('/usulan-pelatihan/ajax/nonvalidasi/{id}', [UsulanPelatihanController::class, 'ajaxNonValidasi'])->name('usulan-pelatihan.ajaxNonValidasi');
     Route::resource('usulan-pelatihan', UsulanPelatihanController::class);
+
+     /** Usulan Ujikom Route */
+    Route::get('/usulan-ujikom/ajax-get-users', [UsulanUjikomController::class, 'ajaxGetUsers'])->name('usulan-ujikom.ajaxGetUsers');
+    Route::get('/usulan-ujikom/ajax-get-jenis-ujikom', [UsulanUjikomController::class, 'ajaxGetJenisUjikom'])->name('usulan-ujikom.ajaxGetJenisUjikom');
+    Route::get('/usulan-ujikom/ajax-get-ujikom', [UsulanUjikomController::class, 'ajaxGetUjikom'])->name('usulan-ujikom.ajaxGetUjikom');
+    Route::get('/usulan-ujikom/ajax', [UsulanUjikomController::class, 'ajax'])->name('usulan-ujikom.ajax');
+    Route::get('/usulan-ujikom/ajax/validasi/{id}', [UsulanUjikomController::class, 'ajaxValidasi'])->name('usulan-ujikom.ajaxValidasi');
+    Route::get('/usulan-ujikom/ajax/nonvalidasi/{id}', [UsulanUjikomController::class, 'ajaxNonValidasi'])->name('usulan-ujikom.ajaxNonValidasi');
+    Route::resource('usulan-ujikom', UsulanUjikomController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');

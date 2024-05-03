@@ -66,6 +66,20 @@ class LoginRequest extends FormRequest
             ];
         }
 
+        // $check_ldap = check_nip_by_ldap($this->username, $this->password);
+
+        // if(!$check_ldap) {
+        //     throw ValidationException::withMessages([
+        //         'username' => trans('akun ldap anda tidak valid'),
+        //     ]);
+        // }
+
+        // $credentials = [
+        //     'username' => $check_ldap[0]['uid'][0],
+        //     'password' => $check_ldap[0]['userpassword'][0],
+        // ];
+
+
         if (! Auth::guard($guard)->attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 

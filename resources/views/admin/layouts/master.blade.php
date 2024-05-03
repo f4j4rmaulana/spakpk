@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <script src="{{ asset('backend/assets/plugin/jquery/jquery-3.7.1.min.js') }}"></script>
     @stack('custom-styles')
+
+    @routes
   </head>
 
   <body>

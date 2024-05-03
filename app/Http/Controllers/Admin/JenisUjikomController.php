@@ -47,7 +47,7 @@ class JenisUjikomController extends Controller
         try {
 
             $jenisUjikom = new JenisUjikom();
-            $jenisUjikom->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $jenisUjikom->nama = strip_tags($request->nama);
             $jenisUjikom->deskripsi = strip_tags($request->deskripsi);
             $jenisUjikom->save();
             DB::commit();
@@ -98,8 +98,8 @@ class JenisUjikomController extends Controller
 
         try {
 
-            $jenisUjikom = new JenisUjikom();
-            $jenisUjikom->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $jenisUjikom = JenisUjikom::findOrFail($id);
+            $jenisUjikom->nama = strip_tags($request->nama);
             $jenisUjikom->deskripsi = strip_tags($request->deskripsi);
             $jenisUjikom->save();
             DB::commit();

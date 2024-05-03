@@ -47,7 +47,7 @@ class PelatihanController extends Controller
         try {
 
             $pelatihan = new Pelatihan();
-            $pelatihan->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $pelatihan->nama = strip_tags($request->nama);
             $pelatihan->deskripsi = strip_tags($request->deskripsi);
             $pelatihan->save();
             DB::commit();
@@ -99,7 +99,7 @@ class PelatihanController extends Controller
         try {
 
             $pelatihan = Pelatihan::findOrFail($id);
-            $pelatihan->nama = ucwords(strtolower(strip_tags($request->nama)));
+            $pelatihan->nama = strip_tags($request->nama);
             $pelatihan->deskripsi = strip_tags($request->deskripsi);
             $pelatihan->save();
             DB::commit();

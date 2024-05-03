@@ -1,6 +1,6 @@
 <div class="navbar-collapse collapse">
     <ul class="navbar-nav navbar-align">
-    <li class="nav-item dropdown">
+    {{-- <li class="nav-item dropdown">
         <a
         class="nav-icon dropdown-toggle"
         href="#"
@@ -12,10 +12,7 @@
             <span class="indicator">4</span>
         </div>
         </a>
-        <div
-        class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-        aria-labelledby="alertsDropdown"
-        >
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown" >
         <div class="dropdown-menu-header">4 New Notifications</div>
         <div class="list-group">
             <a href="#" class="list-group-item">
@@ -177,7 +174,7 @@
             <a href="#" class="text-muted">Show all messages</a>
         </div>
         </div>
-    </li>
+    </li> --}}
     <li class="nav-item dropdown">
         <a
         class="nav-icon dropdown-toggle d-inline-block d-sm-none"
