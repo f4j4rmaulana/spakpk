@@ -1,5 +1,5 @@
 <div class="sidebar-content js-simplebar">
-    <a class="sidebar-brand" href="index.html">
+    <a class="sidebar-brand" href="{{ route('admin.dashboard') }}">
       <span class="align-middle">AdminKit</span>
     </a>
 
@@ -46,8 +46,8 @@
 
       <li class="sidebar-header">Usulan</li>
 
-      <li class="sidebar-item">
-        <a class="sidebar-link" href="index.html">
+      <li class="sidebar-item {{ setSidebarActive(['admin.usulan-pelatihan.*','admin.usulan-pelatihan.index']) }}">
+        <a class="sidebar-link" href="{{ route('admin.usulan-pelatihan.index') }}">
           <i class="align-middle" data-feather="layout"></i>
           <span class="align-middle">Usulan Bangkom</span>
         </a>

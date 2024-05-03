@@ -205,7 +205,7 @@ class JenisUjikomController extends Controller
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'
                         '.method_field("DELETE").'
-                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Are You Sure Want to Delete?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
+                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
                         </a>
                         </form>
                         <a href="' . $url_aktif . '" id="btn-aktif" title="Aktifkan Jenis Ujikom">
@@ -220,7 +220,7 @@ class JenisUjikomController extends Controller
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'
                         '.method_field("DELETE").'
-                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Are You Sure Want to Delete?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
+                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
                         </a>
                         </form>
                         <a href="' . $url_nonaktif . '" class="mr-1" id="btn-nonaktif" title="Nonaktifkan Jenis Ujikom">

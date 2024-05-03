@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'role',
+        'idnumber',
+        'instansi',
+        'unit_kerja',
+        'jabatan',
     ];
 
     /**
@@ -42,4 +48,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function userPelatihan()
+    {
+        return $this->hasMany(UsulanPelatihan::class,'id');
+    }
 }

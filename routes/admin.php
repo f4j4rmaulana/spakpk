@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PelatihanController;
 use App\Http\Controllers\Admin\JenisUjikomController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\JenisPelatihanController;
+use App\Http\Controllers\Admin\UsulanPelatihanController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
@@ -67,6 +68,15 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('/ujikom/active/{id}', [UjikomController::class, 'active'])->name('ujikom.active');
     Route::get('/ujikom/nonactive/{id}', [UjikomController::class, 'nonactive'])->name('ujikom.nonactive');
     Route::resource('ujikom', UjikomController::class);
+
+     /** Usulan Pelatihan Route */
+    Route::get('/usulan-pelatihan/ajax-get-users', [UsulanPelatihanController::class, 'ajaxGetUsers'])->name('usulan-pelatihan.ajaxGetUsers');
+    Route::get('/usulan-pelatihan/ajax-get-jenis-pelatihan', [UsulanPelatihanController::class, 'ajaxGetJenisPelatihan'])->name('usulan-pelatihan.ajaxGetJenisPelatihan');
+    Route::get('/usulan-pelatihan/ajax-get-pelatihan', [UsulanPelatihanController::class, 'ajaxGetPelatihan'])->name('usulan-pelatihan.ajaxGetPelatihan');
+    Route::get('/usulan-pelatihan/ajax', [UsulanPelatihanController::class, 'ajax'])->name('usulan-pelatihan.ajax');
+    Route::get('/usulan-pelatihan/ajax/validasi/{id}', [UsulanPelatihanController::class, 'ajaxValidasi'])->name('usulan-pelatihan.ajaxValidasi');
+    Route::get('/usulan-pelatihan/ajax/nonvalidasi/{id}', [UsulanPelatihanController::class, 'ajaxNonValidasi'])->name('usulan-pelatihan.ajaxNonValidasi');
+    Route::resource('usulan-pelatihan', UsulanPelatihanController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');

@@ -2,6 +2,8 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <input type="hidden" name="role" id="role" value="eksternal">
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -37,6 +39,38 @@
                             name="password_confirmation" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+         <!-- Idnumber -->
+         <div class="mt-4">
+            <div>
+                <x-input-label for="idnumber" :value="__('Nomor Identitas (NIP/NIK)')" />
+                <x-text-input id="idnumber" class="block mt-1 w-full" type="text" name="idnumber" :value="old('idnumber')" required autofocus autocomplete="idnumber" />
+                <x-input-error :messages="$errors->get('idnumber')" class="mt-2" />
+            </div>
+
+        <!-- Instansi -->
+        <div class="mt-4">
+        <div>
+            <x-input-label for="instansi" :value="__('Instansi')" />
+            <x-text-input id="instansi" class="block mt-1 w-full" type="text" name="instansi" :value="old('instansi')" required autofocus autocomplete="instansi" />
+            <x-input-error :messages="$errors->get('instansi')" class="mt-2" />
+        </div>
+
+        <!-- Unit Kerja -->
+        <div class="mt-4">
+        <div>
+            <x-input-label for="unit_kerja" :value="__('Unit Kerja')" />
+            <x-text-input id="unit_kerja" class="block mt-1 w-full" type="text" name="unit_kerja" :value="old('unit_kerja')" required autofocus autocomplete="unit_kerja" />
+            <x-input-error :messages="$errors->get('unit_kerja')" class="mt-2" />
+        </div>
+
+        <!-- Jabatan -->
+        <div class="mt-4">
+        <div>
+            <x-input-label for="jabatan" :value="__('Jabatan')" />
+            <x-text-input id="jabatan" class="block mt-1 w-full" type="text" name="jabatan" :value="old('jabatan')" required autofocus autocomplete="jabatan" />
+            <x-input-error :messages="$errors->get('jabatan')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
