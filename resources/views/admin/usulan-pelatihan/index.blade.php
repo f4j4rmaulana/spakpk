@@ -11,11 +11,62 @@
     <h1 class="h3 mb-3">Data Usulan Pelatihan</h1>
 
     <div class="row">
+        {{-- Start Report Usulan Pelatihan --}}
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Cetak Laporan Usulan Pelatihan</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.usulan-pelatihan.export') }}" method="POST">
+                        @csrf
+                        <div class="d-flex gap-2">
+                            <div class="mb-3 col-6">
+                                <label for="start_date" class="form-label">Tanggal Awal</label>
+                                <input type="date" class="form-control form-control-lg {{ hasError($errors, 'start_date') }}" id="start_date" name="start_date" value="{{old('start_date')}}" required autofocus>
+                                <x-input-error :messages="$errors->get('start_date')" class="mt-1" />
+                                </div>
+
+                                <div class="mb-3 col-6">
+                                    <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                    <input type="date" class="form-control form-control-lg {{ hasError($errors, 'end_date') }}" id="end_date" name="end_date" value="{{old('end_date')}}" required autofocus>
+                                    <x-input-error :messages="$errors->get('end_date')" class="mt-1" />
+                                </div>
+                            </div>
+
+                        <button class="btn btn-secondary" type="submit">Export Excel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{-- End Report Usulan Pelatihan --}}
+
+        {{-- Start Data Usulan Pelatihan --}}
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Semua Usulan Pelatihan</h5>
-                    <div class="btn-group mb-3" role="group" aria-label="Default button group">
+
+                    <div class="btn-group mb-3 d-flex gap-2" role="group" aria-label="Default button group">
+                        {{-- <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="align-middle" data-feather="git-pull-request" >
+                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                </i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item align-middle" href="#">
+                                        <i class="align-middle" data-feather="file-text" ></i>&nbsp;&nbsp;Export Excel
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item align-middle" href="#">
+                                        <i class="align-middle" data-feather="upload" ></i>&nbsp;&nbsp;Import Excel
+                                    </a>
+                                </li>
+                            </ul>
+                        </div> --}}
                         <a href="{{ route('admin.usulan-pelatihan.create') }}" class="btn btn-primary">Tambah Data</a>
                     </div>
                 </div>
@@ -58,6 +109,7 @@
                 </div>
             </div>
         </div>
+        {{-- End Data Usulan Pelatihan --}}
     </div>
 
 </div>

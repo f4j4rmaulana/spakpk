@@ -2,6 +2,7 @@
 
 use App\Models\JenisUjikom;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\UjikomController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PelatihanController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\TestController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
 
@@ -87,6 +89,9 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('/usulan-ujikom/ajax/validasi/{id}', [UsulanUjikomController::class, 'ajaxValidasi'])->name('usulan-ujikom.ajaxValidasi');
     Route::get('/usulan-ujikom/ajax/nonvalidasi/{id}', [UsulanUjikomController::class, 'ajaxNonValidasi'])->name('usulan-ujikom.ajaxNonValidasi');
     Route::resource('usulan-ujikom', UsulanUjikomController::class);
+
+    /** Laporan Route */
+    Route::post('/usulan-pelatihan/export', [ExportController::class, 'exportUsulanPelatihan'])->name('usulan-pelatihan.export');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
