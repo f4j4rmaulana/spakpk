@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class UsulanUjikomImport implements ToCollection, WithHeadingRow
+class UsulanUjikomImport implements ToCollection, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
     public function collection(Collection $rows)
     {
@@ -75,5 +77,15 @@ class UsulanUjikomImport implements ToCollection, WithHeadingRow
             logger('error proses cek data import!!');
             throw $e;
         }
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
