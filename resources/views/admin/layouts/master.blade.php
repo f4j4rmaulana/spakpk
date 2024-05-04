@@ -26,6 +26,8 @@
 
     <title>{{ $titles }} | {{env('APP_NAME')}}</title>
 
+    @stack('modal-styles')
+
     <link href="{{asset('backend/assets/css/app.css')}}" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,5 +1,12 @@
 @extends('admin.layouts.master')
 
+@push('modal-styles')
+    <script src="{{ asset('backend/assets/plugin/jquery-modal-master/jquery-3.0.0.min.js') }}"></script>
+
+    <script src="{{ asset('backend/assets/plugin/jquery-modal-master/jquery.modal.min.js') }}"></script>
+    <link href="{{ asset('backend/assets/plugin/jquery-modal-master/jquery.modal.min.css') }}" rel="stylesheet">
+@endpush
+
 @push('custom-styles')
     <link href="{{ asset('backend/assets/plugin/DataTables/datatables.min.css') }}" rel="stylesheet">
     <script src="{{ asset('backend/assets/plugin/DataTables/datatables.min.js') }}"></script>
@@ -11,35 +18,53 @@
     <h1 class="h3 mb-3">Data Usulan Pelatihan</h1>
 
     <div class="row">
-        {{-- Start Report Usulan Pelatihan --}}
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Cetak Laporan Usulan Pelatihan</h5>
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('admin.usulan-pelatihan.export') }}" method="POST">
-                        @csrf
-                        <div class="d-flex gap-2">
-                            <div class="mb-3 col-6">
-                                <label for="start_date" class="form-label">Tanggal Awal</label>
-                                <input type="date" class="form-control form-control-lg {{ hasError($errors, 'start_date') }}" id="start_date" name="start_date" value="{{old('start_date')}}" required autofocus>
-                                <x-input-error :messages="$errors->get('start_date')" class="mt-1" />
-                                </div>
 
-                                <div class="mb-3 col-6">
-                                    <label for="end_date" class="form-label">Tanggal Akhir</label>
-                                    <input type="date" class="form-control form-control-lg {{ hasError($errors, 'end_date') }}" id="end_date" name="end_date" value="{{old('end_date')}}" required autofocus>
-                                    <x-input-error :messages="$errors->get('end_date')" class="mt-1" />
-                                </div>
+            {{-- Start Modal Export --}}
+                <div id="export_modal" class="modal">
+                    {{-- Start Report Usulan Pelatihan --}}
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Cetak Laporan Usulan Pelatihan</h5>
                             </div>
+                            <div class="card-body">
+                                <form action="{{ route('admin.usulan-pelatihan.export') }}" method="POST">
+                                    @csrf
+                                        <div class="mb-3">
+                                            <label for="start_date" class="form-label">Tanggal Awal</label>
+                                            <input type="date" class="form-control form-control-lg {{ hasError($errors, 'start_date') }}" id="start_date" name="start_date" value="{{old('start_date')}}" required autofocus>
+                                            <x-input-error :messages="$errors->get('start_date')" class="mt-1" />
+                                            </div>
 
-                        <button class="btn btn-secondary" type="submit">Export Excel</button>
-                    </form>
+                                            <div class="mb-3">
+                                                <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                                <input type="date" class="form-control form-control-lg {{ hasError($errors, 'end_date') }}" id="end_date" name="end_date" value="{{old('end_date')}}" required autofocus>
+                                                <x-input-error :messages="$errors->get('end_date')" class="mt-1" />
+                                            </div>
+
+                                    <button class="btn btn-dark" type="submit">Export Excel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- End Report Usulan Pelatihan --}}
                 </div>
+            {{-- End Modal Export --}}
+
+        {{-- Start Modal Import --}}
+            <div id="import_modal" class="modal">
+                <form action="{{ route('admin.usulan-pelatihan.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="file_import" class="form-label">Unggah File (excel/csv)</label>
+                        <input class="form-control form-control-lg {{ hasError($errors, 'file') }}" type="file" name="file_import" accept=".xlsx,.csv">
+                        <x-input-error :messages="$errors->get('file_import')" class="mt-1" />
+                    </div>
+                    <button class="btn btn-dark" type="submit">Proses Import</button>
+                </form>
+                {{-- <a href="#" rel="modal:close">Close</a> --}}
             </div>
-        </div>
-        {{-- End Report Usulan Pelatihan --}}
+        {{-- End Modal Import --}}
 
         {{-- Start Data Usulan Pelatihan --}}
         <div class="col-12">
@@ -48,7 +73,7 @@
                     <h5 class="card-title mb-0">Semua Usulan Pelatihan</h5>
 
                     <div class="btn-group mb-3 d-flex gap-2" role="group" aria-label="Default button group">
-                        {{-- <div class="btn-group">
+                        <div class="btn-group">
                             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="align-middle" data-feather="git-pull-request" >
                                     <span class="visually-hidden">Toggle Dropdown</span>
@@ -56,17 +81,17 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item align-middle" href="#">
+                                    <a class="dropdown-item align-middle" href="#export_modal" rel="modal:open">
                                         <i class="align-middle" data-feather="file-text" ></i>&nbsp;&nbsp;Export Excel
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item align-middle" href="#">
+                                    <a class="dropdown-item align-middle" href="#import_modal" rel="modal:open">
                                         <i class="align-middle" data-feather="upload" ></i>&nbsp;&nbsp;Import Excel
                                     </a>
                                 </li>
                             </ul>
-                        </div> --}}
+                        </div>
                         <a href="{{ route('admin.usulan-pelatihan.create') }}" class="btn btn-primary">Tambah Data</a>
                     </div>
                 </div>

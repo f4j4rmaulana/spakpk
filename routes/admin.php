@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Admin\TestController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
@@ -92,6 +93,7 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     /** Laporan Route */
     Route::post('/usulan-pelatihan/export', [ExportController::class, 'exportUsulanPelatihan'])->name('usulan-pelatihan.export');
+    Route::post('/usulan-pelatihan/import', [ImportController::class, 'importUsulanPelatihan'])->name('usulan-pelatihan.import');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
