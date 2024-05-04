@@ -6,14 +6,14 @@ Follow these instructions to set up and run the project locally on your machine.
 
 - [Git](https://git-scm.com/)
 - [Composer](https://getcomposer.org/)
-- [PHP](https://www.php.net/)
+- [PHP 8.2](https://www.php.net/releases/8.2/en.php)
 
 ### Installation
 
 1. Clone the repository:
 
 ```bash
-   git clone https://github.com/tauseedzaman/hospitalMS.git
+   git clone https://github.com/f4j4rmaulana/spakpk.git
 ```
  ```bash
    cd spakpk
@@ -28,9 +28,6 @@ cp .env.example .env
 ```bash
 php artisan key:generate
  ```
-```bash
-php artisan storage:link
-```
  ```bash
  php artisan migrate:fresh --seed
 ```
@@ -39,14 +36,25 @@ php artisan storage:link
 ```
 
 ## Admin Credentials
-Admin: 
+localhost/admin/login
+Email: 
 ```bash 
-tauseed@test.com
+admin@admin.com
 ```
 Password: 
 ```bash
-tauseed
+admin@admin.com
 ```
 
-## If you like our project please leave a star ❤
+## User Credentials
+localhost/login
+Username: 
+```bash 
+ldap username
+```
+Password: 
+```bash
+ldap password
+```
 
+## Created by Fajar Maulana
