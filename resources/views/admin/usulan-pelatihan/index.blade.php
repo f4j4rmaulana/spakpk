@@ -19,37 +19,37 @@
 
     <div class="row">
 
-            {{-- Start Modal Export --}}
-                <div id="export_modal" class="modal">
-                    {{-- Start Report Usulan Pelatihan --}}
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Cetak Laporan Usulan Pelatihan</h5>
-                            </div>
-                            <div class="card-body">
-                                <form action="{{ route('admin.usulan-pelatihan.export') }}" method="POST">
-                                    @csrf
+        {{-- Start Modal Export --}}
+            <div id="export_modal" class="modal">
+                {{-- Start Report Usulan Pelatihan --}}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Cetak Laporan Usulan Pelatihan</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('admin.usulan-pelatihan.export') }}" method="POST">
+                                @csrf
+                                    <div class="mb-3">
+                                        <label for="start_date" class="form-label">Tanggal Awal</label>
+                                        <input type="date" class="form-control form-control-lg {{ hasError($errors, 'start_date') }}" id="start_date" name="start_date" value="{{old('start_date')}}" required autofocus>
+                                        <x-input-error :messages="$errors->get('start_date')" class="mt-1" />
+                                        </div>
+
                                         <div class="mb-3">
-                                            <label for="start_date" class="form-label">Tanggal Awal</label>
-                                            <input type="date" class="form-control form-control-lg {{ hasError($errors, 'start_date') }}" id="start_date" name="start_date" value="{{old('start_date')}}" required autofocus>
-                                            <x-input-error :messages="$errors->get('start_date')" class="mt-1" />
-                                            </div>
+                                            <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                            <input type="date" class="form-control form-control-lg {{ hasError($errors, 'end_date') }}" id="end_date" name="end_date" value="{{old('end_date')}}" required autofocus>
+                                            <x-input-error :messages="$errors->get('end_date')" class="mt-1" />
+                                        </div>
 
-                                            <div class="mb-3">
-                                                <label for="end_date" class="form-label">Tanggal Akhir</label>
-                                                <input type="date" class="form-control form-control-lg {{ hasError($errors, 'end_date') }}" id="end_date" name="end_date" value="{{old('end_date')}}" required autofocus>
-                                                <x-input-error :messages="$errors->get('end_date')" class="mt-1" />
-                                            </div>
-
-                                    <button class="btn btn-dark" type="submit">Export Excel</button>
-                                </form>
-                            </div>
+                                <button class="btn btn-dark" type="submit">Export Excel</button>
+                            </form>
                         </div>
                     </div>
-                    {{-- End Report Usulan Pelatihan --}}
                 </div>
-            {{-- End Modal Export --}}
+                {{-- End Report Usulan Pelatihan --}}
+            </div>
+        {{-- End Modal Export --}}
 
         {{-- Start Modal Import --}}
             <div id="import_modal" class="modal">
@@ -94,6 +94,7 @@
                         </div>
                         <a href="{{ route('admin.usulan-pelatihan.create') }}" class="btn btn-primary">Tambah Data</a>
                     </div>
+
                 </div>
                 <div class="card-body">
                     {{-- Start Table --}}

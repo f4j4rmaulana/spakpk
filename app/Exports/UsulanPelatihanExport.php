@@ -27,6 +27,7 @@ class UsulanPelatihanExport implements FromCollection, WithMapping, WithHeadings
 
     public function map($usulanPelatihan): array
     {
+        // usulanUser, UsulanJenisPelatihan, usulanPelatihan function from relationship on UsulanPelatihan model
         return [
             $usulanPelatihan->id,
             $usulanPelatihan->usulanUser->name,
@@ -37,7 +38,7 @@ class UsulanPelatihanExport implements FromCollection, WithMapping, WithHeadings
             $usulanPelatihan->usulanPelatihan->nama,
             $usulanPelatihan->status,
             $usulanPelatihan->created_at,
-            
+
         ];
     }
 

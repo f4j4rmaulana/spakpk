@@ -93,7 +93,9 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     /** Laporan Route */
     Route::post('/usulan-pelatihan/export', [ExportController::class, 'exportUsulanPelatihan'])->name('usulan-pelatihan.export');
+    Route::post('/usulan-ujikom/export', [ExportController::class, 'exportUsulanUjikom'])->name('usulan-ujikom.export');
     Route::post('/usulan-pelatihan/import', [ImportController::class, 'importUsulanPelatihan'])->name('usulan-pelatihan.import');
+    Route::post('/usulan-ujikom/import', [ImportController::class, 'importUsulanUjikom'])->name('usulan-ujikom.import');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
