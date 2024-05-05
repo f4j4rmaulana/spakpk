@@ -94,7 +94,34 @@ class UsulanPelatihanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                // 'user_id' => ['required','exists:users,id'],
+                'jenis_pelatihan_id' => ['required','exists:jenis_pelatihans,id'],
+                'pelatihan_id' => ['required','exists:pelatihans,id'],
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+
+            $usulanPelatihan = UsulanPelatihan::findOrFail($id);
+            // $usulanPelatihan->user_id = strip_tags($request->user_id);
+            $usulanPelatihan->jenis_pelatihan_id = strip_tags($request->jenis_pelatihan_id);
+            $usulanPelatihan->pelatihan_id = strip_tags($request->pelatihan_id);
+            $usulanPelatihan->usulan_lainnya = strip_tags($request->usulan_lainnya);
+            $usulanPelatihan->save();
+            DB::commit();
+            toast('Data berhasil tersimpan!','success');
+            return to_route('admin.usulan-pelatihan.index');
+
+        }catch (\Exception $e) {
+
+            DB::rollback();
+            toast('Error simpan data!','error');
+            return redirect()->route('admin.usulan-pelatihan.index');
+
+        }
     }
 
     /**

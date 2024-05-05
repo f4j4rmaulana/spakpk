@@ -92,7 +92,34 @@ class UsulanUjikomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                // 'user_id' => ['required','exists:users,id'],
+                'jenis_ujikom_id' => ['required','exists:jenis_ujikoms,id'],
+                'ujikom_id' => ['required','exists:ujikoms,id'],
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+
+            $usulanUjikom = UsulanUjikom::findOrFail($id);
+            // $usulanUjikom->user_id = strip_tags($request->user_id);
+            $usulanUjikom->jenis_ujikom_id = strip_tags($request->jenis_ujikom_id);
+            $usulanUjikom->ujikom_id = strip_tags($request->ujikom_id);
+            $usulanUjikom->usulan_lainnya = strip_tags($request->usulan_lainnya);
+            $usulanUjikom->save();
+            DB::commit();
+            toast('Data berhasil tersimpan!','success');
+            return to_route('admin.usulan-ujikom.index');
+
+        }catch (\Exception $e) {
+
+            DB::rollback();
+            toast('Error simpan data!','error');
+            return redirect()->route('admin.usulan-ujikom.index');
+
+        }
     }
 
     /**

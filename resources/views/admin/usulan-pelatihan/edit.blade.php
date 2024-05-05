@@ -16,13 +16,18 @@
                     <h5 class="card-title mb-0">Form Edit Usulan Pelatihan</h5>
                 </div>
                 <div class="card-body">
-                        <form action="{{ route('admin.usulan-pelatihan.store') }}" method="POST">
+                        <form action="{{ route('admin.usulan-pelatihan.update', $usulanPelatihan->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                                 <div class="mb-3">
-                                    <label for="user_id"> Pilih Pengusul <span class="text-danger ">*</span></label>
+                                    <label for="user_id"> Nama Pengusul <span class="text-danger ">*</span></label>
                                     {{-- select2 css .select2-container--bootstrap-5{display:block;width: 100% !important;} --}}
-                                    <select name="user_id" id="user_id" class="form-control form-control-lg {{ hasError($errors, 'user_id') }}" >
+                                    <select name="user_id" id="user_id" class="form-control form-control-lg" disabled>
+                                            <option value="{{ $usulanPelatihan->id }}">
+                                                {{ $usulanPelatihan->usulanUser->name }}
+                                            </option>
                                     </select>
+
                                     <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
                                 </div>
                                 <div class="mb-3">

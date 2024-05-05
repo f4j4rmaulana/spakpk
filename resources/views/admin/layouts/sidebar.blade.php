@@ -60,10 +60,10 @@
         </a>
       </li>
 
-        <li class="sidebar-header">Pengaturan</li>
+        <li class="sidebar-header">Manajemen Akses</li>
 
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="index.html">
+        <li class="sidebar-item {{ setSidebarActive(['admin.role.*','admin.role.index']) }}">
+            <a class="sidebar-link" href="{{ route('admin.role.index') }}">
             <i class="align-middle" data-feather="sliders"></i>
             <span class="align-middle">Roles</span>
           </a>

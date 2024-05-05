@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Admin\ImportController;
+use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\TestController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
@@ -96,6 +97,10 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::post('/usulan-ujikom/export', [ExportController::class, 'exportUsulanUjikom'])->name('usulan-ujikom.export');
     Route::post('/usulan-pelatihan/import', [ImportController::class, 'importUsulanPelatihan'])->name('usulan-pelatihan.import');
     Route::post('/usulan-ujikom/import', [ImportController::class, 'importUsulanUjikom'])->name('usulan-ujikom.import');
+
+    /** Role Permission Route */
+    Route::get('/role/ajax', [RolePermissionController::class, 'ajax'])->name('role.ajax');
+    Route::resource('role', RolePermissionController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
