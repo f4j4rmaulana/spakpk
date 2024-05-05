@@ -69,10 +69,10 @@
           </a>
         </li>
 
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="pages-profile.html">
+        <li class="sidebar-item {{ setSidebarActive(['admin.role-user.*','admin.role-user.index']) }}">
+            <a class="sidebar-link" href="{{ route('admin.role-user.index') }}">
             <i class="align-middle" data-feather="user"></i>
-            <span class="align-middle">Role Permission</span>
+            <span class="align-middle">Role User</span>
           </a>
         </li>
 

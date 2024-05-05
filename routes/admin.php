@@ -2,7 +2,10 @@
 
 use App\Models\JenisUjikom;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleUserController;
+use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\ExportController;
+use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Admin\UjikomController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PelatihanController;
@@ -10,6 +13,7 @@ use App\Http\Controllers\Admin\JenisUjikomController;
 use App\Http\Controllers\Admin\UsulanUjikomController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\JenisPelatihanController;
+use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\UsulanPelatihanController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
@@ -20,9 +24,6 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Admin\ImportController;
-use App\Http\Controllers\Admin\RolePermissionController;
-use App\Http\Controllers\Admin\TestController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
 
@@ -101,6 +102,8 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     /** Role Permission Route */
     Route::get('/role/ajax', [RolePermissionController::class, 'ajax'])->name('role.ajax');
     Route::resource('role', RolePermissionController::class);
+    Route::get('/role-user/ajax', [RoleUserController::class, 'ajax'])->name('role-user.ajax');
+    Route::resource('role-user', RoleUserController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');

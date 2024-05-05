@@ -14,9 +14,12 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $admin = new Admin();
-        $admin->name = "Admin";
+        $admin->name = "Administrator";
         $admin->email = "admin@admin.com";
         $admin->password = bcrypt('password');
         $admin->save();
+
+        // Adding permissions via a role
+        $admin->assignRole('Super Admin');
     }
 }
