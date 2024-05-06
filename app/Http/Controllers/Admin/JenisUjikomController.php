@@ -13,6 +13,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JenisUjikomController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:jenis ujikom view'])->only('index','ajax','active','nonactive');
+        $this->middleware(['permission:jenis ujikom create'])->only('create','store');
+        $this->middleware(['permission:jenis ujikom update'])->only('edit','update');
+        $this->middleware(['permission:jenis ujikom delete'])->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */

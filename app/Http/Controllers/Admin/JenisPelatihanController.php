@@ -13,6 +13,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JenisPelatihanController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:jenis pelatihan view'])->only('index','ajax','active','nonactive');
+        $this->middleware(['permission:jenis pelatihan create'])->only('create','store');
+        $this->middleware(['permission:jenis pelatihan update'])->only('edit','update');
+        $this->middleware(['permission:jenis pelatihan delete'])->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */

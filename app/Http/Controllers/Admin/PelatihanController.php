@@ -13,6 +13,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PelatihanController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:pelatihan view'])->only('index','ajax','active','nonactive');
+        $this->middleware(['permission:pelatihan create'])->only('create','store');
+        $this->middleware(['permission:pelatihan update'])->only('edit','update');
+        $this->middleware(['permission:pelatihan delete'])->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -16,6 +16,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UsulanPelatihanController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:usulan pelatihan view'])->only('index','ajax','ajaxValidasi','ajaxNonValidasi','ajaxGetUsers','ajaxGetJenisPelatihan','ajaxGetPelatihan');
+        $this->middleware(['permission:usulan pelatihan create'])->only('create','store');
+        $this->middleware(['permission:usulan pelatihan update'])->only('edit','update');
+        $this->middleware(['permission:usulan pelatihan delete'])->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -1,6 +1,6 @@
 <div class="sidebar-content js-simplebar">
     <a class="sidebar-brand" href="{{ route('admin.dashboard') }}">
-      <span class="align-middle">AdminKit</span>
+      <span class="align-middle">Admin Dashboard</span>
     </a>
 
     <ul class="sidebar-nav">
@@ -13,11 +13,11 @@
             </a>
           </li>
 
-    @if (canAccess(['jenis pelatihan *','pelatihan *','jenis ujikom *','ujikom *']))
+    @if (canAccess(['jenis pelatihan view','pelatihan view','jenis ujikom view','ujikom view']))
         <li class="sidebar-header">Master</li>
     @endif
 
-    @if (canAccess(['jenis pelatihan index','jenis pelatihan create','jenis pelatihan update','jenis pelatihan delete']))
+    @if (canAccess(['jenis pelatihan view','jenis pelatihan create','jenis pelatihan update','jenis pelatihan delete']))
         <li class="sidebar-item {{ setSidebarActive(['admin.jenis-pelatihan.*','admin.jenis-pelatihan.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.jenis-pelatihan.index') }}">
                 <i class="align-middle" data-feather="briefcase"></i>
@@ -26,7 +26,7 @@
         </li>
     @endif
 
-    @if (canAccess(['pelatihan index','pelatihan create','pelatihan update','pelatihan delete']))
+    @if (canAccess(['pelatihan view','pelatihan create','pelatihan update','pelatihan delete']))
         <li class="sidebar-item {{ setSidebarActive(['admin.pelatihan.*','admin.pelatihan.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.pelatihan.index') }}">
                 <i class="align-middle" data-feather="user"></i>
@@ -35,7 +35,7 @@
         </li>
     @endif
 
-    @if (canAccess(['jenis ujikom index','jenis ujikom create','jenis ujikom update','jenis ujikom delete']))
+    @if (canAccess(['jenis ujikom view','jenis ujikom create','jenis ujikom update','jenis ujikom delete']))
         <li class="sidebar-item {{ setSidebarActive(['admin.jenis-ujikom.*','admin.jenis-ujikom.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.jenis-ujikom.index') }}">
                 <i class="align-middle" data-feather="cpu"></i>
@@ -44,7 +44,7 @@
         </li>
     @endif
 
-    @if (canAccess(['ujikom index','ujikom create','ujikom update','ujikom delete']))
+    @if (canAccess(['ujikom view','ujikom create','ujikom update','ujikom delete']))
         <li class="sidebar-item {{ setSidebarActive(['admin.ujikom.*','admin.ujikom.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.ujikom.index') }}">
                 <i class="align-middle" data-feather="user"></i>
@@ -53,11 +53,11 @@
         </li>
     @endif
 
-    @if (canAccess(['usulan pelatihan *','usulan ujikom *']))
+    @if (canAccess(['usulan pelatihan view','usulan ujikom view']))
         <li class="sidebar-header">Usulan</li>
     @endif
 
-    @if (canAccess(['usulan pelatihan index','usulan pelatihan create','usulan pelatihan update','usulan pelatihan delete']))
+    @if (canAccess(['usulan pelatihan view','usulan pelatihan create','usulan pelatihan update','usulan pelatihan delete']))
         <li class="sidebar-item {{ setSidebarActive(['admin.usulan-pelatihan.*','admin.usulan-pelatihan.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.usulan-pelatihan.index') }}">
             <i class="align-middle" data-feather="layout"></i>
@@ -66,7 +66,7 @@
         </li>
     @endif
 
-    @if (canAccess(['usulan ujikom index','usulan ujikom create','usulan ujikom update','usulan ujikom delete']))
+    @if (canAccess(['usulan ujikom view','usulan ujikom create','usulan ujikom update','usulan ujikom delete']))
         <li class="sidebar-item {{ setSidebarActive(['admin.usulan-ujikom.*','admin.usulan-ujikom.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.usulan-ujikom.index') }}">
             <i class="align-middle" data-feather="layout"></i>

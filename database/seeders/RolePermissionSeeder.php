@@ -32,7 +32,7 @@ class RolePermissionSeeder extends Seeder
             ),
             array(
                 "id" => 3,
-                "name" => "jenis pelatihan index",
+                "name" => "jenis pelatihan view",
                 "guard_name" => "admin",
                 "group" => "Jenis Pelatihan",
                 "created_at" => "2024-05-05 09:21:09",
@@ -64,7 +64,7 @@ class RolePermissionSeeder extends Seeder
             ),
             array(
                 "id" => 7,
-                "name" => "pelatihan index",
+                "name" => "pelatihan view",
                 "guard_name" => "admin",
                 "group" => "Pelatihan",
                 "created_at" => "2024-05-05 09:23:02",
@@ -96,7 +96,7 @@ class RolePermissionSeeder extends Seeder
             ),
             array(
                 "id" => 11,
-                "name" => "jenis ujikom index",
+                "name" => "jenis ujikom view",
                 "guard_name" => "admin",
                 "group" => "Jenis Ujikom",
                 "created_at" => "2024-05-05 09:25:44",
@@ -128,7 +128,7 @@ class RolePermissionSeeder extends Seeder
             ),
             array(
                 "id" => 15,
-                "name" => "ujikom index",
+                "name" => "ujikom view",
                 "guard_name" => "admin",
                 "group" => "Ujikom",
                 "created_at" => "2024-05-05 09:25:47",
@@ -160,7 +160,7 @@ class RolePermissionSeeder extends Seeder
             ),
             array(
                 "id" => 19,
-                "name" => "usulan pelatihan index",
+                "name" => "usulan pelatihan view",
                 "guard_name" => "admin",
                 "group" => "Usulan Pelatihan",
                 "created_at" => "2024-05-05 10:34:04",
@@ -192,7 +192,7 @@ class RolePermissionSeeder extends Seeder
             ),
             array(
                 "id" => 23,
-                "name" => "usulan ujikom index",
+                "name" => "usulan ujikom view",
                 "guard_name" => "admin",
                 "group" => "Usulan Ujikom",
                 "created_at" => "2024-05-05 10:35:05",

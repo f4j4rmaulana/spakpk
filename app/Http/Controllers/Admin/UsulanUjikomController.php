@@ -15,6 +15,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UsulanUjikomController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:usulan ujikom view'])->only('index','ajax','ajaxValidasi','ajaxNonValidasi','ajaxGetUsers','ajaxGetJenisUjikom','ajaxGetUjikom');
+        $this->middleware(['permission:usulan ujikom create'])->only('create','store');
+        $this->middleware(['permission:usulan ujikom update'])->only('edit','update');
+        $this->middleware(['permission:usulan ujikom delete'])->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -12,6 +12,12 @@ use App\Exports\UsulanPelatihanExport;
 
 class ExportController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:usulan pelatihan view|usulan ujikom view']);
+    }
+
     public function exportUsulanPelatihan(Request $request)
     {
         // Validasi input filter tanggal

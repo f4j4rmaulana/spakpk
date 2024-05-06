@@ -13,6 +13,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class RolePermissionController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:manajemen akses']);
+    }
+
     /**
      * Display a listing of the resource.
      */

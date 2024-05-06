@@ -10,6 +10,12 @@ use App\Imports\UsulanPelatihanImport;
 
 class ImportController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:usulan pelatihan view|usulan ujikom view']);
+    }
+
     public function importUsulanPelatihan(Request $request)
     {
         //dd($request->all());
