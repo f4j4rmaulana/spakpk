@@ -20,6 +20,21 @@ if(!function_exists('setSidebarActive')) {
     }
 }
 
+/** Check Permission */
+if(!function_exists('canAccess')) {
+    function canAccess(array $permissions): bool {
+
+        $permission = auth()->guard('admin')->user()->hasAnyPermission($permissions);
+        $superAdmin = auth()->guard('admin')->user()->hasAnyRole('Super Admin');
+
+        if($permission || $superAdmin) {
+            return true;
+        }
+
+        return false;
+    }
+}
+
 function check_nip_by_ldap($uname,$pass,$role="people"){
     $ldapConnection = new Connection([
         // Mandatory Configuration Options
