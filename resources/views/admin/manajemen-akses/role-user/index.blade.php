@@ -58,8 +58,9 @@
                     emptyTable: "Tidak ada data yang tersedia dalam tabel",
                 },
                 lengthMenu: [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
-                processing: false,
+                processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: "{{ route('admin.role-user.ajax') }}",
                 columns: [
                     {data: 'DT_RowIndex', name:'DT_RowIndex'},
@@ -69,6 +70,11 @@
                     {data: 'updated_at', name: 'updated_at'},
                     {data: 'action', name: 'action', orderable:false, searchable:false},
                 ]
+            });
+                        // Menambahkan event listener untuk menangani pembuatan ulang tabel setelah selesai memuat
+                        table.on('draw', function () {
+                // Debugging
+                console.log('Tabel diperbarui');
             });
         });
     </script>

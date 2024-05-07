@@ -33,7 +33,7 @@
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
                         </div>
                         <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Role</label>
+                            <label for="role" class="form-label">Role</label>
                             <select name="role" class="form-select">
                                     <option selected>Pilih Role</option>
                                         @foreach ($roles as $role)

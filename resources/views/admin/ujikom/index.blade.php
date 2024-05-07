@@ -69,8 +69,9 @@
                     emptyTable: "Tidak ada data yang tersedia dalam tabel",
                 },
                 lengthMenu: [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
-                processing: false,
+                processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: "{{ route('admin.ujikom.ajax') }}",
                 columns: [
                     {data: 'DT_RowIndex', name:'DT_RowIndex'},
@@ -88,6 +89,11 @@
                     .columns([1, 2]) // Indeks kolom 'nama' dan 'deskripsi'
                     .search(this.value)
                     .draw();
+            });
+                // Menambahkan event listener untuk menangani pembuatan ulang tabel setelah selesai memuat
+                table.on('draw', function () {
+                // Debugging
+                console.log('Tabel diperbarui');
             });
         });
     </script>

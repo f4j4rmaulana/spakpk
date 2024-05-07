@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\ProfileUpdateController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
 
@@ -104,6 +105,11 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::resource('role', RolePermissionController::class);
     Route::get('/role-user/ajax', [RoleUserController::class, 'ajax'])->name('role-user.ajax');
     Route::resource('role-user', RoleUserController::class);
+
+    /** Profile Update Route */
+    Route::post('profile/password-update', [ProfileUpdateController::class, 'passwordUpdate'])->name('profile.password-update');
+    Route::post('profile/update', [ProfileUpdateController::class, 'update'])->name('profile.update');
+    Route::get('profile', [ProfileUpdateController::class, 'index'])->name('profile.index');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');

@@ -152,8 +152,9 @@
                     emptyTable: "Tidak ada data yang tersedia dalam tabel",
                 },
                 lengthMenu: [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
-                processing: false,
+                processing: true,
                 serverSide: true,
+                responsive: true,
                 paging: true,
                 ajax: "{{ route('admin.usulan-ujikom.ajax') }}",
                 columns: [
@@ -185,6 +186,11 @@
             $('#tbl_usulan_ujikom tfoot .th').each(function() {
                 var title = $(this).text();
                 $(this).html('<input type="text" class="form-control shadow" placeholder="cari" />');
+            });
+                // Menambahkan event listener untuk menangani pembuatan ulang tabel setelah selesai memuat
+                table.on('draw', function () {
+                // Debugging
+                console.log('Tabel diperbarui');
             });
         });
     </script>

@@ -68,8 +68,9 @@
                     zeroRecords: 'Data tidak ditemukan',
                 },
                 lengthMenu: [[10, 100, 1000, -1], [10, 100, 1000, "Semua"]],
-                processing: false,
+                processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: "{{ route('admin.pelatihan.ajax') }}",
                 columns: [
                     {data: 'DT_RowIndex', name:'DT_RowIndex'},
