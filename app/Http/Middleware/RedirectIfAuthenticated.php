@@ -23,8 +23,10 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 if($guard === 'admin') {
                     return redirect(RouteServiceProvider::ADMIN_DASHBOARD);
+                }elseif($guard === 'ekt'){
+                    return redirect(RouteServiceProvider::EKSTERNAL_DASHBOARD);
                 }else{
-                    return redirect(RouteServiceProvider::HOME);
+                    return redirect(RouteServiceProvider::INTERNAL_DASHBOARD);
                 }
             }
         }

@@ -10,7 +10,7 @@
                     <h5 class="card-title mb-0">Form Edit Pelatihan</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.jenis-ujikom.update', $jenisUjikom->id) }}" method="POST">
+                    <form action="{{ route('admin.jenis-ujikom.update', Crypt::encryptstring($jenisUjikom->id)) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">

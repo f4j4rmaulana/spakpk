@@ -105,8 +105,9 @@ class JenisUjikomController extends Controller
         DB::beginTransaction();
 
         try {
-
-            $jenisUjikom = JenisUjikom::findOrFail($id);
+            
+            $decrypted = Crypt::decryptString($id);
+            $jenisUjikom = JenisUjikom::findOrFail($decrypted);
             $jenisUjikom->nama = strip_tags($request->nama);
             $jenisUjikom->deskripsi = strip_tags($request->deskripsi);
             $jenisUjikom->save();

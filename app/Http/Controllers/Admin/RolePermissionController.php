@@ -94,8 +94,8 @@ class RolePermissionController extends Controller
             'name' => ['required', 'max:50']
         ]);
 
-             /** Create Role */
-            $role = Role::findOrFail($id);
+            $decrypted = Crypt::decryptString($id);
+            $role = Role::findOrFail($decrypted);
             $role->update([
                 'guard_name' => 'admin',
                 'name' => $request->name

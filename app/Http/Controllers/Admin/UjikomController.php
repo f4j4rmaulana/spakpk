@@ -105,8 +105,9 @@ class UjikomController extends Controller
         DB::beginTransaction();
 
         try {
-
-            $ujikom = Ujikom::findOrFail($id);
+            
+            $decrypted = Crypt::decryptString($id);
+            $ujikom = Ujikom::findOrFail($decrypted);
             $ujikom->nama = strip_tags($request->nama);
             $ujikom->deskripsi = strip_tags($request->deskripsi);
             $ujikom->save();

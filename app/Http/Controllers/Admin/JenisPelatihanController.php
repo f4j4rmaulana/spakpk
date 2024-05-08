@@ -107,7 +107,8 @@ class JenisPelatihanController extends Controller
 
         try {
 
-            $jenisPelatihan = JenisPelatihan::findOrFail($id);
+            $decrypted = Crypt::decryptString($id);
+            $jenisPelatihan = JenisPelatihan::findOrFail($decrypted);
             $jenisPelatihan->nama = strip_tags($request->nama);
             $jenisPelatihan->deskripsi = strip_tags($request->deskripsi);
             $jenisPelatihan->save();

@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'ekt' => [
+            'driver' => 'session',
+            'provider' => 'ekts',
+        ],
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -67,6 +71,10 @@ return [
         'users' => [
             'driver' => 'ldap',
             'model' => LdapRecord\Models\OpenLDAP\User::class,
+        ],
+        'ekts' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
@@ -101,6 +109,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'ekts' => [
+            'provider' => 'ekts',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

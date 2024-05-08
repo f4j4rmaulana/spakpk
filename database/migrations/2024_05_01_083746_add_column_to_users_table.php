@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('image')->default('/gambar/pengguna/avatar.png');
             $table->string('username')->unique()->nullable();
             $table->enum('role',['internal', 'eksternal'])->default('internal');
-            $table->string('idnumber')->unique()->nullable();
+            $table->string('nomor_id')->unique()->nullable();
             $table->string('instansi')->nullable();
             $table->string('unit_kerja')->nullable();
             $table->string('jabatan')->nullable();

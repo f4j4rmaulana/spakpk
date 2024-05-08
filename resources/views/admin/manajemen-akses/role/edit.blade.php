@@ -10,7 +10,7 @@
                     <h5 class="card-title mb-0">Form Update Role dan Permission</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.role.update', $role->id) }}" method="POST">
+                    <form action="{{ route('admin.role.update', Crypt::encryptstring($role->id)) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">

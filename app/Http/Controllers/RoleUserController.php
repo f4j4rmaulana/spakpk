@@ -88,7 +88,8 @@ class RoleUserController extends Controller
             'role' => ['required']
         ]);
 
-        $admin = Admin::findOrFail($id);
+        $decrypted = Crypt::decryptString($id);
+        $admin = Admin::findOrFail($decrypted);
         $admin->name = $request->name;
         $admin->email = $request->email;
         if($request->password) $admin->password = bcrypt($request->password);

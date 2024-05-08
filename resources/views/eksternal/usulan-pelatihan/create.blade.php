@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('eksternal.layouts.master')
 
 @push('custom-styles')
     <link href="{{ asset('backend/assets/plugin/select2-4.1.0-rc.0/dist/css/select2.min.css') }}" rel="stylesheet" />
@@ -13,23 +13,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Form Edit Usulan Pelatihan</h5>
+                    <h5 class="card-title mb-0">Buat Usulan Pelatihan</h5>
                 </div>
                 <div class="card-body">
-                        <form action="{{ route('admin.usulan-pelatihan.update', Crypt::encryptstring($usulanPelatihan->id)) }}" method="POST">
+                        <form action="{{ route('eksternal.usulan-pelatihan.store') }}" method="POST">
                             @csrf
-                            @method('PUT')
-                                <div class="mb-3">
-                                    <label for="user_id"> Nama Pengusul <span class="text-danger ">*</span></label>
-                                    {{-- select2 css .select2-container--bootstrap-5{display:block;width: 100% !important;} --}}
-                                    <select name="user_id" id="user_id" class="form-control form-control-lg" disabled>
-                                            <option value="{{ $usulanPelatihan->id }}">
-                                                {{ $usulanPelatihan->usulanUser->name }} - {{ $usulanPelatihan->usulanUser->instansi }} ({{ $usulanPelatihan->usulanUser->nomor_id }})
-                                            </option>
-                                    </select>
-
-                                    <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
-                                </div>
                                 <div class="mb-3">
                                     <label for="jenis_pelatihan_id"> Pilih Jenis Pelatihan <span class="text-danger ">*</span></label>
                                     <select name="jenis_pelatihan_id" id="jenis_pelatihan_id" class="form-control form-control-lg {{ hasError($errors, 'jenis_pelatihan_id') }}" >
@@ -44,7 +32,7 @@
                                 </div>
                                 <div id="usulan_lainnya" class="mb-3"></div>
                                 <div class="mb-3 d-flex justify-content-end gap-1">
-                                    <a href="{{ route('admin.usulan-pelatihan.index') }}" class="btn btn-link shadow-none" role="button">Batal</a>
+                                    <a href="{{ route('eksternal.usulan-pelatihan.index') }}" class="btn btn-link shadow-none" role="button">Batal</a>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                         </form>
@@ -58,75 +46,6 @@
 @endsection
 
 @push('custom-script')
-{{-- <script>
-    $(document).ready(function(){
-        $('#user_id').select2({
-            theme: 'bootstrap-5',
-            minimumInputLength:2,
-            // placeholder:'Pilih Pengusul',
-            ajax:{
-                url:'/admin/usulan-pelatihan/ajax-get-users',
-                dataType:'json',
-                data: (params) => {
-                    let query = {
-                        search: params.term,
-                        page: params.page || 1,
-                    };
-                    return query;
-                },
-                processResults:data=>{
-                    return {
-                        results:data.data.map(res=>{
-                            return {id:res.id, text:res.name, instansi:res.instansi, idnumber:res.idnumber};
-                        }),
-                        pagination: {
-                            more: data.current_page < data.last_page,
-                        },
-                    }
-                }
-            },
-            data: [{
-                id: '{{ $usulanPelatihan->usulanUser->id }}',
-                text: '{{ $usulanPelatihan->usulanUser->name }} - {{ $usulanPelatihan->usulanUser->instansi }} ({{ $usulanPelatihan->usulanUser->idnumber }})'
-            }],
-            language: {
-                inputTooShort: function () {
-                    return "Ketikkan minimal 2 karakter untuk mencari pengguna";
-                },
-                searching: function () {
-                return "Sedang mencari...";
-                },
-                noResults: function () {
-                    return "Data tidak ditemukan";
-                },
-                errorLoading: function() {
-                return "Hasil data tidak dapat ditampilkan";
-                }
-            },
-            templateResult: formatUser, // Menentukan bagaimana setiap opsi ditampilkan
-            templateSelection: formatUserSelection // Menentukan bagaimana nilai yang dipilih ditampilkan
-        });
-    });
-
-    // Fungsi untuk menampilkan ID dan instansi sebagai informasi tambahan dalam setiap opsi
-    function formatUser (user) {
-        if (!user.id) { return user.text; }
-        var $user = $(
-            '<span>' + user.text + ' - ' + user.instansi + ' (' + user.idnumber + ')</span>'
-        );
-        return $user;
-    }
-
-    // Fungsi untuk menampilkan nilai yang dipilih dengan format yang benar
-    function formatUserSelection (user) {
-        if (!user.id) { return user.text; }
-        var $user = $(
-            '<span>' + user.text + ' - ' + user.instansi + ' (' + user.idnumber + ')</span>'
-        );
-        return $user;
-    }
-</script> --}}
-
 <script>
     $(document).ready(function(){
         $('#jenis_pelatihan_id').select2({
@@ -134,7 +53,7 @@
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:'/admin/usulan-pelatihan/ajax-get-jenis-pelatihan',
+                url:route('eksternal.usulan-pelatihan.ajaxGetJenisPelatihan'),
                 dataType:'json',
                 processResults:data=>{
                     return {
@@ -153,6 +72,9 @@
                 },
                 noResults: function () {
                     return "Data tidak ditemukan";
+                },
+                errorLoading: function() {
+                return "Hasil data tidak dapat ditampilkan";
                 }
             },
             templateResult: formatJenisPelatihan, // Menentukan bagaimana setiap opsi ditampilkan
@@ -186,7 +108,7 @@
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:'/admin/usulan-pelatihan/ajax-get-pelatihan',
+                url:route('eksternal.usulan-pelatihan.ajaxGetPelatihan'),
                 dataType:'json',
                 processResults:data=>{
                     return {
@@ -205,6 +127,9 @@
                 },
                 noResults: function () {
                     return "Data tidak ditemukan";
+                },
+                errorLoading: function() {
+                return "Hasil data tidak dapat ditampilkan";
                 }
             },
             templateResult: formatPelatihan, // Menentukan bagaimana setiap opsi ditampilkan

@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         /** Check akses jika user mengakses dari halaman admin maka input username pasti kosong dan menjadikan email yang divalidasi dan sebaliknya */
-        if($this->username === null) {
+        if(!isset($this->username)) {
             return [
                 'email' => ['required', 'string'],
                 'password' => ['required', 'string'],
@@ -50,7 +50,7 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         /** Jika sudah sampai sini maka bisa menggunakan validasi guard = admin, sehingga credential menggunakan email */
-        if ($guard == 'admin') {
+        if ($guard) {
             $credentials = [
                 'email' => $this->email,
                 'password' => $this->password,

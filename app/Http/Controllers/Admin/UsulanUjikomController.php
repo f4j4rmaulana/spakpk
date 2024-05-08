@@ -111,8 +111,8 @@ class UsulanUjikomController extends Controller
         DB::beginTransaction();
 
         try {
-
-            $usulanUjikom = UsulanUjikom::findOrFail($id);
+            $decrypted = Crypt::decryptString($id);
+            $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
             // $usulanUjikom->user_id = strip_tags($request->user_id);
             $usulanUjikom->jenis_ujikom_id = strip_tags($request->jenis_ujikom_id);
             $usulanUjikom->ujikom_id = strip_tags($request->ujikom_id);
@@ -172,7 +172,9 @@ class UsulanUjikomController extends Controller
     }
 
     public function ajaxValidasi($data) {
-        $usulanUjikom = UsulanUjikom::findOrFail($data);
+
+        $decrypted = Crypt::decryptString($data);
+        $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
 
         $usulanUjikom->update([
             'status' => 'Validasi'
@@ -182,7 +184,9 @@ class UsulanUjikomController extends Controller
     }
 
     public function ajaxNonValidasi($data) {
-        $usulanUjikom = UsulanUjikom::findOrFail($data);
+
+        $decrypted = Crypt::decryptString($data);
+        $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
 
         $usulanUjikom->update([
             'status' => 'Belum Validasi'
@@ -208,8 +212,8 @@ class UsulanUjikomController extends Controller
             })
             ->addColumn('action', function ($action) {
                 $url_edit = route('admin.usulan-ujikom.edit', Crypt::encryptString($action->id));
-                $url_validasi = route('admin.usulan-ujikom.ajaxValidasi',$action->id);
-                $url_nonvalidasi = route('admin.usulan-ujikom.ajaxNonValidasi', $action->id);
+                $url_validasi = route('admin.usulan-ujikom.ajaxValidasi',Crypt::encryptString($action->id));
+                $url_nonvalidasi = route('admin.usulan-ujikom.ajaxNonValidasi', Crypt::encryptString($action->id));
                 $url_delete = route('admin.usulan-ujikom.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Validasi') {
                     $btn = '

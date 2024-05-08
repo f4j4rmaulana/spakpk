@@ -114,7 +114,8 @@ class UsulanPelatihanController extends Controller
 
         try {
 
-            $usulanPelatihan = UsulanPelatihan::findOrFail($id);
+            $decrypted = Crypt::decryptString($id);
+            $usulanPelatihan = UsulanPelatihan::findOrFail($decrypted);
             // $usulanPelatihan->user_id = strip_tags($request->user_id);
             $usulanPelatihan->jenis_pelatihan_id = strip_tags($request->jenis_pelatihan_id);
             $usulanPelatihan->pelatihan_id = strip_tags($request->pelatihan_id);
@@ -175,7 +176,9 @@ class UsulanPelatihanController extends Controller
 
 
     public function ajaxValidasi($data) {
-        $usulanPelatihan = UsulanPelatihan::findOrFail($data);
+        
+        $decrypted = Crypt::decryptString($data);
+        $usulanPelatihan = UsulanPelatihan::findOrFail($decrypted);
 
         $usulanPelatihan->update([
             'status' => 'Validasi'
@@ -185,7 +188,9 @@ class UsulanPelatihanController extends Controller
     }
 
     public function ajaxNonValidasi($data) {
-        $usulanPelatihan = UsulanPelatihan::findOrFail($data);
+
+            $decrypted = Crypt::decryptString($data);
+            $usulanPelatihan = UsulanPelatihan::findOrFail($decrypted);
 
         $usulanPelatihan->update([
             'status' => 'Belum Validasi'
@@ -211,8 +216,8 @@ class UsulanPelatihanController extends Controller
             })
             ->addColumn('action', function ($action) {
                 $url_edit = route('admin.usulan-pelatihan.edit', Crypt::encryptString($action->id));
-                $url_validasi = route('admin.usulan-pelatihan.ajaxValidasi',$action->id);
-                $url_nonvalidasi = route('admin.usulan-pelatihan.ajaxNonValidasi', $action->id);
+                $url_validasi = route('admin.usulan-pelatihan.ajaxValidasi',Crypt::encryptString($action->id));
+                $url_nonvalidasi = route('admin.usulan-pelatihan.ajaxNonValidasi', Crypt::encryptString($action->id));
                 $url_delete = route('admin.usulan-pelatihan.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Validasi') {
                     $btn = '

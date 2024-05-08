@@ -106,8 +106,9 @@ class PelatihanController extends Controller
         DB::beginTransaction();
 
         try {
-
-            $pelatihan = Pelatihan::findOrFail($id);
+            
+            $decrypted = Crypt::decryptString($id);
+            $pelatihan = Pelatihan::findOrFail($decrypted);
             $pelatihan->nama = strip_tags($request->nama);
             $pelatihan->deskripsi = strip_tags($request->deskripsi);
             $pelatihan->save();
