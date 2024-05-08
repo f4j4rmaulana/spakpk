@@ -21,8 +21,8 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ setSidebarActive(['admin.usulan-ujikom.*','admin.usulan-ujikom.index']) }}">
-                <a class="sidebar-link" href="{{ route('admin.usulan-ujikom.index') }}">
+            <li class="sidebar-item {{ setSidebarActive(['eksternal.usulan-ujikom.*','eksternal.usulan-ujikom.index']) }}">
+                <a class="sidebar-link" href="{{ route('eksternal.usulan-ujikom.index') }}">
                 <i class="align-middle" data-feather="layout"></i>
                 <span class="align-middle">Usulan Ujikom</span>
                 </a>

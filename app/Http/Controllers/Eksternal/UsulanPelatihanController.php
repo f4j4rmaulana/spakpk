@@ -133,12 +133,12 @@ class UsulanPelatihanController extends Controller
             $usulanPelatihan->delete();
             DB::commit();
             toast('Usulan pelatihan berhasil dihapus!','success');
-            return redirect()->route('admin.usulan-pelatihan.index');
+            return redirect()->route('eksternal.usulan-pelatihan.index');
         }catch(\Exception $e) {
             DB::rollback();
             logger($e);
             toast('Error hapus data!','error');
-            return redirect()->route('admin.usulan-pelatihan.index');
+            return redirect()->route('eksternal.usulan-pelatihan.index');
         }
     }
 

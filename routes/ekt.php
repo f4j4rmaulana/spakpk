@@ -13,6 +13,7 @@ use App\Http\Controllers\Eksternal\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Eksternal\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Ekt\DashboardController as EktDashboardController;
 use App\Http\Controllers\Eksternal\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Eksternal\UsulanUjikomController;
 
 Route::group(['middleware' => ['guest:ekt'], 'prefix' => 'eksternal', 'as' => 'eksternal.'],function () {
 
@@ -49,6 +50,12 @@ Route::group(['middleware' => ['auth:ekt'], 'prefix' => 'eksternal', 'as' => 'ek
     Route::get('/usulan-pelatihan/ajax-get-pelatihan', [UsulanPelatihanController::class, 'ajaxGetPelatihan'])->name('usulan-pelatihan.ajaxGetPelatihan');
     Route::get('/usulan-pelatihan/ajax', [UsulanPelatihanController::class, 'ajax'])->name('usulan-pelatihan.ajax');
     Route::resource('usulan-pelatihan', UsulanPelatihanController::class);
+
+    /** Usulan Ujikom Route */
+    Route::get('/usulan-ujikom/ajax-get-jenis-ujikom', [UsulanUjikomController::class, 'ajaxGetJenisUjikom'])->name('usulan-ujikom.ajaxGetJenisUjikom');
+    Route::get('/usulan-ujikom/ajax-get-ujikom', [UsulanUjikomController::class, 'ajaxGetUjikom'])->name('usulan-ujikom.ajaxGetUjikom');
+    Route::get('/usulan-ujikom/ajax', [UsulanUjikomController::class, 'ajax'])->name('usulan-ujikom.ajax');
+    Route::resource('usulan-ujikom', UsulanUjikomController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');

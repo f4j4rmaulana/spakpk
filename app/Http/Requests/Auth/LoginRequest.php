@@ -83,9 +83,15 @@ class LoginRequest extends FormRequest
         if (! Auth::guard($guard)->attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
-            throw ValidationException::withMessages([
-                'username' => trans('auth.failed'),
-            ]);
+            if ($guard) {
+                throw ValidationException::withMessages([
+                    'email' => trans('auth.failed'),
+                ]);
+            }else{
+                throw ValidationException::withMessages([
+                    'username' => trans('auth.failed'),
+                ]);
+            }
         }
 
         RateLimiter::clear($this->throttleKey());
@@ -106,12 +112,21 @@ class LoginRequest extends FormRequest
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
-        throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
-        ]);
+        if (!isset($this->username)) {
+            throw ValidationException::withMessages([
+                'email' => trans('auth.throttle', [
+                    'seconds' => $seconds,
+                    'minutes' => ceil($seconds / 60),
+                ]),
+            ]);
+        }else{
+            throw ValidationException::withMessages([
+                'username' => trans('auth.throttle', [
+                    'seconds' => $seconds,
+                    'minutes' => ceil($seconds / 60),
+                ]),
+            ]);
+        }
     }
 
     /**
@@ -119,6 +134,10 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        if (!isset($this->username)) {
+            return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        }else{
+            return Str::transliterate(Str::lower($this->string('username')).'|'.$this->ip());
+        }
     }
 }
