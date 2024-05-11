@@ -15,7 +15,8 @@ class ExportController extends Controller
 
     function __construct()
     {
-        $this->middleware(['permission:usulan pelatihan view|usulan ujikom view']);
+        $this->middleware(['permission:usulan pelatihan create'])->only('exportUsulanPelatihan');
+        $this->middleware(['permission:usulan ujikom create'])->only('exportUsulanUjikom');
     }
 
     public function exportUsulanPelatihan(Request $request)

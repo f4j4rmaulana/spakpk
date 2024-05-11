@@ -61,7 +61,7 @@
         <li class="sidebar-item {{ setSidebarActive(['admin.usulan-pelatihan.*','admin.usulan-pelatihan.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.usulan-pelatihan.index') }}">
             <i class="align-middle" data-feather="layout"></i>
-            <span class="align-middle">Usulan Bangkom</span>
+            <span class="align-middle">Usulan Pelatihan</span>
             </a>
         </li>
     @endif
