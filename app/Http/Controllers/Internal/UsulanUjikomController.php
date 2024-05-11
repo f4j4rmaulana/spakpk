@@ -1,36 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\Eksternal;
+namespace App\Http\Controllers\Internal;
 
-use App\Models\Pelatihan;
-use Illuminate\View\View;
+use App\Models\Ujikom;
+use App\Models\JenisUjikom;
+use App\Models\UsulanUjikom;
 use Illuminate\Http\Request;
-use App\Models\JenisPelatihan;
-use App\Models\UsulanPelatihan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
-class UsulanPelatihanController extends Controller
+class UsulanUjikomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index()
     {
-        $titles = 'Daftar Usulan Pelatihan';
-        return view('eksternal.usulan-pelatihan.index', compact('titles'));
+        $titles = 'Daftar Usulan Uji Kompetensi';
+        return view('internal.usulan-ujikom.index', compact('titles'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create()
     {
-        $titles = 'Buat Usulan Pelatihan';
-        return view('eksternal.usulan-pelatihan.create', compact('titles'));
+        $titles = 'Buat Usulan Uji Kompetensi';
+        return view('internal.usulan-ujikom.create', compact('titles'));
     }
 
     /**
@@ -40,29 +39,29 @@ class UsulanPelatihanController extends Controller
     {
         $request->validate(
             [
-                'jenis_pelatihan_id' => ['required','exists:jenis_pelatihans,id'],
-                'pelatihan_id' => ['required','exists:pelatihans,id'],
+                'jenis_ujikom_id' => ['required','exists:jenis_ujikoms,id'],
+                'ujikom_id' => ['required','exists:ujikoms,id'],
         ]);
 
         DB::beginTransaction();
 
         try {
 
-            $usulanPelatihan = new UsulanPelatihan();
-            $usulanPelatihan->user_id = strip_tags(auth()->guard('ekt')->user()->id);
-            $usulanPelatihan->jenis_pelatihan_id = strip_tags($request->jenis_pelatihan_id);
-            $usulanPelatihan->pelatihan_id = strip_tags($request->pelatihan_id);
-            $usulanPelatihan->usulan_lainnya = strip_tags($request->usulan_lainnya);
-            $usulanPelatihan->save();
+            $usulanUjikom = new UsulanUjikom();
+            $usulanUjikom->user_id = strip_tags(auth()->user()->id);
+            $usulanUjikom->jenis_ujikom_id = strip_tags($request->jenis_ujikom_id);
+            $usulanUjikom->ujikom_id = strip_tags($request->ujikom_id);
+            $usulanUjikom->usulan_lainnya = strip_tags($request->usulan_lainnya);
+            $usulanUjikom->save();
             DB::commit();
-            toast('Usulan pelatihan anda berhasil diajukan!','success');
-            return to_route('eksternal.usulan-pelatihan.index');
+            toast('Usulan ujikom anda berhasil diajukan!','success');
+            return to_route('internal.usulan-ujikom.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error pengajuan data usulan!','error');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            return redirect()->route('internal.usulan-ujikom.index');
 
         }
     }
@@ -81,9 +80,9 @@ class UsulanPelatihanController extends Controller
     public function edit(string $id)
     {
         $decrypted = Crypt::decryptString($id);
-        $usulanPelatihan = UsulanPelatihan::findOrFail($decrypted);
-        $titles = 'Edit Usulan Pelatihan';
-        return view('eksternal.usulan-pelatihan.edit', compact('titles', 'usulanPelatihan'));
+        $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
+        $titles = 'Edit Usulan Ujikom';
+        return view('internal.usulan-ujikom.edit', compact('titles', 'usulanUjikom'));
     }
 
     /**
@@ -93,8 +92,8 @@ class UsulanPelatihanController extends Controller
     {
         $request->validate(
             [
-                'jenis_pelatihan_id' => ['required','exists:jenis_pelatihans,id'],
-                'pelatihan_id' => ['required','exists:pelatihans,id'],
+                'jenis_ujikom_id' => ['required','exists:jenis_ujikoms,id'],
+                'ujikom_id' => ['required','exists:ujikoms,id'],
         ]);
 
         DB::beginTransaction();
@@ -102,20 +101,20 @@ class UsulanPelatihanController extends Controller
         try {
 
             $decrypted = Crypt::decryptString($data);
-            $usulanPelatihan = UsulanPelatihan::findOrFail($decrypted);
-            $usulanPelatihan->jenis_pelatihan_id = strip_tags($request->jenis_pelatihan_id);
-            $usulanPelatihan->pelatihan_id = strip_tags($request->pelatihan_id);
-            $usulanPelatihan->usulan_lainnya = strip_tags($request->usulan_lainnya);
-            $usulanPelatihan->update();
+            $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
+            $usulanUjikom->jenis_ujikom_id = strip_tags($request->jenis_ujikom_id);
+            $usulanUjikom->ujikom_id = strip_tags($request->ujikom_id);
+            $usulanUjikom->usulan_lainnya = strip_tags($request->usulan_lainnya);
+            $usulanUjikom->update();
             DB::commit();
-            toast('Usulan pelatihan anda berhasil diupdate!','success');
-            return to_route('eksternal.usulan-pelatihan.index');
+            toast('Usulan ujikom anda berhasil diupdate!','success');
+            return to_route('internal.usulan-ujikom.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error update data usulan!','error');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            return redirect()->route('internal.usulan-ujikom.index');
 
         }
     }
@@ -129,35 +128,35 @@ class UsulanPelatihanController extends Controller
 
         try {
             $decrypted = Crypt::decryptString($id);
-            $usulanPelatihan = UsulanPelatihan::with('usulanUser')->findOrFail($decrypted);
-            $usulanPelatihan->delete();
+            $usulanUjikom = UsulanUjikom::with('usulanUser')->findOrFail($decrypted);
+            $usulanUjikom->delete();
             DB::commit();
-            toast('Usulan pelatihan berhasil dihapus!','success');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            toast('Usulan ujikom berhasil dihapus!','success');
+            return redirect()->route('internal.usulan-ujikom.index');
         }catch(\Exception $e) {
             DB::rollback();
             logger($e);
             toast('Error hapus data!','error');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            return redirect()->route('internal.usulan-ujikom.index');
         }
     }
 
-    public function ajaxGetJenisPelatihan(Request $request) {
-        $jenisPelatihan = JenisPelatihan::where('nama', 'like', '%' . $request->q . '%')->where('status', 'aktif')->get();
-        return response()->json($jenisPelatihan, 200);
+    public function ajaxGetJenisUjikom(Request $request) {
+        $jenisUjikom = JenisUjikom::where('nama', 'like', '%' . $request->q . '%')->where('status', 'aktif')->get();
+        return response()->json($jenisUjikom, 200);
     }
 
-    public function ajaxGetPelatihan(Request $request) {
-        $pelatihan = Pelatihan::where('nama', 'like', '%' . $request->q . '%')
+    public function ajaxGetUjikom(Request $request) {
+        $ujikom = Ujikom::where('nama', 'like', '%' . $request->q . '%')
                                 ->where('status', 'aktif')
                                 ->get();
-        return response()->json($pelatihan, 200);
+        return response()->json($ujikom, 200);
     }
 
     // Ajax Datatable
     public function ajax() {
-        $user = Auth::guard('ekt')->user();
-        $data = UsulanPelatihan::with('usulanUser', 'usulanJenisPelatihan', 'usulanPelatihan')
+        $user = Auth::user();
+        $data = UsulanUjikom::with('usulanUser', 'usulanJenisUjikom', 'usulanUjikom')
             ->where('user_id', $user->id) // Menggunakan id pengguna saat ini
             ->latest()
             ->get();
@@ -174,12 +173,12 @@ class UsulanPelatihanController extends Controller
                 return $info;
             })
             ->addColumn('action', function ($action) {
-                $url_edit = route('eksternal.usulan-pelatihan.edit', Crypt::encryptString($action->id));
-                $url_delete = route('eksternal.usulan-pelatihan.destroy', Crypt::encryptString($action->id));
+                $url_edit = route('internal.usulan-ujikom.edit', Crypt::encryptString($action->id));
+                $url_delete = route('internal.usulan-ujikom.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Validasi') {
                     $btn = '
                     <div class="d-flex flex-row gap-2">
-                        <a href="' . $url_edit . '" title="Edit Jenis Pelatihan">
+                        <a href="' . $url_edit . '" title="Edit Jenis Ujikom">
                         <span class="material-symbols-outlined btn btn-primary btn-sm">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'

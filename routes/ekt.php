@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Eksternal\DashboardController;
+use App\Http\Controllers\Eksternal\UsulanUjikomController;
 use App\Http\Controllers\Eksternal\Auth\PasswordController;
+use App\Http\Controllers\Eksternal\ProfileUpdateController;
 use App\Http\Controllers\Eksternal\UsulanPelatihanController;
 use App\Http\Controllers\Eksternal\Auth\NewPasswordController;
 use App\Http\Controllers\Eksternal\Auth\VerifyEmailController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\Eksternal\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Eksternal\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Ekt\DashboardController as EktDashboardController;
 use App\Http\Controllers\Eksternal\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Eksternal\UsulanUjikomController;
 
 Route::group(['middleware' => ['guest:ekt'], 'prefix' => 'eksternal', 'as' => 'eksternal.'],function () {
 
@@ -56,6 +57,11 @@ Route::group(['middleware' => ['auth:ekt'], 'prefix' => 'eksternal', 'as' => 'ek
     Route::get('/usulan-ujikom/ajax-get-ujikom', [UsulanUjikomController::class, 'ajaxGetUjikom'])->name('usulan-ujikom.ajaxGetUjikom');
     Route::get('/usulan-ujikom/ajax', [UsulanUjikomController::class, 'ajax'])->name('usulan-ujikom.ajax');
     Route::resource('usulan-ujikom', UsulanUjikomController::class);
+
+    /** Profile Update Route */
+    Route::post('profile/password-update', [ProfileUpdateController::class, 'passwordUpdate'])->name('profile.password-update');
+    Route::post('profile/update', [ProfileUpdateController::class, 'update'])->name('profile.update');
+    Route::get('profile', [ProfileUpdateController::class, 'index'])->name('profile.index');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');

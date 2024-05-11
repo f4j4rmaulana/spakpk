@@ -23,8 +23,8 @@
         <span class="text-dark">{{ auth()->guard('ekt')->user()->name }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-        <a class="dropdown-item" href="#"
-            ><i class="align-middle me-1" data-feather="user"></i>Profile</a>
+        <a class="dropdown-item" href="{{ route('eksternal.profile.index') }}" >
+            <i class="align-middle me-1" data-feather="user"></i>Profile</a>
             <div class="dropdown-divider"></div>
              <!-- Authentication -->
             <form method="POST" action="{{ auth()->guard('ekt')->check() ? route('eksternal.logout') : route('logout') }}">

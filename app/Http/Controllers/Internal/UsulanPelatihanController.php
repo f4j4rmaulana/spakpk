@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Eksternal;
+namespace App\Http\Controllers\Internal;
 
 use App\Models\Pelatihan;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\JenisPelatihan;
 use App\Models\UsulanPelatihan;
@@ -18,19 +17,19 @@ class UsulanPelatihanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index()
     {
         $titles = 'Daftar Usulan Pelatihan';
-        return view('eksternal.usulan-pelatihan.index', compact('titles'));
+        return view('internal.usulan-pelatihan.index', compact('titles'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create()
     {
         $titles = 'Buat Usulan Pelatihan';
-        return view('eksternal.usulan-pelatihan.create', compact('titles'));
+        return view('internal.usulan-pelatihan.create', compact('titles'));
     }
 
     /**
@@ -49,20 +48,20 @@ class UsulanPelatihanController extends Controller
         try {
 
             $usulanPelatihan = new UsulanPelatihan();
-            $usulanPelatihan->user_id = strip_tags(auth()->guard('ekt')->user()->id);
+            $usulanPelatihan->user_id = strip_tags(auth()->user()->id);
             $usulanPelatihan->jenis_pelatihan_id = strip_tags($request->jenis_pelatihan_id);
             $usulanPelatihan->pelatihan_id = strip_tags($request->pelatihan_id);
             $usulanPelatihan->usulan_lainnya = strip_tags($request->usulan_lainnya);
             $usulanPelatihan->save();
             DB::commit();
             toast('Usulan pelatihan anda berhasil diajukan!','success');
-            return to_route('eksternal.usulan-pelatihan.index');
+            return to_route('internal.usulan-pelatihan.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error pengajuan data usulan!','error');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            return redirect()->route('internal.usulan-pelatihan.index');
 
         }
     }
@@ -83,7 +82,7 @@ class UsulanPelatihanController extends Controller
         $decrypted = Crypt::decryptString($id);
         $usulanPelatihan = UsulanPelatihan::findOrFail($decrypted);
         $titles = 'Edit Usulan Pelatihan';
-        return view('eksternal.usulan-pelatihan.edit', compact('titles', 'usulanPelatihan'));
+        return view('internal.usulan-pelatihan.edit', compact('titles', 'usulanPelatihan'));
     }
 
     /**
@@ -109,13 +108,13 @@ class UsulanPelatihanController extends Controller
             $usulanPelatihan->update();
             DB::commit();
             toast('Usulan pelatihan anda berhasil diupdate!','success');
-            return to_route('eksternal.usulan-pelatihan.index');
+            return to_route('internal.usulan-pelatihan.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error update data usulan!','error');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            return redirect()->route('internal.usulan-pelatihan.index');
 
         }
     }
@@ -133,12 +132,12 @@ class UsulanPelatihanController extends Controller
             $usulanPelatihan->delete();
             DB::commit();
             toast('Usulan pelatihan berhasil dihapus!','success');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            return redirect()->route('internal.usulan-pelatihan.index');
         }catch(\Exception $e) {
             DB::rollback();
             logger($e);
             toast('Error hapus data!','error');
-            return redirect()->route('eksternal.usulan-pelatihan.index');
+            return redirect()->route('internal.usulan-pelatihan.index');
         }
     }
 
@@ -156,7 +155,7 @@ class UsulanPelatihanController extends Controller
 
     // Ajax Datatable
     public function ajax() {
-        $user = Auth::guard('ekt')->user();
+        $user = Auth::user();
         $data = UsulanPelatihan::with('usulanUser', 'usulanJenisPelatihan', 'usulanPelatihan')
             ->where('user_id', $user->id) // Menggunakan id pengguna saat ini
             ->latest()
@@ -174,8 +173,8 @@ class UsulanPelatihanController extends Controller
                 return $info;
             })
             ->addColumn('action', function ($action) {
-                $url_edit = route('eksternal.usulan-pelatihan.edit', Crypt::encryptString($action->id));
-                $url_delete = route('eksternal.usulan-pelatihan.destroy', Crypt::encryptString($action->id));
+                $url_edit = route('internal.usulan-pelatihan.edit', Crypt::encryptString($action->id));
+                $url_delete = route('internal.usulan-pelatihan.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Validasi') {
                     $btn = '
                     <div class="d-flex flex-row gap-2">
