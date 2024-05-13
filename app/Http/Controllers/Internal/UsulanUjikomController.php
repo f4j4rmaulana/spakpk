@@ -14,6 +14,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UsulanUjikomController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('cek.akses:Akses Usulan Ujikom')->except('index', 'ajax');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -14,6 +14,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UsulanPelatihanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('cek.akses:Akses Usulan Pelatihan')->except('index', 'ajax');
+    }
+    
     /**
      * Display a listing of the resource.
      */

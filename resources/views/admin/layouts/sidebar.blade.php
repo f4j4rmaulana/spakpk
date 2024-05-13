@@ -91,6 +91,13 @@
             <span class="align-middle">Role User</span>
           </a>
         </li>
+
+        <li class="sidebar-item {{ setSidebarActive(['admin.pengaturan.*','admin.pengaturan.index']) }}">
+            <a class="sidebar-link" href="{{ route('admin.pengaturan.index') }}">
+            <i class="align-middle" data-feather="user"></i>
+            <span class="align-middle">Pengaturan</span>
+          </a>
+        </li>
     @endif
 
     </ul>

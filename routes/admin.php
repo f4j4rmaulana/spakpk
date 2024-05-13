@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pengaturan;
 use App\Models\JenisUjikom;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TestController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Admin\UjikomController;
 use App\Http\Controllers\Admin\RoleUserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PelatihanController;
+use App\Http\Controllers\Admin\PengaturanController;
 use App\Http\Controllers\Admin\JenisUjikomController;
 use App\Http\Controllers\Admin\UsulanUjikomController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
@@ -25,7 +27,6 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
-
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
 
@@ -111,6 +112,11 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::post('profile/password-update', [ProfileUpdateController::class, 'passwordUpdate'])->name('profile.password-update');
     Route::post('profile/update', [ProfileUpdateController::class, 'update'])->name('profile.update');
     Route::get('profile', [ProfileUpdateController::class, 'index'])->name('profile.index');
+
+    /** Pengaturan Route */
+    Route::get('/pengaturan/ajax/open/{id}', [PengaturanController::class, 'ajaxOpen'])->name('pengaturan.ajaxOpen');
+    Route::get('/pengaturan/ajax/close/{id}', [PengaturanController::class, 'ajaxClose'])->name('pengaturan.ajaxClose');
+    Route::get('pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
