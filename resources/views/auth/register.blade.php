@@ -41,12 +41,12 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-         <!-- Idnumber -->
+         <!-- nomor_id -->
          <div class="mt-4">
             <div>
-                <x-input-label for="idnumber" :value="__('Nomor Identitas (NIP/NIK)')" />
-                <x-text-input id="idnumber" class="block mt-1 w-full" type="text" name="idnumber" :value="old('idnumber')" required autofocus autocomplete="idnumber" />
-                <x-input-error :messages="$errors->get('idnumber')" class="mt-2" />
+                <x-input-label for="nomor_id" :value="__('Nomor Identitas (NIP/NIK)')" />
+                <x-text-input id="nomor_id" class="block mt-1 w-full" type="text" name="nomor_id" :value="old('nomor_id')" required autofocus autocomplete="nomor_id" />
+                <x-input-error :messages="$errors->get('nomor_id')" class="mt-2" />
             </div>
 
         <!-- Instansi -->

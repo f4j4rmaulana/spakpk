@@ -15,6 +15,9 @@ use App\Http\Controllers\Eksternal\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Eksternal\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Ekt\DashboardController as EktDashboardController;
 use App\Http\Controllers\Eksternal\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Eksternal\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Eksternal\Admin\UsulanPelatihanController as AdminUsulanPelatihanController;
+use App\Http\Controllers\Eksternal\Admin\UsulanUjikomController as AdminUsulanUjikomController;
 
 Route::group(['middleware' => ['guest:ekt'], 'prefix' => 'eksternal', 'as' => 'eksternal.'],function () {
 
@@ -65,4 +68,21 @@ Route::group(['middleware' => ['auth:ekt'], 'prefix' => 'eksternal', 'as' => 'ek
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+});
+
+/** Eksternal Admin Route */
+Route::group(['middleware' => ['auth:ekt', 'cek.akun:multirole'], 'prefix' => 'eksternal/admin', 'as' => 'eksternal.admin.'],function () {
+
+    /** Dashboard Route */
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    /** Usulan Pelatihan Route */
+    Route::get('/usulan-pelatihan/ajax-get-users', [AdminUsulanPelatihanController::class, 'ajaxGetUsers'])->name('usulan-pelatihan.ajaxGetUsers');
+    Route::get('/usulan-pelatihan/ajax-get-jenis-pelatihan', [AdminUsulanPelatihanController::class, 'ajaxGetJenisPelatihan'])->name('usulan-pelatihan.ajaxGetJenisPelatihan');
+    Route::get('/usulan-pelatihan/ajax-get-pelatihan', [AdminUsulanPelatihanController::class, 'ajaxGetPelatihan'])->name('usulan-pelatihan.ajaxGetPelatihan');
+    Route::get('/usulan-pelatihan/ajax', [AdminUsulanPelatihanController::class, 'ajax'])->name('usulan-pelatihan.ajax');
+    Route::get('/usulan-pelatihan/ajax/validasi/{id}', [AdminUsulanPelatihanController::class, 'ajaxValidasi'])->name('usulan-pelatihan.ajaxValidasi');
+    Route::get('/usulan-pelatihan/ajax/nonvalidasi/{id}', [AdminUsulanPelatihanController::class, 'ajaxNonValidasi'])->name('usulan-pelatihan.ajaxNonValidasi');
+    Route::resource('usulan-pelatihan', AdminUsulanPelatihanController::class);
+
 });

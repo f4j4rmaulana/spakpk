@@ -27,7 +27,7 @@ class User extends Authenticatable implements LdapAuthenticatable
         'password',
         'username',
         'role',
-        'idnumber',
+        'nomor_id',
         'instansi',
         'unit_kerja',
         'jabatan',

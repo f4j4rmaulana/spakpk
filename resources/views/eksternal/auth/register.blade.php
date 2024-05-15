@@ -41,7 +41,7 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-         <!-- Idnumber -->
+         <!-- nomor_id -->
          <div class="mt-4">
             <div>
                 <x-input-label for="nomor_id" :value="__('Nomor Identitas (NIP/NIK)')" />

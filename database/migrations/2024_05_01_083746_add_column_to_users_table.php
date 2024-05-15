@@ -29,7 +29,13 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('image');
+            $table->dropColumn('username');
+            $table->dropColumn('role');
+            $table->dropColumn('nomor_id');
+            $table->dropColumn('instansi');
+            $table->dropColumn('unit_kerja');
+            $table->dropColumn('jabatan');
         });
     }
 };

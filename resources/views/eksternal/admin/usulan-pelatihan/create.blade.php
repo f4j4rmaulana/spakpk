@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('eksternal.admin.layouts.master')
 
 @push('custom-styles')
     <link href="{{ asset('backend/assets/plugin/select2-4.1.0-rc.0/dist/css/select2.min.css') }}" rel="stylesheet" />
@@ -13,10 +13,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Form Tambah Usulan Ujikom</h5>
+                    <h5 class="card-title mb-0">Form Tambah Usulan Pelatihan</h5>
                 </div>
                 <div class="card-body">
-                        <form action="{{ route('admin.usulan-ujikom.store') }}" method="POST">
+                        <form action="{{ route('eksternal.admin.usulan-pelatihan.store') }}" method="POST">
                             @csrf
                                 <div class="mb-3">
                                     <label for="user_id"> Pilih Pengusul <span class="text-danger ">*</span></label>
@@ -26,20 +26,20 @@
                                     <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="jenis_ujikom_id"> Pilih Jenis Ujikom <span class="text-danger ">*</span></label>
-                                    <select name="jenis_ujikom_id" id="jenis_ujikom_id" class="form-control form-control-lg {{ hasError($errors, 'jenis_ujikom_id') }}" >
+                                    <label for="jenis_pelatihan_id"> Pilih Jenis Pelatihan <span class="text-danger ">*</span></label>
+                                    <select name="jenis_pelatihan_id" id="jenis_pelatihan_id" class="form-control form-control-lg {{ hasError($errors, 'jenis_pelatihan_id') }}" >
                                     </select>
-                                    <x-input-error :messages="$errors->get('jenis_ujikom_id')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('jenis_pelatihan_id')" class="mt-2" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ujikom_id"> Pilih Ujikom <span class="text-danger ">*</span></label>
-                                    <select name="ujikom_id" id="ujikom_id" class="form-control form-control-lg {{ hasError($errors, 'ujikom_id') }}" >
+                                    <label for="pelatihan_id"> Pilih Pelatihan <span class="text-danger ">*</span></label>
+                                    <select name="pelatihan_id" id="pelatihan_id" class="form-control form-control-lg {{ hasError($errors, 'pelatihan_id') }}" >
                                     </select>
-                                    <x-input-error :messages="$errors->get('ujikom_id')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('pelatihan_id')" class="mt-2" />
                                 </div>
                                 <div id="usulan_lainnya" class="mb-3"></div>
                                 <div class="mb-3 d-flex justify-content-end gap-1">
-                                    <a href="{{ route('admin.usulan-ujikom.index') }}" class="btn btn-link shadow-none" role="button">Batal</a>
+                                    <a href="{{ route('eksternal.admin.usulan-pelatihan.index') }}" class="btn btn-link shadow-none" role="button">Batal</a>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                         </form>
@@ -60,7 +60,7 @@
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:route('admin.usulan-ujikom.ajaxGetUsers'),
+                url:route('eksternal.admin.usulan-pelatihan.ajaxGetUsers'),
                 dataType:'json',
                 data: (params) => {
                     let query = {
@@ -120,12 +120,12 @@
 
 <script>
     $(document).ready(function(){
-        $('#jenis_ujikom_id').select2({
+        $('#jenis_pelatihan_id').select2({
             theme: 'bootstrap-5',
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:route('admin.usulan-ujikom.ajaxGetJenisUjikom'),
+                url:route('eksternal.admin.usulan-pelatihan.ajaxGetJenisPelatihan'),
                 dataType:'json',
                 processResults:data=>{
                     return {
@@ -137,7 +137,7 @@
             },
             language: {
                 inputTooShort: function () {
-                    return "Ketikkan minimal 2 karakter untuk mencari jenis ujikom";
+                    return "Ketikkan minimal 2 karakter untuk mencari jenis pelatihan";
                 },
                 searching: function () {
                 return "Sedang mencari...";
@@ -149,38 +149,76 @@
                 return "Hasil data tidak dapat ditampilkan";
                 }
             },
-            templateResult: formatJenisUjikom, // Menentukan bagaimana setiap opsi ditampilkan
-            templateSelection: formatJenisUjikomSelection // Menentukan bagaimana nilai yang dipilih ditampilkan
+            templateResult: formatJenisPelatihan, // Menentukan bagaimana setiap opsi ditampilkan
+            templateSelection: formatJenisPelatihanSelection // Menentukan bagaimana nilai yang dipilih ditampilkan
         });
     });
 
     // Fungsi untuk menampilkan ID dan instansi sebagai informasi tambahan dalam setiap opsi
-    function formatJenisUjikom (jenisUjikom) {
-        if (!jenisUjikom.id) { return jenisUjikom.text; }
-        var $jenisUjikom = $(
-            '<span>' + jenisUjikom.text + ' - ' + jenisUjikom.deskripsi + '</span>'
+    function formatJenisPelatihan (jenisPelatihan) {
+        if (!jenisPelatihan.id) { return jenisPelatihan.text; }
+        var $jenisPelatihan = $(
+            '<span>' + jenisPelatihan.text + ' - ' + jenisPelatihan.deskripsi + '</span>'
         );
-        return $jenisUjikom;
+        return $jenisPelatihan;
     }
 
     // Fungsi untuk menampilkan nilai yang dipilih dengan format yang benar
-    function formatJenisUjikomSelection (jenisUjikom) {
-        if (!jenisUjikom.id) { return jenisUjikom.text; }
-        var $jenisUjikom = $(
-            '<span>' + jenisUjikom.text + ' - ' + jenisUjikom.deskripsi + '</span>'
+    function formatJenisPelatihanSelection (jenisPelatihan) {
+        if (!jenisPelatihan.id) { return jenisPelatihan.text; }
+        var $jenisPelatihan = $(
+            '<span>' + jenisPelatihan.text + ' - ' + jenisPelatihan.deskripsi + '</span>'
         );
-        return $jenisUjikom;
+        return $jenisPelatihan;
     }
 </script>
 
+{{-- <script>
+    $(document).ready(function(){
+        // Inisialisasi select2 untuk elemen select
+        $('#jenis_pelatihan_id').select2({
+            theme: 'bootstrap-5',
+            minimumInputLength: 0, // Ubah menjadi 0 agar pilihan tersedia saat mengklik input
+            placeholder: 'Pilih atau ketik jenis pelatihan',
+            allowClear: true, // Mengizinkan penghapusan nilai pada select
+            ajax: {
+                url: route('eksternal.admin.usulan-pelatihan.ajaxGetJenisPelatihan'), // Ubah dengan URL yang sesuai
+                dataType: 'json',
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(jenisPelatihan) {
+                            return {
+                                id: jenisPelatihan.id,
+                                text: jenisPelatihan.nama
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            language: {
+                searching: function () {
+                    return "Sedang mencari...";
+                },
+                noResults: function () {
+                    return "Data tidak ditemukan";
+                },
+                errorLoading: function() {
+                    return "Hasil data tidak dapat ditampilkan";
+                }
+            }
+        });
+    });
+</script> --}}
+
 <script>
     $(document).ready(function(){
-        $('#ujikom_id').select2({
+        $('#pelatihan_id').select2({
             theme: 'bootstrap-5',
             minimumInputLength:2,
             // placeholder:'Pilih Pengusul',
             ajax:{
-                url:route('admin.usulan-ujikom.ajaxGetUjikom'),
+                url:route('eksternal.admin.usulan-pelatihan.ajaxGetPelatihan'),
                 dataType:'json',
                 processResults:data=>{
                     return {
@@ -192,7 +230,7 @@
             },
             language: {
                 inputTooShort: function () {
-                    return "Ketikkan minimal 2 karakter untuk mencari ujikom";
+                    return "Ketikkan minimal 2 karakter untuk mencari pelatihan";
                 },
                 searching: function () {
                 return "Sedang mencari...";
@@ -204,38 +242,38 @@
                 return "Hasil data tidak dapat ditampilkan";
                 }
             },
-            templateResult: formatUjikom, // Menentukan bagaimana setiap opsi ditampilkan
-            templateSelection: formatUjikomSelection // Menentukan bagaimana nilai yang dipilih ditampilkan
+            templateResult: formatPelatihan, // Menentukan bagaimana setiap opsi ditampilkan
+            templateSelection: formatPelatihanSelection // Menentukan bagaimana nilai yang dipilih ditampilkan
         });
-            // Event listener untuk deteksi pemilihan opsi "ujikom lainnya"
-        $('#ujikom_id').on('select2:select', function (e) {
+            // Event listener untuk deteksi pemilihan opsi "pelatihan lainnya"
+        $('#pelatihan_id').on('select2:select', function (e) {
             var data = e.params.data;
-            if (data.text === 'Ujikom Lainnya') {
+            if (data.text === 'Pelatihan Lainnya') {
                 // Tampilkan input teks tambahan
-                $('#usulan_lainnya').html('<input type="text" class="form-control form-control-lg" name="usulan_lainnya" placeholder="Masukkan nama ujikom lainnya">');
+                $('#usulan_lainnya').html('<input type="text" class="form-control form-control-lg" name="usulan_lainnya" placeholder="Masukkan nama pelatihan lainnya">');
             } else {
-                // Sembunyikan input teks jika opsi selain "ujikom lainnya" dipilih
+                // Sembunyikan input teks jika opsi selain "pelatihan lainnya" dipilih
                 $('#usulan_lainnya').empty();
             }
         });
     });
 
     // Fungsi untuk menampilkan ID dan instansi sebagai informasi tambahan dalam setiap opsi
-    function formatUjikom (ujikom) {
-        if (!ujikom.id) { return ujikom.text; }
-        var $ujikom = $(
-            '<span>' + ujikom.text + ' - ' + ujikom.deskripsi + '</span>'
+    function formatPelatihan (pelatihan) {
+        if (!pelatihan.id) { return pelatihan.text; }
+        var $pelatihan = $(
+            '<span>' + pelatihan.text + ' - ' + pelatihan.deskripsi + '</span>'
         );
-        return $ujikom;
+        return $pelatihan;
     }
 
     // Fungsi untuk menampilkan nilai yang dipilih dengan format yang benar
-    function formatUjikomSelection (ujikom) {
-        if (!ujikom.id) { return ujikom.text; }
-        var $ujikom = $(
-            '<span>' + ujikom.text + ' - ' + ujikom.deskripsi + '</span>'
+    function formatPelatihanSelection (pelatihan) {
+        if (!pelatihan.id) { return pelatihan.text; }
+        var $pelatihan = $(
+            '<span>' + pelatihan.text + ' - ' + pelatihan.deskripsi + '</span>'
         );
-        return $ujikom;
+        return $pelatihan;
     }
 </script>
 @endpush

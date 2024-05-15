@@ -72,7 +72,7 @@
                 processResults:data=>{
                     return {
                         results:data.data.map(res=>{
-                            return {id:res.id, text:res.name, instansi:res.instansi, idnumber:res.idnumber};
+                            return {id:res.id, text:res.name, instansi:res.instansi, nomor_id:res.nomor_id};
                         }),
                         pagination: {
                             more: data.current_page < data.last_page,
@@ -103,7 +103,7 @@
     function formatUser (user) {
         if (!user.id) { return user.text; }
         var $user = $(
-            '<span>' + user.text + ' - ' + user.instansi + ' (' + user.idnumber + ')</span>'
+            '<span>' + user.text + ' - ' + user.instansi + ' (' + user.nomor_id + ')</span>'
         );
         return $user;
     }
@@ -112,7 +112,7 @@
     function formatUserSelection (user) {
         if (!user.id) { return user.text; }
         var $user = $(
-            '<span>' + user.text + ' - ' + user.instansi + ' (' + user.idnumber + ')</span>'
+            '<span>' + user.text + ' - ' + user.instansi + ' (' + user.nomor_id + ')</span>'
         );
         return $user;
     }

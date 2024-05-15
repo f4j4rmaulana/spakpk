@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Eksternal;
+namespace App\Http\Controllers\Eksternal\Admin;
 
 use Carbon\Carbon;
 use Illuminate\View\View;
@@ -67,8 +67,9 @@ class DashboardController extends Controller
         $tupDiff = $tupThisMonth - $tupLastMonth;
         $tuuDiff = $tuuThisMonth - $tuuLastMonth;
 
-        toast('Role anda saat ini, Pengguna!','success');
 
-        return view('eksternal.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk' ));
+        toast('Role anda saat ini, Admin!','success');
+
+        return view('eksternal.admin.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk' ));
     }
 }

@@ -25,6 +25,6 @@ class PengaturanAkses
         }
 
         // Jika statusnya "Close", kembalikan response tertentu
-        return abort('403');
+        return redirect()->back();
     }
 }

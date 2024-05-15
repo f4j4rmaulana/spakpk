@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         'cek.akses' => \App\Http\Middleware\PengaturanAkses::class,
+        'cek.akun' => \App\Http\Middleware\AccountType::class,
     ];
 }
