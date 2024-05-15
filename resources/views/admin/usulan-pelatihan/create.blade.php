@@ -173,6 +173,44 @@
     }
 </script>
 
+{{-- <script>
+    $(document).ready(function(){
+        // Inisialisasi select2 untuk elemen select
+        $('#jenis_pelatihan_id').select2({
+            theme: 'bootstrap-5',
+            minimumInputLength: 0, // Ubah menjadi 0 agar pilihan tersedia saat mengklik input
+            placeholder: 'Pilih atau ketik jenis pelatihan',
+            allowClear: true, // Mengizinkan penghapusan nilai pada select
+            ajax: {
+                url: route('admin.usulan-pelatihan.ajaxGetJenisPelatihan'), // Ubah dengan URL yang sesuai
+                dataType: 'json',
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(jenisPelatihan) {
+                            return {
+                                id: jenisPelatihan.id,
+                                text: jenisPelatihan.nama
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            language: {
+                searching: function () {
+                    return "Sedang mencari...";
+                },
+                noResults: function () {
+                    return "Data tidak ditemukan";
+                },
+                errorLoading: function() {
+                    return "Hasil data tidak dapat ditampilkan";
+                }
+            }
+        });
+    });
+</script> --}}
+
 <script>
     $(document).ready(function(){
         $('#pelatihan_id').select2({

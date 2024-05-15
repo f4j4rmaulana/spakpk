@@ -29,25 +29,37 @@ cp .env.example .env
 php artisan key:generate
  ```
  ```bash
- php artisan migrate:fresh --seed
+ php artisan migrate:fresh
+```
+ ```bash
+ php artisan db:seed RolePermissionSeeder
+```
+ ```bash
+ php artisan db:seed AdminSeeder
+```
+ ```bash
+ php artisan db:seed MasterDataSeeder
+```
+ ```bash
+ php artisan db:seed PengaturanSeeder
 ```
  ```bash
  php artisan serve
 ```
 
 ## Admin Credentials
-localhost/admin/login
+### localhost/admin/login
 Email: 
 ```bash 
 admin@admin.com
 ```
 Password: 
 ```bash
-admin@admin.com
+password
 ```
 
 ## User Credentials
-localhost/login
+### localhost/login
 Username: 
 ```bash 
 ldap username
