@@ -17,24 +17,16 @@
             <li class="sidebar-item {{ setSidebarActive(['eksternal.admin.usulan-pelatihan.*','eksternal.admin.usulan-pelatihan.index']) }}">
                 <a class="sidebar-link" href="{{ route('eksternal.admin.usulan-pelatihan.index') }}">
                 <i class="align-middle" data-feather="layout"></i>
-                <span class="align-middle">Usulan Pelatihan</span>
+                    <span class="align-middle">Usulan Pelatihan</span>
                 </a>
         </li>
 
-        {{-- <li class="sidebar-item {{ setSidebarActive(['eksternal.admin.usulan-ujikom.*','eksternal.admin.usulan-ujikom.index']) }}">
+        <li class="sidebar-item {{ setSidebarActive(['eksternal.admin.usulan-ujikom.*','eksternal.admin.usulan-ujikom.index']) }}">
             <a class="sidebar-link" href="{{ route('eksternal.admin.usulan-ujikom.index') }}">
-            <i class="align-middle" data-feather="layout"></i>
-            <span class="align-middle">Usulan Ujikom</span>
+                <i class="align-middle" data-feather="layout"></i>
+                    <span class="align-middle">Usulan Ujikom</span>
             </a>
-        </li> --}}
-
-    @if (auth()->guard('ekt')->user()->account_type === 'multirole' )
-        <div class="sidebar-cta">
-                <div class="sidebar-cta-content d-grid">
-                    <a href="{{ route('eksternal.dashboard') }}" class="btn btn-warning">Back to User</a>
-                </div>
-        </div>
-    @endif
+        </li>
 
     </ul>
 

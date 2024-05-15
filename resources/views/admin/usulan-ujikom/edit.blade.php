@@ -23,9 +23,9 @@
                                     <label for="user_id"> Nama Pengusul <span class="text-danger ">*</span></label>
                                     {{-- select2 css .select2-container--bootstrap-5{display:block;width: 100% !important;} --}}
                                     <select name="user_id" id="user_id" class="form-control form-control-lg" disabled>
-                                            <option value="{{ $usulanUjikom->id }}">
-                                                {{ $usulanUjikom->usulanUser->name }}
-                                            </option>
+                                        <option value="{{ $usulanUjikom->id }}">
+                                            {{ $usulanUjikom->usulanUser->name }} - {{ $usulanUjikom->usulanUser->instansi }} ({{ $usulanUjikom->usulanUser->nomor_id }})
+                                        </option>
                                     </select>
 
                                     <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
@@ -58,7 +58,7 @@
 @endsection
 
 @push('custom-script')
-<script>
+{{-- <script>
     $(document).ready(function(){
         $('#user_id').select2({
             theme: 'bootstrap-5',
@@ -121,7 +121,7 @@
         );
         return $user;
     }
-</script>
+</script> --}}
 
 <script>
     $(document).ready(function(){

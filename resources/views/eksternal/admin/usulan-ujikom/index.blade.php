@@ -1,4 +1,4 @@
-@extends('eksternal.layouts.master')
+@extends('eksternal.admin.layouts.master')
 
 @push('modal-styles')
     <script src="{{ asset('backend/assets/plugin/jquery-modal-master/jquery-3.0.0.min.js') }}"></script>
@@ -23,10 +23,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Riwayat Usulan Uji Kompetensi</h5>
+                    <h5 class="card-title mb-0">Semua Usulan Uji Kompetensi</h5>
 
                     <div class="btn-group mb-3 d-flex gap-2" role="group" aria-label="Default button group">
-                        <a href="{{ route('eksternal.usulan-ujikom.create') }}" class="btn btn-primary">Buat Usulan Uji Kompetensi</a>
+                        <a href="{{ route('eksternal.admin.usulan-ujikom.create') }}" class="btn btn-primary">Buat Usulan Uji Kompetensi</a>
                     </div>
 
                 </div>
@@ -49,6 +49,21 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th class="th">Pengusul</th>
+                                    <th class="th">Instansi</th>
+                                    <th class="th">Unit Kerja</th>
+                                    <th class="th">Jenis Ujikom</th>
+                                    <th class="th">Usulan Ujikom</th>
+                                    <th class="th">Usulan Lainnya</th>
+                                    <th class="th">Status</th>
+                                    <th class="th">Tanggal Usul</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     {{-- End Table --}}
@@ -80,7 +95,7 @@
                 serverSide: true,
                 responsive: true,
                 paging: true,
-                ajax: "{{ route('eksternal.usulan-ujikom.ajax') }}",
+                ajax: "{{ route('eksternal.admin.usulan-ujikom.ajax') }}",
                 columns: [
                     {data: 'DT_RowIndex', name:'DT_RowIndex'},
                     {data: 'usulan_user.name', name: 'usulan_user.name'},
@@ -92,11 +107,79 @@
                     {data: 'status', name: 'status'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'action', name: 'action', orderable:false, searchable:false},
-                ]});
-                        // Menambahkan event listener untuk menangani pembuatan ulang tabel setelah selesai memuat
-                        table.on('draw', function () {
+                ],
+                initComplete: function() {
+                    this.api()
+                        .columns()
+                        .every(function() {
+                            var that = this;
+                            $('input', this.footer()).on('keyup change clear', function() {
+                                if (that.search() !== this.value) {
+                                    that.search(this.value).draw();
+                                }
+                            });
+                        });
+                }
+            });
+
+            $('#tbl_usulan_ujikom tfoot .th').each(function() {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control shadow" placeholder="cari" />');
+            });
+                // Menambahkan event listener untuk menangani pembuatan ulang tabel setelah selesai memuat
+                table.on('draw', function () {
                 // Debugging
                 console.log('Tabel diperbarui');
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.btn-validasi', function (e) {
+            e.preventDefault();
+            var url = $(this).data('url'); // Mengambil URL dari data-url
+            var token = "{{ csrf_token() }}";
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    _token: token
+                },
+                success: function (response) {
+                    // Menampilkan pesan sukses dengan nama pengusul
+                    alert('Usulan ujikom berhasil divalidasi!');
+                    // Refresh data tabel jika diperlukan
+                    $('#tbl_usulan_ujikom').DataTable().ajax.reload();
+                },
+                error: function (xhr) {
+                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
+                    alert('Gagal melakukan validasi usulan!');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.btn-nonvalidasi', function (e) {
+            e.preventDefault();
+            var url = $(this).data('url'); // Mengambil URL dari data-url
+            var token = "{{ csrf_token() }}";
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    _token: token
+                },
+                success: function (response) {
+                    // Menampilkan pesan sukses dengan nama pengusul
+                    alert('Validasi usulan ujikom berhasil dibatalkan!');
+                    // Refresh data tabel jika diperlukan
+                    $('#tbl_usulan_ujikom').DataTable().ajax.reload();
+                },
+                error: function (xhr) {
+                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
+                    alert('Gagal melakukan pembatalan validasi usulan!');
+                }
             });
         });
     </script>

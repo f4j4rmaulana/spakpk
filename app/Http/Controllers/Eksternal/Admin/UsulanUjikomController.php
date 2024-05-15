@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Eksternal\Admin;
 
+use App\Models\User;
 use App\Models\Ujikom;
 use App\Models\JenisUjikom;
 use App\Models\UsulanUjikom;
@@ -15,18 +16,13 @@ use Yajra\DataTables\Facades\DataTables;
 class UsulanUjikomController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('cek.akses:Akses Usulan Ujikom')->except('index', 'ajax');
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $titles = 'Daftar Usulan Ujikom';
-        return view('eksternal.usulan-ujikom.index', compact('titles'));
+        return view('eksternal.admin.usulan-ujikom.index', compact('titles'));
     }
 
     /**
@@ -35,7 +31,7 @@ class UsulanUjikomController extends Controller
     public function create()
     {
         $titles = 'Buat Usulan Uji ';
-        return view('eksternal.usulan-ujikom.create', compact('titles'));
+        return view('eksternal.admin.usulan-ujikom.create', compact('titles'));
     }
 
     /**
@@ -61,13 +57,13 @@ class UsulanUjikomController extends Controller
             $usulanUjikom->save();
             DB::commit();
             toast('Usulan ujikom anda berhasil diajukan!','success');
-            return to_route('eksternal.usulan-ujikom.index');
+            return to_route('eksternal.admin.usulan-ujikom.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error pengajuan data usulan!','error');
-            return redirect()->route('eksternal.usulan-ujikom.index');
+            return redirect()->route('eksternal.admin.usulan-ujikom.index');
 
         }
     }
@@ -88,7 +84,7 @@ class UsulanUjikomController extends Controller
         $decrypted = Crypt::decryptString($id);
         $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
         $titles = 'Edit Usulan Uji Kompetensi';
-        return view('eksternal.usulan-ujikom.edit', compact('titles', 'usulanUjikom'));
+        return view('eksternal.admin.usulan-ujikom.edit', compact('titles', 'usulanUjikom'));
     }
 
     /**
@@ -114,13 +110,13 @@ class UsulanUjikomController extends Controller
             $usulanUjikom->update();
             DB::commit();
             toast('Usulan ujikom anda berhasil diupdate!','success');
-            return to_route('eksternal.usulan-ujikom.index');
+            return to_route('eksternal.admin.usulan-ujikom.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error update data usulan!','error');
-            return redirect()->route('eksternal.usulan-ujikom.index');
+            return redirect()->route('eksternal.admin.usulan-ujikom.index');
 
         }
     }
@@ -138,13 +134,23 @@ class UsulanUjikomController extends Controller
             $usulanUjikom->delete();
             DB::commit();
             toast('Usulan ujikom berhasil dihapus!','success');
-            return redirect()->route('eksternal.usulan-ujikom.index');
+            return redirect()->route('eksternal.admin.usulan-ujikom.index');
         }catch(\Exception $e) {
             DB::rollback();
             logger($e);
             toast('Error hapus data!','error');
-            return redirect()->route('eksternal.usulan-ujikom.index');
+            return redirect()->route('eksternal.admin.usulan-ujikom.index');
         }
+    }
+
+    public function ajaxGetUsers(Request $request) {
+        $userAuth = $request->user(); // Mengambil pengguna yang melakukan permintaan
+
+        // Mengambil hanya pengguna yang memiliki unit kerja yang sama dengan pengguna yang melakukan permintaan
+        $users = User::where('unit_kerja', $userAuth->unit_kerja)
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->paginate();
+        return response()->json($users, 200);
     }
 
     public function ajaxGetJenisUjikom(Request $request) {
@@ -157,6 +163,30 @@ class UsulanUjikomController extends Controller
                                 ->where('status', 'aktif')
                                 ->get();
         return response()->json($ujikom, 200);
+    }
+
+    public function ajaxValidasi($data) {
+
+        $decrypted = Crypt::decryptString($data);
+        $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
+
+        $usulanUjikom->update([
+            'status' => 'Validasi'
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function ajaxNonValidasi($data) {
+
+        $decrypted = Crypt::decryptString($data);
+        $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
+
+        $usulanUjikom->update([
+            'status' => 'Belum Validasi'
+        ]);
+
+        return response()->json(['success' => true]);
     }
 
     // Ajax Datatable
@@ -179,8 +209,10 @@ class UsulanUjikomController extends Controller
                 return $info;
             })
             ->addColumn('action', function ($action) {
-                $url_edit = route('eksternal.usulan-ujikom.edit', Crypt::encryptString($action->id));
-                $url_delete = route('eksternal.usulan-ujikom.destroy', Crypt::encryptString($action->id));
+                $url_edit = route('eksternal.admin.usulan-ujikom.edit', Crypt::encryptString($action->id));
+                $url_validasi = route('eksternal.admin.usulan-ujikom.ajaxValidasi',Crypt::encryptString($action->id));
+                $url_nonvalidasi = route('eksternal.admin.usulan-ujikom.ajaxNonValidasi', Crypt::encryptString($action->id));
+                $url_delete = route('eksternal.admin.usulan-ujikom.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Validasi') {
                     $btn = '
                     <div class="d-flex flex-row gap-2">
@@ -192,10 +224,25 @@ class UsulanUjikomController extends Controller
                         <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
                         </a>
                         </form>
+                        <a href="#" class="btn-validasi" data-url="' . $url_validasi . '" title="Validasi usulan">
+                        <span class="material-symbols-outlined btn btn-success btn-sm">verified</span></a>
                     </div>
                     ';
                 } else {
-                    $btn = '';
+                    $btn = '
+                    <div class="d-flex flex-row gap-2">
+                        <a href="' . $url_edit . '" class="mr-1" title="Edit Jenis Ujikom">
+                        <span class="material-symbols-outlined btn btn-primary btn-sm font-20">edit_square</span></a>
+                        <form action="' . $url_delete . '" method="POST">
+                        '.csrf_field().'
+                        '.method_field("DELETE").'
+                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data??\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
+                        </a>
+                        </form>
+                        <a href="#" class="btn-nonvalidasi" data-url="' . $url_nonvalidasi . '" title="Batalkan validasi usulan">
+                        <span class="material-symbols-outlined btn btn-danger btn-sm">pending</span>
+                    </div>
+                    ';
                 }
                 return $btn;
             })

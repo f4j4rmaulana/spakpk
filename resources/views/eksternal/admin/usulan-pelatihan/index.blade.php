@@ -23,7 +23,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Riwayat Usulan Pelatihan</h5>
+                    <h5 class="card-title mb-0">Semua Usulan Pelatihan</h5>
 
                     <div class="btn-group mb-3 d-flex gap-2" role="group" aria-label="Default button group">
                         <a href="{{ route('eksternal.admin.usulan-pelatihan.create') }}" class="btn btn-primary">Buat Usulan Pelatihan</a>
@@ -49,6 +49,21 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th class="th">Pengusul</th>
+                                    <th class="th">Instansi</th>
+                                    <th class="th">Unit Kerja</th>
+                                    <th class="th">Jenis Pelatihan</th>
+                                    <th class="th">Usulan Pelatihan</th>
+                                    <th class="th">Usulan Lainnya</th>
+                                    <th class="th">Status</th>
+                                    <th class="th">Tanggal Usul</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     {{-- End Table --}}

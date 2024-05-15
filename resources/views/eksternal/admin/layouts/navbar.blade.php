@@ -26,6 +26,9 @@
         <div class="dropdown-menu dropdown-menu-end">
         <a class="dropdown-item" href="{{ route('eksternal.profile.index') }}" >
             <i class="align-middle me-1" data-feather="user"></i>Profile</a>
+            @if (auth()->guard('ekt')->user()->account_type === 'multirole' )
+                <a class="dropdown-item" href="{{ route('eksternal.dashboard') }}"><i class="align-middle me-1" data-feather="repeat"></i> Back to User Role</a>
+            @endif
             <div class="dropdown-divider"></div>
              <!-- Authentication -->
             <form method="POST" action="{{ auth()->guard('ekt')->check() ? route('eksternal.logout') : route('logout') }}">

@@ -67,8 +67,6 @@ class DashboardController extends Controller
         $tupDiff = $tupThisMonth - $tupLastMonth;
         $tuuDiff = $tuuThisMonth - $tuuLastMonth;
 
-        toast('Role anda saat ini, Pengguna!','success');
-
         return view('eksternal.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk' ));
     }
 }

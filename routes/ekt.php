@@ -85,4 +85,13 @@ Route::group(['middleware' => ['auth:ekt', 'cek.akun:multirole'], 'prefix' => 'e
     Route::get('/usulan-pelatihan/ajax/nonvalidasi/{id}', [AdminUsulanPelatihanController::class, 'ajaxNonValidasi'])->name('usulan-pelatihan.ajaxNonValidasi');
     Route::resource('usulan-pelatihan', AdminUsulanPelatihanController::class);
 
+    /** Usulan Ujikom Route */
+    Route::get('/usulan-ujikom/ajax-get-users', [AdminUsulanUjikomController::class, 'ajaxGetUsers'])->name('usulan-ujikom.ajaxGetUsers');
+    Route::get('/usulan-ujikom/ajax-get-jenis-ujikom', [AdminUsulanUjikomController::class, 'ajaxGetJenisUjikom'])->name('usulan-ujikom.ajaxGetJenisUjikom');
+    Route::get('/usulan-ujikom/ajax-get-ujikom', [AdminUsulanUjikomController::class, 'ajaxGetUjikom'])->name('usulan-ujikom.ajaxGetUjikom');
+    Route::get('/usulan-ujikom/ajax', [AdminUsulanUjikomController::class, 'ajax'])->name('usulan-ujikom.ajax');
+    Route::get('/usulan-ujikom/ajax/validasi/{id}', [AdminUsulanUjikomController::class, 'ajaxValidasi'])->name('usulan-ujikom.ajaxValidasi');
+    Route::get('/usulan-ujikom/ajax/nonvalidasi/{id}', [AdminUsulanUjikomController::class, 'ajaxNonValidasi'])->name('usulan-ujikom.ajaxNonValidasi');
+    Route::resource('usulan-ujikom', AdminUsulanUjikomController::class);
+
 });

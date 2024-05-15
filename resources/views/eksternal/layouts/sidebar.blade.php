@@ -28,14 +28,6 @@
                 </a>
             </li>
 
-    @if (auth()->guard('ekt')->user()->account_type === 'multirole' )
-        <div class="sidebar-cta">
-                <div class="sidebar-cta-content d-grid">
-                    <a href="{{ route('eksternal.admin.dashboard') }}" class="btn btn-primary">Switch to Admin</a>
-                </div>
-        </div>
-    @endif
-
     </ul>
 
 
