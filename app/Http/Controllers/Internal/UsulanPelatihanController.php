@@ -19,7 +19,7 @@ class UsulanPelatihanController extends Controller
     {
         $this->middleware('cek.akses:Akses Usulan Pelatihan')->except('index', 'ajax');
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -183,13 +183,13 @@ class UsulanPelatihanController extends Controller
                 $url_delete = route('internal.usulan-pelatihan.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Validasi') {
                     $btn = '
-                    <div class="d-flex flex-row gap-2">
+                    <div class="d-flex flex-row">
                         <a href="' . $url_edit . '" title="Edit Jenis Pelatihan">
-                        <span class="material-symbols-outlined btn btn-primary btn-sm">edit_square</span></a>
+                        <span class="material-symbols-outlined">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'
                         '.method_field("DELETE").'
-                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
+                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined">delete</span>
                         </a>
                         </form>
                     </div>

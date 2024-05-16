@@ -105,7 +105,7 @@ class JenisUjikomController extends Controller
         DB::beginTransaction();
 
         try {
-            
+
             $decrypted = Crypt::decryptString($id);
             $jenisUjikom = JenisUjikom::findOrFail($decrypted);
             $jenisUjikom->nama = strip_tags($request->nama);
@@ -208,32 +208,32 @@ class JenisUjikomController extends Controller
                 $url_delete = route('admin.jenis-ujikom.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Aktif') {
                     $btn = '
-                    <div class="d-flex flex-row gap-2">
+                    <div class="d-flex flex-row">
                         <a href="' . $url_edit . '" title="Edit Jenis Ujikom">
-                        <span class="material-symbols-outlined btn btn-primary btn-sm">edit_square</span></a>
+                        <span class="material-symbols-outlined">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'
                         '.method_field("DELETE").'
-                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
+                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined">delete</span>
                         </a>
                         </form>
                         <a href="' . $url_aktif . '" id="btn-aktif" title="Aktifkan Jenis Ujikom">
-                        <span class="material-symbols-outlined btn btn-success btn-sm">visibility</span></a>
+                        <span class="material-symbols-outlined">visibility</span></a>
                     </div>
                     ';
                 } else {
                     $btn = '
-                    <div class="d-flex flex-row gap-2">
+                    <div class="d-flex flex-row">
                         <a href="' . $url_edit . '" class="mr-1" title="Edit Jenis Ujikom">
-                        <span class="material-symbols-outlined btn btn-primary btn-sm font-20">edit_square</span></a>
+                        <span class="material-symbols-outlined">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
                         '.csrf_field().'
                         '.method_field("DELETE").'
-                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined btn btn-warning btn-sm">delete</span>
+                        <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined">delete</span>
                         </a>
                         </form>
                         <a href="' . $url_nonaktif . '" class="mr-1" id="btn-nonaktif" title="Nonaktifkan Jenis Ujikom">
-                        <span class="material-symbols-outlined btn btn-danger btn-sm font-12">visibility_off</span></a>
+                        <span class="material-symbols-outlined">visibility_off</span></a>
                     </div>
                     ';
                 }

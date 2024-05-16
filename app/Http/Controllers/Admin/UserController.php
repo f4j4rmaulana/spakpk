@@ -262,7 +262,7 @@ class UserController extends Controller
                         </a>
                         </form>
                         <a href="' . $url_nonaktif . '" class="mr-1" id="btn-nonaktif" title="Nonaktifkan Fitur Multirole">
-                        <span class="material-symbols-outlined orange600">person</span></a>
+                        <span class="material-symbols-outlined">person</span></a>
                     </div>
                     ';
                 }
