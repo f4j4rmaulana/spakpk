@@ -31,6 +31,7 @@ class User extends Authenticatable implements LdapAuthenticatable
         'instansi',
         'unit_kerja',
         'jabatan',
+        'account_type',
     ];
 
     /**

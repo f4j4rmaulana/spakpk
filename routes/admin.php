@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
 
@@ -117,6 +118,12 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('/pengaturan/ajax/open/{id}', [PengaturanController::class, 'ajaxOpen'])->name('pengaturan.ajaxOpen');
     Route::get('/pengaturan/ajax/close/{id}', [PengaturanController::class, 'ajaxClose'])->name('pengaturan.ajaxClose');
     Route::get('pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
+
+    /** User Route */
+    Route::get('/user/ajax', [UserController::class, 'ajax'])->name('user.ajax');
+    Route::get('/user/active/{id}', [UserController::class, 'active'])->name('user.active');
+    Route::get('/user/nonactive/{id}', [UserController::class, 'nonactive'])->name('user.nonactive');
+    Route::resource('user', UserController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');

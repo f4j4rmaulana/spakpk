@@ -108,8 +108,6 @@ class RoleUserController extends Controller
      */
     public function destroy(string $id)
     {
-
-
         DB::beginTransaction();
 
         try {

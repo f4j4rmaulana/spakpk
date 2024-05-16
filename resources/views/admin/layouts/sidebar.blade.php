@@ -92,8 +92,8 @@
           </a>
         </li>
 
-        <li class="sidebar-item {{ setSidebarActive(['admin.role-user.*','admin.role-user.index']) }}">
-            <a class="sidebar-link" href="{{ route('admin.role-user.index') }}">
+        <li class="sidebar-item {{ setSidebarActive(['admin.user.*','admin.user.index']) }}">
+            <a class="sidebar-link" href="{{ route('admin.user.index') }}">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">Pengaturan Pengguna</span>
           </a>
