@@ -81,21 +81,28 @@
         <li class="sidebar-item {{ setSidebarActive(['admin.role.*','admin.role.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.role.index') }}">
             <i class="align-middle" data-feather="sliders"></i>
-            <span class="align-middle">Roles</span>
+            <span class="align-middle">Pengaturan Role</span>
           </a>
         </li>
 
         <li class="sidebar-item {{ setSidebarActive(['admin.role-user.*','admin.role-user.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.role-user.index') }}">
             <i class="align-middle" data-feather="user"></i>
-            <span class="align-middle">Role User</span>
+            <span class="align-middle">Pengaturan Admin</span>
+          </a>
+        </li>
+
+        <li class="sidebar-item {{ setSidebarActive(['admin.role-user.*','admin.role-user.index']) }}">
+            <a class="sidebar-link" href="{{ route('admin.role-user.index') }}">
+            <i class="align-middle" data-feather="user"></i>
+            <span class="align-middle">Pengaturan Pengguna</span>
           </a>
         </li>
 
         <li class="sidebar-item {{ setSidebarActive(['admin.pengaturan.*','admin.pengaturan.index']) }}">
             <a class="sidebar-link" href="{{ route('admin.pengaturan.index') }}">
             <i class="align-middle" data-feather="user"></i>
-            <span class="align-middle">Pengaturan</span>
+            <span class="align-middle">Pengaturan Akses</span>
           </a>
         </li>
     @endif

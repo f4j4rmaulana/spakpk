@@ -24,9 +24,10 @@ class AccountType
                 return $next($request);
             }
         } elseif ($guard->name === 'web') {
-            // Logika untuk guard 'web' jika diperlukan
-            // Misalnya, tidak memerlukan pengecekan jenis akun
-            return $next($request);
+            $user = $guard->user();
+            if ($user && in_array($user->account_type, $accountTypes)) {
+                return $next($request);
+            }
         }
 
         return redirect()->back(); // Arahkan ke halaman login yang sesuai dengan guard

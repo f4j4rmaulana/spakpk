@@ -16,22 +16,6 @@ class RolePermissionSeeder extends Seeder
         $permissions = array(
             array(
                 "id" => 1,
-                "name" => "dashboard analisa",
-                "guard_name" => "admin",
-                "group" => "Dashboard",
-                "created_at" => "2024-05-05 09:14:50",
-                "updated_at" => "2024-05-05 09:14:50",
-            ),
-            array(
-                "id" => 2,
-                "name" => "dashboard log",
-                "guard_name" => "admin",
-                "group" => "Dashboard",
-                "created_at" => "2024-05-05 09:14:59",
-                "updated_at" => "2024-05-05 09:14:59",
-            ),
-            array(
-                "id" => 3,
                 "name" => "jenis pelatihan view",
                 "guard_name" => "admin",
                 "group" => "Jenis Pelatihan",
@@ -39,7 +23,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:21:09",
             ),
             array(
-                "id" => 4,
+                "id" => 2,
                 "name" => "jenis pelatihan create",
                 "guard_name" => "admin",
                 "group" => "Jenis Pelatihan",
@@ -47,7 +31,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:21:20",
             ),
             array(
-                "id" => 5,
+                "id" => 3,
                 "name" => "jenis pelatihan update",
                 "guard_name" => "admin",
                 "group" => "Jenis Pelatihan",
@@ -55,7 +39,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:21:26",
             ),
             array(
-                "id" => 6,
+                "id" => 4,
                 "name" => "jenis pelatihan delete",
                 "guard_name" => "admin",
                 "group" => "Jenis Pelatihan",
@@ -63,7 +47,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:21:32",
             ),
             array(
-                "id" => 7,
+                "id" => 5,
                 "name" => "pelatihan view",
                 "guard_name" => "admin",
                 "group" => "Pelatihan",
@@ -71,7 +55,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:23:02",
             ),
             array(
-                "id" => 8,
+                "id" => 6,
                 "name" => "pelatihan create",
                 "guard_name" => "admin",
                 "group" => "Pelatihan",
@@ -79,7 +63,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:23:03",
             ),
             array(
-                "id" => 9,
+                "id" => 7,
                 "name" => "pelatihan update",
                 "guard_name" => "admin",
                 "group" => "Pelatihan",
@@ -87,7 +71,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:23:03",
             ),
             array(
-                "id" => 10,
+                "id" => 8,
                 "name" => "pelatihan delete",
                 "guard_name" => "admin",
                 "group" => "Pelatihan",
@@ -95,7 +79,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:23:06",
             ),
             array(
-                "id" => 11,
+                "id" => 9,
                 "name" => "jenis ujikom view",
                 "guard_name" => "admin",
                 "group" => "Jenis Ujikom",
@@ -103,7 +87,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:44",
             ),
             array(
-                "id" => 12,
+                "id" => 10,
                 "name" => "jenis ujikom create",
                 "guard_name" => "admin",
                 "group" => "Jenis Ujikom",
@@ -111,7 +95,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:45",
             ),
             array(
-                "id" => 13,
+                "id" => 11,
                 "name" => "jenis ujikom update",
                 "guard_name" => "admin",
                 "group" => "Jenis Ujikom",
@@ -119,7 +103,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:46",
             ),
             array(
-                "id" => 14,
+                "id" => 12,
                 "name" => "jenis ujikom delete",
                 "guard_name" => "admin",
                 "group" => "Jenis Ujikom",
@@ -127,7 +111,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:46",
             ),
             array(
-                "id" => 15,
+                "id" => 13,
                 "name" => "ujikom view",
                 "guard_name" => "admin",
                 "group" => "Ujikom",
@@ -135,7 +119,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:47",
             ),
             array(
-                "id" => 16,
+                "id" => 14,
                 "name" => "ujikom create",
                 "guard_name" => "admin",
                 "group" => "Ujikom",
@@ -143,7 +127,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:48",
             ),
             array(
-                "id" => 17,
+                "id" => 15,
                 "name" => "ujikom update",
                 "guard_name" => "admin",
                 "group" => "Ujikom",
@@ -151,7 +135,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:48",
             ),
             array(
-                "id" => 18,
+                "id" => 16,
                 "name" => "ujikom delete",
                 "guard_name" => "admin",
                 "group" => "Ujikom",
@@ -159,7 +143,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 09:25:50",
             ),
             array(
-                "id" => 19,
+                "id" => 17,
                 "name" => "usulan pelatihan view",
                 "guard_name" => "admin",
                 "group" => "Usulan Pelatihan",
@@ -167,7 +151,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:34:04",
             ),
             array(
-                "id" => 20,
+                "id" => 18,
                 "name" => "usulan pelatihan create",
                 "guard_name" => "admin",
                 "group" => "Usulan Pelatihan",
@@ -175,7 +159,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:34:05",
             ),
             array(
-                "id" => 21,
+                "id" => 19,
                 "name" => "usulan pelatihan update",
                 "guard_name" => "admin",
                 "group" => "Usulan Pelatihan",
@@ -183,7 +167,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:34:05",
             ),
             array(
-                "id" => 22,
+                "id" => 20,
                 "name" => "usulan pelatihan delete",
                 "guard_name" => "admin",
                 "group" => "Usulan Pelatihan",
@@ -191,7 +175,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:34:08",
             ),
             array(
-                "id" => 23,
+                "id" => 21,
                 "name" => "usulan ujikom view",
                 "guard_name" => "admin",
                 "group" => "Usulan Ujikom",
@@ -199,7 +183,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:35:05",
             ),
             array(
-                "id" => 24,
+                "id" => 22,
                 "name" => "usulan ujikom create",
                 "guard_name" => "admin",
                 "group" => "Usulan Ujikom",
@@ -207,7 +191,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:35:06",
             ),
             array(
-                "id" => 25,
+                "id" => 23,
                 "name" => "usulan ujikom update",
                 "guard_name" => "admin",
                 "group" => "Usulan Ujikom",
@@ -215,7 +199,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:35:07",
             ),
             array(
-                "id" => 26,
+                "id" => 24,
                 "name" => "usulan ujikom delete",
                 "guard_name" => "admin",
                 "group" => "Usulan Ujikom",
@@ -223,7 +207,7 @@ class RolePermissionSeeder extends Seeder
                 "updated_at" => "2024-05-05 10:35:10",
             ),
             array(
-                "id" => 27,
+                "id" => 25,
                 "name" => "manajemen akses",
                 "guard_name" => "admin",
                 "group" => "Manajemen Akses",
@@ -345,14 +329,6 @@ class RolePermissionSeeder extends Seeder
             ),
             array(
                 "permission_id" => 25,
-                "role_id" => 1,
-            ),
-            array(
-                "permission_id" => 26,
-                "role_id" => 1,
-            ),
-            array(
-                "permission_id" => 27,
                 "role_id" => 1,
             ),
         );

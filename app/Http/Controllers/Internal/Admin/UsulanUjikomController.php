@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Eksternal\Admin;
+namespace App\Http\Controllers\Internal\Admin;
 
 use App\Models\User;
 use App\Models\Ujikom;
@@ -22,7 +22,7 @@ class UsulanUjikomController extends Controller
     public function index()
     {
         $titles = 'Daftar Usulan Ujikom';
-        return view('eksternal.admin.usulan-ujikom.index', compact('titles'));
+        return view('internal.admin.usulan-ujikom.index', compact('titles'));
     }
 
     /**
@@ -31,7 +31,7 @@ class UsulanUjikomController extends Controller
     public function create()
     {
         $titles = 'Buat Usulan Uji ';
-        return view('eksternal.admin.usulan-ujikom.create', compact('titles'));
+        return view('internal.admin.usulan-ujikom.create', compact('titles'));
     }
 
     /**
@@ -41,7 +41,6 @@ class UsulanUjikomController extends Controller
     {
         $request->validate(
             [
-                'user_id' => ['required','exists:users,id'],
                 'jenis_ujikom_id' => ['required','exists:jenis_ujikoms,id'],
                 'ujikom_id' => ['required','exists:ujikoms,id'],
         ]);
@@ -58,13 +57,13 @@ class UsulanUjikomController extends Controller
             $usulanUjikom->save();
             DB::commit();
             toast('Usulan ujikom anda berhasil diajukan!','success');
-            return to_route('eksternal.admin.usulan-ujikom.index');
+            return to_route('internal.admin.usulan-ujikom.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error pengajuan data usulan!','error');
-            return redirect()->route('eksternal.admin.usulan-ujikom.index');
+            return redirect()->route('internal.admin.usulan-ujikom.index');
 
         }
     }
@@ -85,7 +84,7 @@ class UsulanUjikomController extends Controller
         $decrypted = Crypt::decryptString($id);
         $usulanUjikom = UsulanUjikom::findOrFail($decrypted);
         $titles = 'Edit Usulan Uji Kompetensi';
-        return view('eksternal.admin.usulan-ujikom.edit', compact('titles', 'usulanUjikom'));
+        return view('internal.admin.usulan-ujikom.edit', compact('titles', 'usulanUjikom'));
     }
 
     /**
@@ -111,13 +110,13 @@ class UsulanUjikomController extends Controller
             $usulanUjikom->update();
             DB::commit();
             toast('Usulan ujikom anda berhasil diupdate!','success');
-            return to_route('eksternal.admin.usulan-ujikom.index');
+            return to_route('internal.admin.usulan-ujikom.index');
 
         }catch (\Exception $e) {
 
             DB::rollback();
             toast('Error update data usulan!','error');
-            return redirect()->route('eksternal.admin.usulan-ujikom.index');
+            return redirect()->route('internal.admin.usulan-ujikom.index');
 
         }
     }
@@ -135,12 +134,12 @@ class UsulanUjikomController extends Controller
             $usulanUjikom->delete();
             DB::commit();
             toast('Usulan ujikom berhasil dihapus!','success');
-            return redirect()->route('eksternal.admin.usulan-ujikom.index');
+            return redirect()->route('internal.admin.usulan-ujikom.index');
         }catch(\Exception $e) {
             DB::rollback();
             logger($e);
             toast('Error hapus data!','error');
-            return redirect()->route('eksternal.admin.usulan-ujikom.index');
+            return redirect()->route('internal.admin.usulan-ujikom.index');
         }
     }
 
@@ -192,13 +191,13 @@ class UsulanUjikomController extends Controller
 
     // Ajax Datatable
     public function ajax() {
-        $user = Auth::guard('ekt')->user();
+        $user = Auth::user();
         $data = UsulanUjikom::with('usulanUser', 'usulanJenisUjikom', 'usulanUjikom')
-            ->whereHas('usulanUser', function ($query) use ($user) {
-                $query->where('unit_kerja', $user->unit_kerja);
-            })
-            ->latest()
-            ->get();
+        ->whereHas('usulanUser', function ($query) use ($user) {
+            $query->where('unit_kerja', $user->unit_kerja);
+        })
+        ->latest()
+        ->get();
         return DataTables::of($data)
             ->editColumn('created_at', function ($created) {
                 return \Carbon\Carbon::parse($created->created_at)->isoFormat('dddd, DD MMMM Y HH:mm ' . strtoupper('A'));
@@ -212,10 +211,10 @@ class UsulanUjikomController extends Controller
                 return $info;
             })
             ->addColumn('action', function ($action) {
-                $url_edit = route('eksternal.admin.usulan-ujikom.edit', Crypt::encryptString($action->id));
-                $url_validasi = route('eksternal.admin.usulan-ujikom.ajaxValidasi',Crypt::encryptString($action->id));
-                $url_nonvalidasi = route('eksternal.admin.usulan-ujikom.ajaxNonValidasi', Crypt::encryptString($action->id));
-                $url_delete = route('eksternal.admin.usulan-ujikom.destroy', Crypt::encryptString($action->id));
+                $url_edit = route('internal.admin.usulan-ujikom.edit', Crypt::encryptString($action->id));
+                $url_validasi = route('internal.admin.usulan-ujikom.ajaxValidasi',Crypt::encryptString($action->id));
+                $url_nonvalidasi = route('internal.admin.usulan-ujikom.ajaxNonValidasi', Crypt::encryptString($action->id));
+                $url_delete = route('internal.admin.usulan-ujikom.destroy', Crypt::encryptString($action->id));
                 if ($action->status != 'Validasi') {
                     $btn = '
                     <div class="d-flex flex-row gap-2">

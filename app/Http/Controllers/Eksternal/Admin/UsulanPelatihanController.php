@@ -42,6 +42,7 @@ class UsulanPelatihanController extends Controller
     {
         $request->validate(
             [
+                'user_id' => ['required','exists:users,id'],
                 'jenis_pelatihan_id' => ['required','exists:jenis_pelatihans,id'],
                 'pelatihan_id' => ['required','exists:pelatihans,id'],
         ]);
@@ -51,7 +52,7 @@ class UsulanPelatihanController extends Controller
         try {
 
             $usulanPelatihan = new UsulanPelatihan();
-            $usulanPelatihan->user_id = strip_tags(auth()->guard('ekt')->user()->id);
+            $usulanPelatihan->user_id = strip_tags($request->user_id);
             $usulanPelatihan->jenis_pelatihan_id = strip_tags($request->jenis_pelatihan_id);
             $usulanPelatihan->pelatihan_id = strip_tags($request->pelatihan_id);
             $usulanPelatihan->usulan_lainnya = strip_tags($request->usulan_lainnya);
@@ -95,6 +96,7 @@ class UsulanPelatihanController extends Controller
     {
         $request->validate(
             [
+                'user_id' => ['required','exists:users,id'],
                 'jenis_pelatihan_id' => ['required','exists:jenis_pelatihans,id'],
                 'pelatihan_id' => ['required','exists:pelatihans,id'],
         ]);

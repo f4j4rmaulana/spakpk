@@ -21,10 +21,11 @@
                 alt="{{ auth()->user()->name }}"
             />
             <span class="text-dark">{{ auth()->user()->name }}</span>
+            <sup><span class="badge bg-dark text-superscript">Admin</span></sup>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
                 @if (auth()->user()->account_type === 'multirole' )
-                    <a class="dropdown-item" href="{{ route('internal.admin.dashboard') }}"><i class="align-middle me-1" data-feather="repeat"></i> Switch to Admin</a>
+                    <a class="dropdown-item" href="{{ route('internal.dashboard') }}"><i class="align-middle me-1" data-feather="repeat"></i> Back to User Role</a>
                 @endif
                 <div class="dropdown-divider"></div>
                 <!-- Authentication -->
