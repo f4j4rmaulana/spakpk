@@ -23,6 +23,7 @@
                   />
                 </div>
                 <x-auth-session-status class="mb-4" :status="session('status')" />
+
                 <form method="POST" action="{{ route('admin.login') }}">
                     @csrf
                   <div class="mb-3">
@@ -49,6 +50,7 @@
                       placeholder="Enter your password"
                       id="password"
                       required
+                      />
                       <x-input-error :messages="$errors->get('password')" class="mt-1" />
                     </div>
 

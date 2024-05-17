@@ -1,0 +1,129 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<html>
+    <head>
+      <title>Login | Aplikasi Sistem SiJempol</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+                <title></title>
+
+
+        <!-- Main1 CSS File -->
+        <link href="assets/css/main1.css" rel="stylesheet">
+    </head>
+        <body class="main-bg">
+            <div class="login-container text-c animated flipInX">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="panel panel-login">
+                                <div class="panel-heading">
+                                <div>
+                                    <h1 class="logo-badge text-whitesmoke"><span class="fa fa-user-circle"></span></h1>
+                                </div>
+                                    <h3 class="text-whitesmoke">Login</h3>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                    <a href="#" class="active" id="login-form-link">Eksternal</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                    <a href="#" id="register-form-link">Internal</a>
+                                    </div>
+                                </div>
+                                <hr>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                                <form id="login-form" action="https://phpoll.com/login/process" method="post" role="form" style="display: block;">
+                                                    <div class="form-group">
+                                                    <p> Username atau Email</p>
+                                                    <input placeholder="Username atau Email" type="text" name="username" id="username" tabindex="1" class="form-control" value="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <p>Password</p>
+                                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                                    <label for="remember">Ingat Saya</label>
+                                                    <br>
+                                                    <a href="lupapass.html"> Lupa Password?</a>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-sm-offset-3">
+                                                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    <!-- Register buttons -->
+                                <div class="text-center">
+                                    <p>Belum Punya Akun? <a href="register.html">Daftar</a></p>
+                                </div>
+                                                </form>
+                                                <form id="register-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none;">
+
+                                                    <div class="form-group">
+                                                    <p> Username atau Email </p>
+                                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <p>Password</p>
+                                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                                    <label for="remember">Ingat Saya</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-sm-offset-3">
+                                                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js">
+    </script>
+    <script>
+      $(function() {
+
+        $('#login-form-link').click(function(e) {
+        $("#login-form").delay(100).fadeIn(100);
+        $("#register-form").fadeOut(100);
+        $('#register-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+        });
+        $('#register-form-link').click(function(e) {
+        $("#register-form").delay(100).fadeIn(100);
+        $("#login-form").fadeOut(100);
+        $('#login-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+        });
+
+        });
+    </script>
+</html>

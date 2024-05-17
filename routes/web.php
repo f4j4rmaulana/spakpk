@@ -21,7 +21,7 @@ use App\Http\Controllers\Internal\UsulanPelatihanController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.layouts.master');
 });
 
 
