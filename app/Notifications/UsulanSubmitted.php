@@ -12,13 +12,15 @@ class UsulanSubmitted extends Notification
     use Queueable;
 
     protected $message;
+    protected $usulan;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($message)
+    public function __construct($message, $usulan)
     {
         $this->message = $message;
+        $this->usulan = $usulan;
     }
 
     /**
@@ -46,6 +48,7 @@ class UsulanSubmitted extends Notification
     {
         return [
             'message' => $this->message,
+            'usulan' => $this->usulan,
         ];
     }
 

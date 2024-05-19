@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Eksternal;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Pelatihan;
@@ -64,12 +65,17 @@ class UsulanPelatihanController extends Controller
             $usulanPelatihan->save();
             DB::commit();
 
+            // Ambil ID dari usulan yang baru saja disimpan
+            $usulanId = $usulanPelatihan->id;
+            $createdAt = UsulanPelatihan::where('id', $usulanId)->value('created_at');
+            $usulan = Carbon::parse($createdAt)->isoFormat('D MMMM YYYY HH:mm:ss');
+
+            // Ambil current user
             $currentUser = Auth::guard('ekt')->user();
             $namaUser = $currentUser->name;
             $unitKerja = $currentUser->unit_kerja;
 
-
-            $message = $namaUser . ' telah melakukan submit usulan pelatihan' ;
+            $message = $namaUser . ' telah submit usulan pelatihan pada ' . $usulan . ' WIB';
 
              // Ambil semua user dengan account_type 'multirole' dan unit_kerja yang sama
             $users = User::where('account_type', 'multirole')
@@ -84,7 +90,7 @@ class UsulanPelatihanController extends Controller
             $recipients = $users->concat($admins);
 
             // Kirim notifikasi ke user dan admin
-            Notification::send($recipients, new UsulanSubmitted($message));
+            Notification::send($recipients, new UsulanSubmitted($message, $usulan));
 
 
             toast('Usulan pelatihan anda berhasil diajukan!','success');
@@ -162,8 +168,37 @@ class UsulanPelatihanController extends Controller
         try {
             $decrypted = Crypt::decryptString($id);
             $usulanPelatihan = UsulanPelatihan::with('usulanUser')->findOrFail($decrypted);
+
+            // Ambil ID dari usulan sebelum dihapus
+            $usulanId = $usulanPelatihan->id;
+            $createdAt = UsulanPelatihan::where('id', $usulanId)->value('created_at');
+            $usulan = Carbon::parse($createdAt)->isoFormat('D MMMM YYYY HH:mm:ss');
+
             $usulanPelatihan->delete();
             DB::commit();
+
+            // Ambil current user
+            $currentUser = Auth::guard('ekt')->user();
+            $namaUser = $currentUser->name;
+            $unitKerja = $currentUser->unit_kerja;
+
+            $message = $namaUser . ' telah hapus usulan pelatihan tanggal ' . $usulan . ' WIB';
+
+             // Ambil semua user dengan account_type 'multirole' dan unit_kerja yang sama
+            $users = User::where('account_type', 'multirole')
+                ->where('unit_kerja', $unitKerja)
+                ->get();
+
+            // Ambil semua admin dengan unit_kerja yang sama
+            // $admins = Admin::where('unit_kerja', $unitKerja)->get();
+            $admins = Admin::all();
+
+            // Gabungkan user dan admin
+            $recipients = $users->concat($admins);
+
+            // Kirim notifikasi ke user dan admin
+            Notification::send($recipients, new UsulanSubmitted($message, $usulan));
+
             toast('Usulan pelatihan berhasil dihapus!','success');
             return redirect()->route('eksternal.usulan-pelatihan.index');
         }catch(\Exception $e) {
