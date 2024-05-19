@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Eksternal\Admin;
 use Carbon\Carbon;
 use Illuminate\View\View;
 use App\Models\UsulanUjikom;
-use Illuminate\Http\Request;
 use App\Models\UsulanPelatihan;
 use App\Http\Controllers\Controller;
 
@@ -21,6 +20,14 @@ class DashboardController extends Controller
             ->get()
             ->count();
         $tuuAllVal = UsulanUjikom::where('status', 'Validasi')
+            ->whereYear('created_at', $yearNow)
+            ->get()
+            ->count();
+        $tupAllNonVal = UsulanPelatihan::where('status', 'Belum Validasi')
+            ->whereYear('created_at', $yearNow)
+            ->get()
+            ->count();
+        $tuuAllNonVal = UsulanUjikom::where('status', 'Belum Validasi')
             ->whereYear('created_at', $yearNow)
             ->get()
             ->count();
@@ -68,8 +75,10 @@ class DashboardController extends Controller
         $tuuDiff = $tuuThisMonth - $tuuLastMonth;
 
 
-        toast('Role anda saat ini, Admin!','success');
+        // toast('Role anda saat ini, Admin!','success');
 
-        return view('eksternal.admin.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk' ));
+        return view('eksternal.admin.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupAllNonVal', 'tuuAllNonVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk' ));
     }
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Eksternal;
 
+use App\Models\User;
+use App\Models\Admin;
 use App\Models\Pelatihan;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -11,7 +13,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use App\Notifications\UsulanSubmitted;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Notification;
 
 class UsulanPelatihanController extends Controller
 {
@@ -59,6 +63,30 @@ class UsulanPelatihanController extends Controller
             $usulanPelatihan->usulan_lainnya = strip_tags($request->usulan_lainnya);
             $usulanPelatihan->save();
             DB::commit();
+
+            $currentUser = Auth::guard('ekt')->user();
+            $namaUser = $currentUser->name;
+            $unitKerja = $currentUser->unit_kerja;
+
+
+            $message = $namaUser . ' telah melakukan submit usulan pelatihan' ;
+
+             // Ambil semua user dengan account_type 'multirole' dan unit_kerja yang sama
+            $users = User::where('account_type', 'multirole')
+                ->where('unit_kerja', $unitKerja)
+                ->get();
+
+            // Ambil semua admin dengan unit_kerja yang sama
+            // $admins = Admin::where('unit_kerja', $unitKerja)->get();
+            $admins = Admin::all();
+
+            // Gabungkan user dan admin
+            $recipients = $users->concat($admins);
+
+            // Kirim notifikasi ke user dan admin
+            Notification::send($recipients, new UsulanSubmitted($message));
+
+
             toast('Usulan pelatihan anda berhasil diajukan!','success');
             return to_route('eksternal.usulan-pelatihan.index');
 

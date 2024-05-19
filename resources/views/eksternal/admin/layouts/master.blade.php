@@ -48,13 +48,12 @@
 
         <div class="main">
 
-            <nav class="navbar navbar-expand navbar-light navbar-bg">
-                <a class="sidebar-toggle js-sidebar-toggle">
-                    <i class="hamburger align-self-center"></i>
-                </a>
-
-                @include('eksternal.admin.layouts.navbar')
-            </nav>
+                <nav class="navbar navbar-expand navbar-light navbar-bg">
+                    <a class="sidebar-toggle js-sidebar-toggle">
+                        <i class="hamburger align-self-center"></i>
+                    </a>
+                    @include('eksternal.admin.layouts.navbar')
+                </nav>
 
             <main class="content">
             @include('sweetalert::alert')
@@ -62,7 +61,7 @@
             </main>
 
             <footer class="footer">
-            @include('eksternal.admin.layouts.footer')
+                @include('eksternal.admin.layouts.footer')
             </footer>
 
         </div>

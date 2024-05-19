@@ -38,14 +38,14 @@
         $(document).on('click', '.btnClose', function (e) {
             e.preventDefault();
             var url = $(this).data('url'); // Mengambil URL dari data-url
-            var token = "{{ csrf_token() }}";
+            // var token = "{{ csrf_token() }}";
 
             $.ajax({
                 url: url,
                 type: 'GET',
-                data: {
-                    _token: token
-                },
+                // data: {
+                //     _token: token
+                // },
                 success: function (response) {
                     // Menampilkan pesan sukses dengan nama pengusul
                     alert('Akses Usulan ditutup!');
@@ -54,7 +54,6 @@
                     $('.pgUsulanBtn').load(location.href + ' .pgUsulanBtn');
                 },
                 error: function (xhr) {
-                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
                     alert('Gagal melakukan perubahan akses!');
                 }
             });
@@ -63,20 +62,13 @@
     <script>
         $(document).on('click', '.btnOpen', function (e) {
             e.preventDefault();
-            var url = $(this).data('url'); // Mengambil URL dari data-url
-            var token = "{{ csrf_token() }}";
+            var url = $(this).data('url');
 
             $.ajax({
                 url: url,
                 type: 'GET',
-                data: {
-                    _token: token
-                },
                 success: function (response) {
-                    // Menampilkan pesan sukses dengan nama pengusul
                     alert('Akses Usulan dibuka!');
-                    // Refresh
-                    // location.reload();
                     $('.pgUsulanBtn').load(location.href + ' .pgUsulanBtn');
                 },
                 error: function (xhr) {

@@ -136,23 +136,16 @@
     <script>
         $(document).on('click', '.btn-validasi', function (e) {
             e.preventDefault();
-            var url = $(this).data('url'); // Mengambil URL dari data-url
-            var token = "{{ csrf_token() }}";
+            var url = $(this).data('url');
 
             $.ajax({
                 url: url,
                 type: 'GET',
-                data: {
-                    _token: token
-                },
                 success: function (response) {
-                    // Menampilkan pesan sukses dengan nama pengusul
                     alert('Usulan pelatihan berhasil divalidasi!');
-                    // Refresh data tabel jika diperlukan
                     $('#tbl_usulan_pelatihan').DataTable().ajax.reload();
                 },
                 error: function (xhr) {
-                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
                     alert('Gagal melakukan validasi usulan!');
                 }
             });
@@ -161,23 +154,16 @@
     <script>
         $(document).on('click', '.btn-nonvalidasi', function (e) {
             e.preventDefault();
-            var url = $(this).data('url'); // Mengambil URL dari data-url
-            var token = "{{ csrf_token() }}";
+            var url = $(this).data('url');
 
             $.ajax({
                 url: url,
                 type: 'GET',
-                data: {
-                    _token: token
-                },
                 success: function (response) {
-                    // Menampilkan pesan sukses dengan nama pengusul
                     alert('Validasi usulan pelatihan berhasil dibatalkan!');
-                    // Refresh data tabel jika diperlukan
                     $('#tbl_usulan_pelatihan').DataTable().ajax.reload();
                 },
                 error: function (xhr) {
-                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
                     alert('Gagal melakukan pembatalan validasi usulan!');
                 }
             });

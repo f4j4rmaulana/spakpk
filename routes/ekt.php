@@ -16,6 +16,7 @@ use App\Http\Controllers\Eksternal\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Ekt\DashboardController as EktDashboardController;
 use App\Http\Controllers\Eksternal\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Eksternal\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Eksternal\Admin\NotifikasiController as AdminNotifikasiController;
 use App\Http\Controllers\Eksternal\Admin\UsulanPelatihanController as AdminUsulanPelatihanController;
 use App\Http\Controllers\Eksternal\Admin\UsulanUjikomController as AdminUsulanUjikomController;
 
@@ -94,4 +95,9 @@ Route::group(['middleware' => ['auth:ekt', 'cek.akun:multirole'], 'prefix' => 'e
     Route::get('/usulan-ujikom/ajax/nonvalidasi/{id}', [AdminUsulanUjikomController::class, 'ajaxNonValidasi'])->name('usulan-ujikom.ajaxNonValidasi');
     Route::resource('usulan-ujikom', AdminUsulanUjikomController::class);
 
+    /** Notify Usulan Route */
+    Route::get('/usulan-pelatihan/ajax/read-all-notify', [AdminUsulanPelatihanController::class, 'ajaxReadAllNotify'])->name('usulan-pelatihan.ajaxReadAllNotify');
+    Route::get('/usulan-pelatihan/ajax/read-notify/{id}', [AdminUsulanPelatihanController::class, 'ajaxReadNotify'])->name('usulan-pelatihan.ajaxReadNotify');
+    Route::get('/notifikasi/ajax', [AdminNotifikasiController::class, 'ajax'])->name('notifikasi.ajax');
+    Route::get('/notifikasi', [AdminNotifikasiController::class, 'index'])->name('notifikasi.index');
 });
