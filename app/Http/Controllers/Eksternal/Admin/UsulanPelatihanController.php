@@ -256,23 +256,4 @@ class UsulanPelatihanController extends Controller
             ->make(true);
     }
 
-    public function ajaxReadNotify($id) {
-
-        $decrypted = Crypt::decryptString($id);
-        $notification = auth()->guard('ekt')->user()->notifications->find($decrypted);
-
-        $notification->markAsRead();
-
-        return response()->json(['success' => true]);
-    }
-
-    public function ajaxReadAllNotify() {
-
-        $userNotification = auth()->guard('ekt')->user();
-
-        $userNotification->unreadNotifications->markAsRead();
-
-        return response()->json(['success' => true]);
-    }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Eksternal\Admin;
+namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Illuminate\View\View;
@@ -13,14 +13,14 @@ use Yajra\DataTables\Facades\DataTables;
 class NotifikasiController extends Controller
 {
     public function index(): View {
-        $titles = 'Eksternal Notifikasi';
-        return view('eksternal.admin.notifikasi.index', compact('titles'));
+        $titles = 'Admin Notifikasi';
+        return view('admin.notifikasi.index', compact('titles'));
     }
 
     public function ajaxRead($id) {
 
         $decrypted = Crypt::decryptString($id);
-        $notification = auth()->guard('ekt')->user()->notifications->find($decrypted);
+        $notification = auth()->guard('admin')->user()->notifications->find($decrypted);
 
         $notification->markAsRead();
 
@@ -29,7 +29,7 @@ class NotifikasiController extends Controller
 
     public function ajaxReadAll() {
 
-        $userNotification = auth()->guard('ekt')->user();
+        $userNotification = auth()->guard('admin')->user();
 
         $userNotification->unreadNotifications->markAsRead();
 
@@ -37,7 +37,7 @@ class NotifikasiController extends Controller
     }
 
     public function ajax() {
-        $user = Auth::guard('ekt')->user();
+        $user = Auth::guard('admin')->user();
         $data = $user->notifications;
         return DataTables::of($data)
             ->editColumn('created_at', function ($created) {

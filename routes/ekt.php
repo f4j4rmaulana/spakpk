@@ -96,8 +96,8 @@ Route::group(['middleware' => ['auth:ekt', 'cek.akun:multirole'], 'prefix' => 'e
     Route::resource('usulan-ujikom', AdminUsulanUjikomController::class);
 
     /** Notify Usulan Route */
-    Route::get('/usulan-pelatihan/ajax/read-all-notify', [AdminUsulanPelatihanController::class, 'ajaxReadAllNotify'])->name('usulan-pelatihan.ajaxReadAllNotify');
-    Route::get('/usulan-pelatihan/ajax/read-notify/{id}', [AdminUsulanPelatihanController::class, 'ajaxReadNotify'])->name('usulan-pelatihan.ajaxReadNotify');
+    Route::get('/notifikasi/ajax/read-all-notify', [AdminNotifikasiController::class, 'ajaxReadAll'])->name('notifikasi.ajaxReadAll');
+    Route::get('/notifikasi/ajax/read-notify/{id}', [AdminNotifikasiController::class, 'ajaxRead'])->name('notifikasi.ajaxRead');
     Route::get('/notifikasi/ajax', [AdminNotifikasiController::class, 'ajax'])->name('notifikasi.ajax');
     Route::get('/notifikasi', [AdminNotifikasiController::class, 'index'])->name('notifikasi.index');
 });

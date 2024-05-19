@@ -15,11 +15,11 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
                 <div class="dropdown-menu-footer d-flex justify-content-between">
                     <div class="text-dark notifHeader">Notifikasi ({{ auth()->guard('ekt')->user()->unreadNotifications->count() }})</div>
-                    <a href="javascript:void(0)" data-url="{{ route('eksternal.admin.usulan-pelatihan.ajaxReadAllNotify') }}" class="text-muted btnReadAll">Tandai semua dibaca</a>
+                    <a href="javascript:void(0)" data-url="{{ route('eksternal.admin.notifikasi.ajaxReadAll') }}" class="text-muted btnReadAll">Tandai semua dibaca</a>
                 </div>
                 <div class="list-group notifMessage">
                     @foreach(auth()->user()->unreadNotifications as $notification)
-                        <a href="javascript:void(0)" data-url="{{ route('eksternal.admin.usulan-pelatihan.ajaxReadNotify', Crypt::encryptString($notification->id)); }}"  class="list-group-item btnRead">
+                        <a href="javascript:void(0)" data-url="{{ route('eksternal.admin.notifikasi.ajaxRead', Crypt::encryptString($notification->id)); }}"  class="list-group-item btnRead">
                             <div class="row g-0 align-items-center">
                                     <div class="col-2">
                                         <span class="material-symbols-outlined" style="color:#FB8C00;">notifications_active</span>

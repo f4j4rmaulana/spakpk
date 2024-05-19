@@ -133,77 +133,77 @@
         </div>
 
 {{-- Start Usulan Pelatihan Tabel Jumlah by Unit Kerja --}}
-<div class="row">
-    <div class="col-12">
-        <div class="card flex-fill w-100">
-            <div class="card-header">
-            <h5 class="card-title mb-0">Jumlah Usulan Pelatihan per Unit Kerja</h5>
-            </div>
-            <div class="card-body py-3">
-                <div class="chart chart-sm">
-                    <table id="tbl_usulan_pelatihan" class="table table-hover table-sm table-responsive overflow-auto">
-                        <thead>
-                            <tr>
-                                <th class="d-sm-table-cell">Instansi</th>
-                                <th class="d-xl-table-cell">Unit Kerja</th>
-                                <th class="d-sm-table-cell">Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @foreach($tupByUk as $key => $count)
-                            @php
-                                [$instansi, $unit_kerja] = explode('|', $key);
-                            @endphp
+    <div class="row">
+        <div class="col-12">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+                <h5 class="card-title mb-0">Jumlah Usulan Pelatihan per Unit Kerja</h5>
+                </div>
+                <div class="card-body py-3">
+                    <div class="chart chart-sm">
+                        <table id="tbl_usulan_pelatihan" class="table table-hover table-sm table-responsive overflow-auto">
+                            <thead>
                                 <tr>
-                                    <td class="d-sm-table-cell">{{ $instansi }}</td>
-                                    <td class="d-xl-table-cell">{{ $unit_kerja }}</td>
-                                    <td class="d-sm-table-cell">{{ $count }}</td>
+                                    <th class="d-sm-table-cell">Instansi</th>
+                                    <th class="d-xl-table-cell">Unit Kerja</th>
+                                    <th class="d-sm-table-cell">Jumlah</th>
                                 </tr>
-                            @endforeach --}}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {{-- @foreach($tupByUk as $key => $count)
+                                @php
+                                    [$instansi, $unit_kerja] = explode('|', $key);
+                                @endphp
+                                    <tr>
+                                        <td class="d-sm-table-cell">{{ $instansi }}</td>
+                                        <td class="d-xl-table-cell">{{ $unit_kerja }}</td>
+                                        <td class="d-sm-table-cell">{{ $count }}</td>
+                                    </tr>
+                                @endforeach --}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {{-- End Tabel Jumlah by Unit Kerja --}}
 
 {{-- Start Usulan Ujikom Tabel Jumlah by Unit Kerja --}}
-<div class="row">
-    <div class="col-12">
-        <div class="card flex-fill w-100">
-            <div class="card-header">
-            <h5 class="card-title mb-0">Jumlah Usulan Ujikom per Unit Kerja</h5>
-            </div>
-            <div class="card-body py-3">
-                <div class="chart chart-sm">
-                    <table id="tbl_usulan_ujikom" class="table table-hover table-sm table-responsive">
-                        <thead>
-                            <tr>
-                                <th class="d-sm-table-cell">Instansi</th>
-                                <th class="d-xl-table-cell">Unit Kerja</th>
-                                <th class="d-sm-table-cell">Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @foreach($tuuByUk as $key => $count)
-                            @php
-                                [$instansi, $unit_kerja] = explode('|', $key);
-                            @endphp
+    <div class="row">
+        <div class="col-12">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+                <h5 class="card-title mb-0">Jumlah Usulan Ujikom per Unit Kerja</h5>
+                </div>
+                <div class="card-body py-3">
+                    <div class="chart chart-sm">
+                        <table id="tbl_usulan_ujikom" class="table table-hover table-sm table-responsive">
+                            <thead>
                                 <tr>
-                                    <td class="d-sm-table-cell">{{ $instansi }}</td>
-                                    <td class="d-xl-table-cell">{{ $unit_kerja }}</td>
-                                    <td class="d-sm-table-cell">{{ $count }}</td>
+                                    <th class="d-sm-table-cell">Instansi</th>
+                                    <th class="d-xl-table-cell">Unit Kerja</th>
+                                    <th class="d-sm-table-cell">Jumlah</th>
                                 </tr>
-                            @endforeach --}}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {{-- @foreach($tuuByUk as $key => $count)
+                                @php
+                                    [$instansi, $unit_kerja] = explode('|', $key);
+                                @endphp
+                                    <tr>
+                                        <td class="d-sm-table-cell">{{ $instansi }}</td>
+                                        <td class="d-xl-table-cell">{{ $unit_kerja }}</td>
+                                        <td class="d-sm-table-cell">{{ $count }}</td>
+                                    </tr>
+                                @endforeach --}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {{-- End Tabel Jumlah by Unit Kerja --}}
 
     </div>

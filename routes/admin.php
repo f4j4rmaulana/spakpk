@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\NotifikasiController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
@@ -124,6 +125,12 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('/user/active/{id}', [UserController::class, 'active'])->name('user.active');
     Route::get('/user/nonactive/{id}', [UserController::class, 'nonactive'])->name('user.nonactive');
     Route::resource('user', UserController::class);
+
+     /** Notify Usulan Route */
+     Route::get('/notifikasi/ajax/read-all-notify', [NotifikasiController::class, 'ajaxReadAll'])->name('notifikasi.ajaxReadAll');
+     Route::get('/notifikasi/ajax/read-notify/{id}', [NotifikasiController::class, 'ajaxRead'])->name('notifikasi.ajaxRead');
+     Route::get('/notifikasi/ajax', [NotifikasiController::class, 'ajax'])->name('notifikasi.ajax');
+     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi.index');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
