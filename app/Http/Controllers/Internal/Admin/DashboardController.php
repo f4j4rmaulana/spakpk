@@ -24,6 +24,14 @@ class DashboardController extends Controller
             ->whereYear('created_at', $yearNow)
             ->get()
             ->count();
+        $tupAllNonVal = UsulanPelatihan::where('status', 'Belum Validasi')
+            ->whereYear('created_at', $yearNow)
+            ->get()
+            ->count();
+        $tuuAllNonVal = UsulanUjikom::where('status', 'Belum Validasi')
+            ->whereYear('created_at', $yearNow)
+            ->get()
+            ->count();
         $tupByUk = UsulanPelatihan::with('usulanUser', 'usulanJenisPelatihan', 'usulanPelatihan')
             ->where('status', 'Validasi')
             ->whereYear('created_at', $yearNow)
@@ -70,6 +78,6 @@ class DashboardController extends Controller
 
         toast('Role anda saat ini, Admin!','success');
 
-        return view('internal.admin.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk' ));
+        return view('internal.admin.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupAllNonVal', 'tuuAllNonVal', 'tupByUk', 'tuuByUk' ));
     }
 }

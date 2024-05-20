@@ -190,7 +190,7 @@
                 var title = $(this).text();
                 $(this).html('<input type="text" class="form-control shadow" placeholder="cari" />');
             });
-                // Menambahkan event listener untuk menangani pembuatan ulang tabel setelah selesai memuat
+
                 table.on('draw', function () {
                 // Debugging
                 console.log('Tabel diperbarui');
@@ -210,7 +210,6 @@
                     $('#tbl_usulan_pelatihan').DataTable().ajax.reload();
                 },
                 error: function (xhr) {
-                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
                     alert('Gagal melakukan validasi usulan!');
                 }
             });
@@ -229,7 +228,6 @@
                     $('#tbl_usulan_pelatihan').DataTable().ajax.reload();
                 },
                 error: function (xhr) {
-                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
                     alert('Gagal melakukan pembatalan validasi usulan!');
                 }
             });

@@ -77,7 +77,6 @@ return [
                 'sync_attributes' => [
                     'name' => 'cn',
                     'username' => 'uid',
-                    'password' => 'userpassword',
                     'nomor_id' => 'employeenumber'
                 ],
                 'sync_existing' => [

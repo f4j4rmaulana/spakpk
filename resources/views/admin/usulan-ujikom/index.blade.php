@@ -187,7 +187,7 @@
                 var title = $(this).text();
                 $(this).html('<input type="text" class="form-control shadow" placeholder="cari" />');
             });
-                // Menambahkan event listener untuk menangani pembuatan ulang tabel setelah selesai memuat
+
                 table.on('draw', function () {
                 // Debugging
                 console.log('Tabel diperbarui');
@@ -197,7 +197,7 @@
     <script>
         $(document).on('click', '.btn-validasi', function (e) {
             e.preventDefault();
-            var url = $(this).data('url'); 
+            var url = $(this).data('url');
 
             $.ajax({
                 url: url,
@@ -207,7 +207,7 @@
                     $('#tbl_usulan_ujikom').DataTable().ajax.reload();
                 },
                 error: function (xhr) {
-                    // Tampilkan pesan error atau lakukan tindakan lain jika diperlukan
+
                     alert('Gagal melakukan validasi usulan!');
                 }
             });
@@ -216,7 +216,7 @@
     <script>
         $(document).on('click', '.btn-nonvalidasi', function (e) {
             e.preventDefault();
-            var url = $(this).data('url'); 
+            var url = $(this).data('url');
 
             $.ajax({
                 url: url,

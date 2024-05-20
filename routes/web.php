@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Internal\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Internal\Admin\NotifikasiController as AdminNotifikasiController;
 use App\Http\Controllers\Internal\Admin\UsulanPelatihanController as AdminUsulanPelatihanController;
 use App\Http\Controllers\Internal\Admin\UsulanUjikomController as AdminUsulanUjikomController;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +72,12 @@ Route::group(['middleware' => ['auth', 'cek.akun:multirole'], 'prefix' => 'inter
     Route::get('/usulan-ujikom/ajax/validasi/{id}', [AdminUsulanUjikomController::class, 'ajaxValidasi'])->name('usulan-ujikom.ajaxValidasi');
     Route::get('/usulan-ujikom/ajax/nonvalidasi/{id}', [AdminUsulanUjikomController::class, 'ajaxNonValidasi'])->name('usulan-ujikom.ajaxNonValidasi');
     Route::resource('usulan-ujikom', AdminUsulanUjikomController::class);
+
+    /** Notify Usulan Route */
+    Route::get('/notifikasi/ajax/read-all-notify', [AdminNotifikasiController::class, 'ajaxReadAll'])->name('notifikasi.ajaxReadAll');
+    Route::get('/notifikasi/ajax/read-notify/{id}', [AdminNotifikasiController::class, 'ajaxRead'])->name('notifikasi.ajaxRead');
+    Route::get('/notifikasi/ajax', [AdminNotifikasiController::class, 'ajax'])->name('notifikasi.ajax');
+    Route::get('/notifikasi', [AdminNotifikasiController::class, 'index'])->name('notifikasi.index');
 
 });
 

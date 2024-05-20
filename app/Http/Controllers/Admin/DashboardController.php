@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use GlobalHelper;
 use Carbon\Carbon;
 use App\Models\UsulanUjikom;
 use Illuminate\Http\Request;

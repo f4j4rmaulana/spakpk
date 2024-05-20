@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Client;
 use LdapRecord\Connection;
 
 /** Check Input Error */
@@ -68,4 +69,6 @@ function check_nip_by_ldap($uname,$pass,$role="people"){
         // $json  = json_encode($error);
     return [];
     }
+
+
 }
