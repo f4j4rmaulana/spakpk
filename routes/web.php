@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Internal\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Internal\Admin\NotifikasiController as AdminNotifikasiController;
 use App\Http\Controllers\Internal\Admin\UsulanPelatihanController as AdminUsulanPelatihanController;
@@ -21,9 +22,11 @@ use App\Http\Controllers\Internal\UsulanPelatihanController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.layouts.master');
-});
+// Route::get('/', function () {
+//     return view('frontend.layouts.master');
+// });
+
+Route::get('/', [FrontendController::class, 'index'])->name('index');
 
 
 Route::group(['middleware' => ['auth'], 'as' => 'internal.'],function () {
