@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Eksternal;
 
+use App\Http\Controllers\Controller;
+use App\Models\UsulanPelatihan;
+use App\Models\UsulanUjikom;
 use Carbon\Carbon;
 use Illuminate\View\View;
-use App\Models\UsulanUjikom;
-use Illuminate\Http\Request;
-use App\Models\UsulanPelatihan;
-use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index(): View {
+    public function index(): View
+    {
         $titles = 'Eksternal Dashboard';
         $yearNow = Carbon::now()->year;
         $tupAll = UsulanPelatihan::whereYear('created_at', $yearNow)->get()->count();
@@ -67,6 +67,8 @@ class DashboardController extends Controller
         $tupDiff = $tupThisMonth - $tupLastMonth;
         $tuuDiff = $tuuThisMonth - $tuuLastMonth;
 
-        return view('eksternal.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk' ));
+        toast('Role anda saat ini, Admin!', 'success');
+
+        return view('eksternal.dashboard.index', compact('titles', 'yearNow', 'tupAll', 'tuuAll', 'tupAllVal', 'tupDiff', 'tuuDiff', 'tuuAllVal', 'tupByUk', 'tuuByUk'));
     }
 }

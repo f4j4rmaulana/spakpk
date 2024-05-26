@@ -57,7 +57,7 @@
     $(document).ready(function(){
         $('#user_id').select2({
             theme: 'bootstrap-5',
-            minimumInputLength:2,
+            minimumInputLength:0,
             // placeholder:'Pilih Pengusul',
             ajax:{
                 url:route('admin.usulan-ujikom.ajaxGetUsers'),
@@ -122,7 +122,7 @@
     $(document).ready(function(){
         $('#jenis_ujikom_id').select2({
             theme: 'bootstrap-5',
-            minimumInputLength:2,
+            minimumInputLength:0,
             // placeholder:'Pilih Pengusul',
             ajax:{
                 url:route('admin.usulan-ujikom.ajaxGetJenisUjikom'),
@@ -177,7 +177,7 @@
     $(document).ready(function(){
         $('#ujikom_id').select2({
             theme: 'bootstrap-5',
-            minimumInputLength:2,
+            minimumInputLength:0,
             // placeholder:'Pilih Pengusul',
             ajax:{
                 url:route('admin.usulan-ujikom.ajaxGetUjikom'),

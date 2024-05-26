@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\View\View;
-use App\Models\JenisUjikom;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JenisUjikomRequest;
+use App\Models\JenisUjikom;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 
 class JenisUjikomController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
-        $this->middleware(['permission:jenis ujikom view'])->only('index','ajax','active','nonactive');
-        $this->middleware(['permission:jenis ujikom create'])->only('create','store');
-        $this->middleware(['permission:jenis ujikom update'])->only('edit','update');
+        $this->middleware(['permission:jenis ujikom view'])->only('index', 'ajax', 'active', 'nonactive');
+        $this->middleware(['permission:jenis ujikom create'])->only('create', 'store');
+        $this->middleware(['permission:jenis ujikom update'])->only('edit', 'update');
         $this->middleware(['permission:jenis ujikom delete'])->only('destroy');
     }
 
@@ -42,30 +42,27 @@ class JenisUjikomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(JenisUjikomRequest $request): RedirectResponse
     {
-        $request->validate(
-            [
-                'nama' => ['required', 'min:5', 'unique:jenis_ujikoms,nama'],
-                'deskripsi' => ['required']
-        ]);
+
+        $validatedData = $request->validated();
 
         DB::beginTransaction();
 
         try {
 
             $jenisUjikom = new JenisUjikom();
-            $jenisUjikom->nama = strip_tags($request->nama);
-            $jenisUjikom->deskripsi = strip_tags($request->deskripsi);
+            $jenisUjikom->nama = strip_tags($validatedData['nama']);
+            $jenisUjikom->deskripsi = strip_tags($validatedData['deskripsi']);
             $jenisUjikom->save();
             DB::commit();
-            toast('Data berhasil tersimpan!','success');
+            toast('Data berhasil tersimpan!', 'success');
             return to_route('admin.jenis-ujikom.index');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             DB::rollback();
-            toast('Error simpan data!','error');
+            toast('Error simpan data!', 'error');
             return redirect()->route('admin.jenis-ujikom.index');
 
         }
@@ -93,14 +90,9 @@ class JenisUjikomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(JenisUjikomRequest $request, string $id)
     {
-        $request->validate(
-            [
-                'nama' => ['required', 'min:5'],
-                'deskripsi' => ['required']
-        ]);
-
+        $validatedData = $request->validated();
 
         DB::beginTransaction();
 
@@ -108,18 +100,18 @@ class JenisUjikomController extends Controller
 
             $decrypted = Crypt::decryptString($id);
             $jenisUjikom = JenisUjikom::findOrFail($decrypted);
-            $jenisUjikom->nama = strip_tags($request->nama);
-            $jenisUjikom->deskripsi = strip_tags($request->deskripsi);
+            $jenisUjikom->nama = strip_tags($validatedData['nama']);
+            $jenisUjikom->deskripsi = strip_tags($validatedData['deskripsi']);
             $jenisUjikom->save();
             DB::commit();
-            toast('Data berhasil tersimpan!','success');
+            toast('Data berhasil tersimpan!', 'success');
             return to_route('admin.jenis-ujikom.index');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             DB::rollback();
             logger($e);
-            toast('Error simpan data!','error');
+            toast('Error simpan data!', 'error');
             return redirect()->route('admin.jenis-ujikom.index');
 
         }
@@ -138,18 +130,18 @@ class JenisUjikomController extends Controller
             $namaUjikom = $jenisUjikom->nama;
             $jenisUjikom->delete();
             DB::commit();
-            toast('Jenis ujikom "'.$namaUjikom.'" berhasil dihapus!','success');
+            toast('Jenis ujikom "' . $namaUjikom . '" berhasil dihapus!', 'success');
             return redirect()->route('admin.jenis-ujikom.index');
-        }catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             logger($e);
-            toast('Error simpan data!','error');
+            toast('Error simpan data!', 'error');
             return redirect()->route('admin.jenis-ujikom.index');
         }
     }
 
-
-    public function active($data): RedirectResponse {
+    public function active($data): RedirectResponse
+    {
         $decrypted = Crypt::decryptString($data);
         $jenisUjikom = JenisUjikom::findOrFail($decrypted);
 
@@ -158,17 +150,17 @@ class JenisUjikomController extends Controller
 
         // Ubah status menjadi "Tidak Aktif"
         $jenisUjikom->update([
-            'status' => 'Aktif'
+            'status' => 'Aktif',
         ]);
 
         // Tampilkan pesan toast dengan nama jenis pelatihan
-        toast('Jenis ujikom "'.$namaUjikom.'" telah diaktifkan!', 'success');
+        toast('Jenis ujikom "' . $namaUjikom . '" telah diaktifkan!', 'success');
 
         return back();
     }
 
-
-    public function nonactive($data): RedirectResponse {
+    public function nonactive($data): RedirectResponse
+    {
         $decrypted = Crypt::decryptString($data);
         $jenisUjikom = JenisUjikom::findOrFail($decrypted);
 
@@ -177,23 +169,24 @@ class JenisUjikomController extends Controller
 
         // Ubah status menjadi "Tidak Aktif"
         $jenisUjikom->update([
-            'status' => 'Tidak Aktif'
+            'status' => 'Tidak Aktif',
         ]);
 
         // Tampilkan pesan toast dengan nama jenis pelatihan
-        toast('Jenis ujikom "'.$namaUjikom.'" telah dinonaktifkan!', 'success');
+        toast('Jenis ujikom "' . $namaUjikom . '" telah dinonaktifkan!', 'success');
 
         return back();
     }
 
     // Ajax Datatable
-    public function ajax() {
+    public function ajax()
+    {
         $data = JenisUjikom::latest()->get();
         return DataTables::of($data)
             ->editColumn('updated_at', function ($updated) {
                 return \Carbon\Carbon::parse($updated->updated_at)->isoFormat('dddd, DD MMMM Y HH:mm ' . strtoupper('A'));
             })
-            ->editColumn('status', function($status) {
+            ->editColumn('status', function ($status) {
                 if ($status->status == 'Aktif') {
                     $info = '<span class="badge bg-success">Aktif</span>';
                 } else {
@@ -212,8 +205,8 @@ class JenisUjikomController extends Controller
                         <a href="' . $url_edit . '" title="Edit Jenis Ujikom">
                         <span class="material-symbols-outlined">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
-                        '.csrf_field().'
-                        '.method_field("DELETE").'
+                        ' . csrf_field() . '
+                        ' . method_field("DELETE") . '
                         <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined">delete</span>
                         </a>
                         </form>
@@ -227,8 +220,8 @@ class JenisUjikomController extends Controller
                         <a href="' . $url_edit . '" class="mr-1" title="Edit Jenis Ujikom">
                         <span class="material-symbols-outlined">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
-                        '.csrf_field().'
-                        '.method_field("DELETE").'
+                        ' . csrf_field() . '
+                        ' . method_field("DELETE") . '
                         <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined">delete</span>
                         </a>
                         </form>

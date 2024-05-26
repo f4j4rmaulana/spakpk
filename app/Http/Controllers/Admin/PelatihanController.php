@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Pelatihan;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PelatihanRequest;
+use App\Models\Pelatihan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 
 class PelatihanController extends Controller
 {
 
-    function __construct()
+    public function __construct()
     {
-        $this->middleware(['permission:pelatihan view'])->only('index','ajax','active','nonactive');
-        $this->middleware(['permission:pelatihan create'])->only('create','store');
-        $this->middleware(['permission:pelatihan update'])->only('edit','update');
+        $this->middleware(['permission:pelatihan view'])->only('index', 'ajax', 'active', 'nonactive');
+        $this->middleware(['permission:pelatihan create'])->only('create', 'store');
+        $this->middleware(['permission:pelatihan update'])->only('edit', 'update');
         $this->middleware(['permission:pelatihan delete'])->only('destroy');
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(): View
     {
         $titles = 'Pelatihan';
-        return view('admin.pelatihan.index',compact('titles'));
+        return view('admin.pelatihan.index', compact('titles'));
     }
 
     /**
@@ -43,30 +43,26 @@ class PelatihanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PelatihanRequest $request)
     {
-        $request->validate(
-            [
-                'nama' => ['required', 'min:5', 'unique:pelatihans,nama'],
-                'deskripsi' => ['required']
-        ]);
+        $validatedData = $request->validated();
 
         DB::beginTransaction();
 
         try {
 
             $pelatihan = new Pelatihan();
-            $pelatihan->nama = strip_tags($request->nama);
-            $pelatihan->deskripsi = strip_tags($request->deskripsi);
+            $pelatihan->nama = strip_tags($validatedData['nama']);
+            $pelatihan->deskripsi = strip_tags($validatedData['deskripsi']);
             $pelatihan->save();
             DB::commit();
-            toast('Data berhasil tersimpan!','success');
+            toast('Data berhasil tersimpan!', 'success');
             return to_route('admin.pelatihan.index');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             DB::rollback();
-            toast('Error simpan data!','error');
+            toast('Error simpan data!', 'error');
             return redirect()->route('admin.pelatihan.index');
 
         }
@@ -94,14 +90,9 @@ class PelatihanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PelatihanRequest $request, string $id)
     {
-        $request->validate(
-            [
-                'nama' => ['required', 'min:5'],
-                'deskripsi' => ['required']
-        ]);
-
+        $validatedData = $request->validated();
 
         DB::beginTransaction();
 
@@ -109,18 +100,18 @@ class PelatihanController extends Controller
 
             $decrypted = Crypt::decryptString($id);
             $pelatihan = Pelatihan::findOrFail($decrypted);
-            $pelatihan->nama = strip_tags($request->nama);
-            $pelatihan->deskripsi = strip_tags($request->deskripsi);
+            $pelatihan->nama = strip_tags($validatedData['nama']);
+            $pelatihan->deskripsi = strip_tags($validatedData['deskripsi']);
             $pelatihan->save();
             DB::commit();
-            toast('Data berhasil tersimpan!','success');
+            toast('Data berhasil tersimpan!', 'success');
             return to_route('admin.pelatihan.index');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             DB::rollback();
             logger($e);
-            toast('Error simpan data!','error');
+            toast('Error simpan data!', 'error');
             return redirect()->route('admin.pelatihan.index');
 
         }
@@ -139,17 +130,18 @@ class PelatihanController extends Controller
             $namaPelatihan = $pelatihan->nama;
             $pelatihan->delete();
             DB::commit();
-            toast('Pelatihan "'.$namaPelatihan.'" berhasil dihapus!','success');
+            toast('Pelatihan "' . $namaPelatihan . '" berhasil dihapus!', 'success');
             return redirect()->route('admin.pelatihan.index');
-        }catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             logger($e);
-            toast('Error simpan data!','error');
+            toast('Error simpan data!', 'error');
             return redirect()->route('admin.pelatihan.index');
         }
     }
 
-    public function active($data): RedirectResponse {
+    public function active($data): RedirectResponse
+    {
         $decrypted = Crypt::decryptString($data);
         $pelatihan = Pelatihan::findOrFail($decrypted);
 
@@ -158,16 +150,17 @@ class PelatihanController extends Controller
 
         // Ubah status menjadi "Tidak Aktif"
         $pelatihan->update([
-            'status' => 'Aktif'
+            'status' => 'Aktif',
         ]);
 
         // Tampilkan pesan toast dengan nama jenis pelatihan
-        toast('Pelatihan "'.$namaPelatihan.'" telah diaktifkan!', 'success');
+        toast('Pelatihan "' . $namaPelatihan . '" telah diaktifkan!', 'success');
 
         return back();
     }
 
-    public function nonactive($data): RedirectResponse {
+    public function nonactive($data): RedirectResponse
+    {
         $decrypted = Crypt::decryptString($data);
         $pelatihan = Pelatihan::findOrFail($decrypted);
 
@@ -176,23 +169,24 @@ class PelatihanController extends Controller
 
         // Ubah status menjadi "Tidak Aktif"
         $pelatihan->update([
-            'status' => 'Tidak Aktif'
+            'status' => 'Tidak Aktif',
         ]);
 
         // Tampilkan pesan toast dengan nama jenis pelatihan
-        toast('Pelatihan "'.$namaPelatihan.'" telah dinonaktifkan!', 'success');
+        toast('Pelatihan "' . $namaPelatihan . '" telah dinonaktifkan!', 'success');
 
         return back();
     }
 
     // Ajax Datatable
-    public function ajax() {
+    public function ajax()
+    {
         $data = Pelatihan::latest()->get();
         return DataTables::of($data)
             ->editColumn('updated_at', function ($updated) {
                 return \Carbon\Carbon::parse($updated->updated_at)->isoFormat('dddd, DD MMMM Y HH:mm ' . strtoupper('A'));
             })
-            ->editColumn('status', function($status) {
+            ->editColumn('status', function ($status) {
                 if ($status->status == 'Aktif') {
                     $info = '<span class="badge bg-success">Aktif</span>';
                 } else {
@@ -211,8 +205,8 @@ class PelatihanController extends Controller
                         <a href="' . $url_edit . '" title="Edit Pelatihan">
                         <span class="material-symbols-outlined">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
-                        '.csrf_field().'
-                        '.method_field("DELETE").'
+                        ' . csrf_field() . '
+                        ' . method_field("DELETE") . '
                         <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined">delete</span>
                         </a>
                         </form>
@@ -226,8 +220,8 @@ class PelatihanController extends Controller
                         <a href="' . $url_edit . '" class="mr-1" title="Edit Pelatihan">
                         <span class="material-symbols-outlined">edit_square</span></a>
                         <form action="' . $url_delete . '" method="POST">
-                        '.csrf_field().'
-                        '.method_field("DELETE").'
+                        ' . csrf_field() . '
+                        ' . method_field("DELETE") . '
                         <a href="#" onclick="event.preventDefault(); if(confirm(\'Yakin Hapus Data?\')) { this.closest(\'form\').submit(); }"><span class="material-symbols-outlined">delete</span>
                         </a>
                         </form>

@@ -62,7 +62,7 @@
     $(document).ready(function(){
         $('#user_id').select2({
             theme: 'bootstrap-5',
-            minimumInputLength:2,
+            minimumInputLength:0,
             // placeholder:'Pilih Pengusul',
             ajax:{
                 url:'/admin/usulan-pelatihan/ajax-get-users',
@@ -131,7 +131,7 @@
     $(document).ready(function(){
         $('#jenis_pelatihan_id').select2({
             theme: 'bootstrap-5',
-            minimumInputLength:2,
+            minimumInputLength:0,
             // placeholder:'Pilih Pengusul',
             ajax:{
                 url:route('internal.admin.usulan-pelatihan.ajaxGetJenisPelatihan'),
@@ -183,7 +183,7 @@
     $(document).ready(function(){
         $('#pelatihan_id').select2({
             theme: 'bootstrap-5',
-            minimumInputLength:2,
+            minimumInputLength:0,
             // placeholder:'Pilih Pengusul',
             ajax:{
                 url:route('internal.admin.usulan-pelatihan.ajaxGetPelatihan'),

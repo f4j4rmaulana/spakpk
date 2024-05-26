@@ -10,7 +10,7 @@
                     <h5 class="card-title mb-0">Form Tambah Pelatihan</h5>
                 </div>
                 <div class="card-body">
-                    <form action="#" method="POST">
+                    <form action="{{ route('admin.pelatihan.store')}}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Pelatihan</label>
