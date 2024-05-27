@@ -27,12 +27,12 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         /** Check akses jika user mengakses dari halaman admin maka input username pasti kosong dan menjadikan email yang divalidasi dan sebaliknya */
-        if(!isset($this->username)) {
+        if (!isset($this->username)) {
             return [
                 'email' => ['required', 'string'],
                 'password' => ['required', 'string'],
             ];
-        }else{
+        } else {
             return [
                 'username' => ['required', 'string'],
                 'password' => ['required', 'string'],
@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
                 'email' => $this->email,
                 'password' => $this->password,
             ];
-        }else{
+        } else {
             $credentials = [
                 'uid' => $this->username,
                 'password' => $this->password,
@@ -79,15 +79,17 @@ class LoginRequest extends FormRequest
         //     'password' => $check_ldap[0]['userpassword'][0],
         // ];
 
+        // Jika remember checkbox dicentang, atur remember sebagai true
+        $remember = $this->input('remember') ?? false;
 
-        if (! Auth::guard($guard)->attempt($credentials, $this->boolean('remember'))) {
+        if (!Auth::guard($guard)->attempt($credentials, $remember)) {
             RateLimiter::hit($this->throttleKey());
 
             if ($guard) {
                 throw ValidationException::withMessages([
                     'email' => trans('auth.failed'),
                 ]);
-            }else{
+            } else {
                 throw ValidationException::withMessages([
                     'username' => trans('auth.failed'),
                 ]);
@@ -104,7 +106,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -119,7 +121,7 @@ class LoginRequest extends FormRequest
                     'minutes' => ceil($seconds / 60),
                 ]),
             ]);
-        }else{
+        } else {
             throw ValidationException::withMessages([
                 'username' => trans('auth.throttle', [
                     'seconds' => $seconds,
@@ -135,9 +137,9 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         if (!isset($this->username)) {
-            return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
-        }else{
-            return Str::transliterate(Str::lower($this->string('username')).'|'.$this->ip());
+            return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
+        } else {
+            return Str::transliterate(Str::lower($this->string('username')) . '|' . $this->ip());
         }
     }
 }

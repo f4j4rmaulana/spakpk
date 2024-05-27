@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('eksternal.register') }}">
         @csrf
 
@@ -83,4 +83,109 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+@extends('eksternal.layouts.auth-master')
+
+@push('custom-styles')
+    <!-- example style for inner toggle -->
+    <link rel="stylesheet" href="{{ asset('backend/assets/plugin/hideShowPassword-master/css/example.wink.css') }}">
+@endpush
+
+@section('contents')
+<div class="container d-flex flex-column">
+    <div class="row vh-100">
+        <div class="col-sm-12 col-md-10 col-lg-8 mx-auto d-table h-100">
+            <div class="d-table-cell align-middle">
+                <div class="text-center mt-4">
+                    <h1 style="color:#000000">REGISTRASI</h1>
+                    {{-- <p class="lead">Sign in to your account to continue</p> --}}
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="m-sm-4">
+
+                                <x-auth-session-status class="mb-4" :status="session('status')" />
+                                <form method="POST" action="{{ route('eksternal.register') }}">
+                                    @csrf
+                                        <div class="mb-3">
+                                            <label class="form-label">Nama Lengkap</label>
+                                            <input
+                                            class="form-control form-control-lg {{ hasError($errors, 'name') }}"
+                                            type="text"
+                                            name="name"
+                                            placeholder="Masukkan Nama"
+                                            id="name"
+                                            value="{{old('name')}}"
+                                            required
+                                            />
+                                            <x-input-error :messages="$errors->get('name')" class="mt-1" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Email</label>
+                                            <input
+                                            class="form-control form-control-lg {{ hasError($errors, 'email') }}"
+                                            type="email"
+                                            name="email"
+                                            placeholder="Masukkan Email"
+                                            id="email"
+                                            value="{{old('email')}}"
+                                            required
+                                            />
+                                            <x-input-error :messages="$errors->get('email')" class="mt-1" />
+                                        </div>
+
+                                        <div class="d-flex justify-content-between gap-2">
+                                            <div class="flex-fill mb-3">
+                                                <label class="form-label">Password</label>
+                                                <input
+                                                    class="form-control form-control-lg {{ hasError($errors, 'password') }}"
+                                                    type="password"
+                                                    name="password"
+                                                    placeholder="Masukkan Password"
+                                                    id="password"
+                                                    required>
+                                                    <x-input-error :messages="$errors->get('password')" class="mt-1" />
+                                            </div>
+                                            <div class="flex-fill mb-3">
+                                                <label class="form-label">Konfirmasi Password</label>
+                                                <input
+                                                    class="form-control form-control-lg {{ hasError($errors, 'password_confirmation') }}"
+                                                    type="password"
+                                                    name="password_confirmation"
+                                                    placeholder="Konfirmasi Password"
+                                                    id="password_confirmation"
+                                                    required autocomplete="new-password">
+                                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center mt-3">
+                                            <button type="submit" class="btn btn-lg btn-primary"
+                                            >Register</button
+                                            >
+                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+                                        </div>
+                                </form>
+                            <div class="text-center mt-4">
+                                Sudah punya akun? <a href="{{ route('eksternal.login') }}">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('custom-script')
+    <script src="{{ asset('backend/assets/plugin/hideShowPassword-master/hideShowPassword.min.js') }}"></script>
+    <script>
+        $('#password').hidePassword(true);
+    </script>
+@endpush
+
+

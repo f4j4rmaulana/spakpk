@@ -6,8 +6,8 @@
       <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
         <div class="d-table-cell align-middle">
           <div class="text-center mt-4">
-            <h1 class="h2">Lupa Password?</h1>
-            <p class="lead">No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</p>
+            <h1 class="h2">FORM LUPA PASSWORD</h1>
+            {{-- <p class="lead">No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</p> --}}
           </div>
 
           <div class="card">
@@ -32,7 +32,7 @@
                       class="form-control form-control-lg {{ $errors->has('email') ? 'is-invalid' : '' }}"
                       type="email"
                       name="email"
-                      placeholder="Enter your email"
+                      placeholder="Masukkan Email"
                       id="email"
                       value="{{old('email')}}"
                       required
@@ -42,7 +42,7 @@
 
                   <div class="text-center mt-3">
                     <button type="submit" class="btn btn-lg btn-primary"
-                      >Send Email Password Reset Link</button
+                      >Kirim Email Reset Password</button
                     >
                     <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                   </div>

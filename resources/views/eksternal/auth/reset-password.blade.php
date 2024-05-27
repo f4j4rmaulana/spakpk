@@ -7,7 +7,7 @@
             <div class="d-table-cell align-middle">
 
                 <div class="text-center mt-4">
-                    <h1 class="h2">Reset Your Password</h1>
+                    <h1 class="h2">RESET PASSWORD</h1>
                 </div>
 
                 <div class="card">
